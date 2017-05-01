@@ -1,0 +1,42 @@
+<div class="modal-header">
+    <h3 class="modal-title">发配优惠劵</h3>
+</div>
+<div class="modal-body">
+
+    <div class="input-group">
+        <div class="input-group-btn">
+            <label class="btn model-label1" disabled>优惠码标题：</label>
+        </div><!-- /btn-group -->
+        <label style="margin-top: 9px">{{coupon.title}}</label>
+    </div><!-- /input-group -->
+
+    <div class="input-group model_item_m_t">
+        <div class="input-group-btn">
+            <label class="btn model-label1" disabled>优惠码：</label>
+        </div><!-- /btn-group -->
+        <label style="margin-top: 9px">{{coupon.cdKey}}</label>
+    </div><!-- /input-group -->
+    <div class="input-group model_item_m_t">
+        <div class="input-group-btn">
+            <label class="btn model-label1" disabled>选择会员：</label>
+        </div><!-- /btn-group -->
+        <input id="configName1" type="text" class="form-control" style="margin: 0px 10px"
+               ng-model="member.nickname" list="url_list" ng-change="inputValueChange()">
+        <datalist id="url_list">
+            <option ng-repeat="item in memberList track by $index" label="{{item.grade_name}}"
+                    value="编号：{{item.id}}，昵称：{{item.nickname}}，电话：{{item.phone}}"/>
+        </datalist>
+    </div><!-- /input-group -->
+
+    <div class="input-group model_item_m_t">
+        <div class="input-group-btn">
+            <label class="btn model-label1" disabled>手机号码：</label>
+        </div><!-- /btn-group -->
+        <input id="configIdentify1" type="text" class="form-control" style="margin: 0px 10px"  ng-model="member.phone">
+    </div><!-- /input-group -->
+
+</div>
+<div class="modal-footer model_footer_m_t">
+    <button class="btn btn-default" ng-click="cancel()">取消</button>
+    <button class="btn btn-primary" ng-click="ok()">确定</button>
+</div>

@@ -1,0 +1,113 @@
+<div ng-controller="OrderCtrl">
+
+<div class="wrapper-md bg-light b-b ">
+  <div class="row layui-form layui-form-pane">
+
+    <h1 class="m-n font-thin h3 col-lg-2 p-t-5">订单列表</h1>
+
+    <div>
+    <button type="button"  class="btn btn-info pull-right col-lg-1" lay-submit="" lay-filter="go">搜索</button>
+
+      <div class="pull-right bar-m-r">
+        <div class="input-group input-g-w-sm ">
+          <div class="input-group-btn">
+          </div><!-- /btn-group -->
+          <input type="text" class="form-control" ng-model="orderSearch.searchValue" placeholder="客户姓名/订单编号/客户手机">
+        </div><!-- /input-group -->
+      </div>
+
+    <div class="pull-right bar-m-r">
+      <div class="btn-group">
+        <div class="layui-input-inline" style="width: 130px">
+          <select name="country"  lay-filter="orderOrigin">
+            <option value="">选择订单来源</option>
+            <option value="">全部</option>
+            <option  ng-repeat="item in orderOriginList track by $index" value="{{item.key}}" ng-bind="item.value">
+            </option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <div class="pull-right">
+      <div class="input-group time-input-g-w ">
+        <div class="input-group-btn">
+          <button type="button" class="btn btn-default" disabled>到</button>
+        </div><!-- /btn-group -->
+        <div class="layui-input-inline">
+          <input class="layui-input" placeholder="截止时间" id="LAY_demorange_e">
+        </div>
+      </div><!-- /input-group -->
+    </div>
+
+    <div class="pull-right">
+      <div class="input-group time-input-g-w ">
+        <div class="input-group-btn">
+          <button type="button" class="btn btn-default" disabled>成交时间：</button>
+        </div><!-- /btn-group -->
+        <div class="layui-input-inline">
+          <input class="layui-input" placeholder="开始时间" id="LAY_demorange_s">
+        </div>
+      </div><!-- /input-group -->
+    </div>
+
+  </div>
+  </div>
+</div>
+
+  <ul id="myTab" class="nav nav-tabs">
+    <li class="active"><a data-toggle="tab" ng-click="getOrder('')">全部订单</a></li>
+    <li><a  data-toggle="tab" ng-click="getOrder(1)">等待付款</a></li>
+    <li><a  data-toggle="tab" ng-click="getOrder(2)">待发货</a></li>
+    <li><a  data-toggle="tab" ng-click="getOrder(3)">已发货</a></li>
+    <li><a  data-toggle="tab" ng-click="getOrder(6)">退货单</a></li>
+    <li><a  data-toggle="tab" ng-click="getOrder(4)">交易成功</a></li>
+    <li><a  data-toggle="tab" ng-click="getOrder(7)">关闭的订单</a></li>
+  </ul>
+
+  <div class="table-responsive table-style">
+    <table class="table">
+      <tr class="success font-bold">
+        <td>订单编号</td>
+        <td>数量</td>
+        <td>买家</td>
+        <td>订单类型</td>
+        <td>订单来源</td>
+        <td>交易状态</td>
+        <td>总价</td>
+        <td>实收</td>
+        <td>操作</td>
+      </tr>
+      <tr class="bg-white" ng-repeat="item in orderList track by $index">
+        <td>{{item.serial_number}}</td>
+        <td>{{item.count}}</td>
+        <td>{{item.nickname}}</td>
+        <td ng-if="item.type==1">手动建单</td>
+        <td ng-if="item.type==2">自主下单</td>
+
+        <td ng-if="item.from==1">IOS订单</td>
+        <td ng-if="item.from==2">Android订单</td>
+        <td ng-if="item.from==3">微信</td>
+        <td ng-if="item.from==4">微博</td>
+
+        <td ng-if="item.status==1">已下单待付款</td>
+        <td ng-if="item.status==2">已付款待发货</td>
+        <td ng-if="item.status==3">已发货待收货</td>
+        <td ng-if="item.status==4">交易成功</td>
+        <td ng-if="item.status==5">退款中</td>
+        <td ng-if="item.status==6&&item.status_returns==1">买家申请退货中</td>
+        <td ng-if="item.status==6&&item.status_returns==2">等待买家发货</td>
+        <td ng-if="item.status==6&&item.status_returns==3">买家已发货</td>
+        <td ng-if="item.status==6&&item.status_returns==4">退货完成</td>
+        <td ng-if="item.status==7">订单关闭</td>
+        <td>{{item.price}}</td>
+        <td>{{item.real_price}}</td>
+        <td>
+          <button type="button" class="btn btn-info " ng-click="detail(item.id)">详情</button>
+        </td>
+      </tr>
+    </table>
+    <div id="layuiPage" align="center"></div>
+  </div>
+
+</div>

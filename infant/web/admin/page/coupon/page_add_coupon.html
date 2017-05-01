@@ -1,0 +1,121 @@
+<div ng-controller="AddCouponCtrl">
+
+    <div class="wrapper-md bg-light b-b ">
+        <div class="row ">
+            <h1 class="m-n font-thin h3 p-t-5 col-lg-2">创建优惠券</h1>
+        </div>
+    </div>
+    <div class="layui-form layui-form-pane">
+        <ul id="myTab" class="nav nav-tabs">
+            <li class="active"><a data-toggle="tab" ng-click="tab(0)">先生成后认领</a></li>
+            <li><a data-toggle="tab" ng-click="tab(1)">系统自动派送</a></li>
+            <li><a data-toggle="tab" ng-click="tab(2)">新用户注册赠送</a></li>
+        </ul>
+
+        <div class="input-group add-body-item-m-t">
+            <div class="input-group-btn">
+                <label class="btn add-body-label" disabled="">优惠券标题：</label>
+            </div>
+            <input type="text" class="form-control add-body-input" name="name_zh" lay-verify="required"
+                   ng-model="coupon.title">
+        </div>
+        <div class="input-group add-body-item-m-t oneselfType">
+            <div class="input-group-btn">
+                <label class="btn add-body-label" disabled="">发行数量：</label>
+            </div>
+            <input type="number" class="form-control add-body-input-20" name="name_zh"
+                   ng-model="coupon.issueCount">
+        </div>
+        <div class="input-group add-body-item-m-t sysType">
+            <div class="input-group-btn">
+                <label class="btn add-body-label" disabled="">每次获取数量：</label>
+            </div>
+            <input type="number" class="form-control add-body-input-20" name="name_zh"
+                   ng-model="coupon.expand">
+        </div>
+        <div class="input-group add-body-item-m-t oneselfType">
+            <div class="input-group-btn">
+                <label class="btn add-body-label" disabled="">有效期：</label>
+            </div>
+            <div class="layui-input-inline">
+                <input class="layui-input" placeholder="开始时间" id="LAY_demorange_s" ng-model="coupon.startTime">
+            </div>
+            ~
+            <div class="layui-input-inline">
+                <input class="layui-input" placeholder="截止时间" id="LAY_demorange_e" ng-model="coupon.endTime">
+            </div>
+        </div>
+        <div class="input-group add-body-item-m-t sysType autoPs">
+            <div class="input-group-btn">
+                <label class="btn add-body-label" disabled="">有效期：</label>
+            </div>
+            自生成起
+            <input type="number" class="form-control add-body-input-100" style="float: none" name="name_zh"
+                   ng-model="coupon.day">
+            天
+        </div>
+        <div class="input-group add-body-item-m-t sysType zcPs">
+            <div class="input-group-btn">
+                <label class="btn add-body-label" disabled="">有效期：</label>
+            </div>
+            注册起<input type="number" class="form-control add-body-input-100" name="name_zh" style="float: none"
+                      ng-model="coupon.expand">天内有效
+        </div>
+        <div class="input-group add-body-item-m-t">
+            <div class="input-group-btn">
+                <label class="btn add-body-label" disabled="">优惠劵类型：</label>
+            </div>
+            <div class="layui-input-block" style="margin-left: 0px">
+                <div>
+                    <input lay-filter="filter1" type="radio" name="type" value="0" title="折扣劵" checked>
+                    <input id="typeInfo0" type="number" class="form-control add-body-input-100" style="float: none" name="name_zh"/>
+                    折
+                </div>
+                <div class="add-body-radio-m-t">
+                    <input lay-filter="filter1" type="radio" name="type" value="1" title="抵现劵">
+                    <input id="typeInfo1" type="number" class="form-control add-body-input-100" style="float: none" name="name_zh">
+                    元
+                </div>
+                <div class="add-body-radio-m-t">
+                    <input lay-filter="filter1" type="radio" name="type" value="2" title="满">
+                    <input id="typeInfo2" type="number" class="form-control add-body-input-100" style="float: none;" name="name_zh">
+                    元减
+                    <input id="typeInfo3" type="number" class="form-control add-body-input-100" style="float: none" name="name_zh">
+                    元
+                </div>
+                <input lay-filter="filter1" type="radio" name="type" value="3" title="免运费">
+            </div>
+        </div>
+        <div class="input-group add-body-item-m-t oneselfType">
+            <div class="input-group-btn">
+                <label class="btn add-body-label" disabled="">领取方式：</label>
+            </div>
+            <div class="layui-input-block" style="margin-left: 0px">
+                <input id="statusShow" lay-filter="filter2" type="radio" name="status" value="0" title="用户点击领取"
+                       checked="true">
+                <input id="statusHide" lay-filter="filter2" type="radio" name="status" value="1" title="管理员手动分配">
+            </div>
+        </div>
+
+        <div class="input-group add-body-item-m-t">
+            <div class="input-group-btn">
+                <label class="btn add-body-label" disabled="">说明：</label>
+            </div>
+            <div style="width: 60%">
+                    <textarea class="layui-textarea" id="LAY_demo1" name="introduce" style="display: none"
+                              ng-model="coupon.content">
+                    </textarea>
+            </div>
+        </div>
+
+        <div class="input-group add-body-last-m-b-t">
+            <div class="input-group-btn">
+                <label class="btn add-body-label"></label>
+            </div>
+            <div class="layui-input-block" style="margin-left: 0px">
+                <button class="layui-btn" lay-submit="" lay-filter="go">确认添加</button>
+            </div>
+        </div>
+
+    </div>
+</div>

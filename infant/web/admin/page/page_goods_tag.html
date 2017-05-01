@@ -1,0 +1,33 @@
+<div ng-controller="GoodsTagCtrl">
+    <script type="text/ng-template" id="modal_goods_tag.html">
+        <div ng-include="'admin/model/modal_goods_tag.html'"></div>
+    </script>
+<div class="wrapper-md bg-light b-b ">
+    <div class="row">
+
+        <h1 class="m-n font-thin h3 col-lg-2 p-t-5">商品打标设置</h1>
+        <button type="button" class="btn btn-info pull-right col-lg-1 top-right-btn"  ng-click="open(null,null,null,'lg')">新增tag</button>
+    </div>
+
+</div>
+
+<div class="table-responsive table-style">
+    <table class="table">
+        <tr class="success font-bold">
+            <td class="col-lg-4">标签</td>
+            <td class="col-lg-4">配图</td>
+            <td class="col-lg-4">操作</td>
+        </tr>
+        <tr class="bg-white" ng-repeat="goodsTag in goodsTagList track by $index">
+            <td>{{goodsTag.name}}</td>
+            <td>
+                <img src="{{host}}{{goodsTag.img_url}}" style="width: 90px;height: 60px;">
+            </td>
+            <td>
+                <button type="button" class="btn btn-info " ng-click="open(goodsTag.id,goodsTag.name,goodsTag.img_url,'lg')">编辑</button>
+                <button type="button" class="btn btn-info " ng-click="delete(goodsTag.id)">删除</button>
+            </td>
+        </tr>
+    </table>
+</div>
+</div>

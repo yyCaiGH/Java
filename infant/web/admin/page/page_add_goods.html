@@ -1,0 +1,331 @@
+<div ng-controller="AddGoodsCtrl">
+
+    <div class="wrapper-md bg-light b-b ">
+        <div class="row">
+            <h1 class="m-n font-thin h3 col-lg-2 p-t-5">新增商品</h1>
+        </div>
+    </div>
+
+    <div class="">
+        <div class="layui-form layui-form-pane">
+            <p class="small-title">基本信息</p>
+            <div class="input-group add-body-first_m_t">
+                <div class="input-group-btn">
+                    <label class="btn add-body-label">产品分类：</label>
+                </div>
+                <div class="layui-input-inline">
+                    <select name="country" lay-verify="required" lay-filter="oneClass">
+                        <option value="">请选择一级分类</option>
+                        <option ng-repeat="cat in oneGoodsClassList track by $index" value="{{cat.id}}"
+                                ng-bind="cat.cat_name">
+                        </option>
+                    </select>
+                </div>
+
+                <div class="layui-input-inline" style="margin-left: 10px">
+                    <select name="country" lay-verify="required" lay-filter="towClass">
+                        <option value="">请选择二级分类</option>
+                        <option ng-repeat="cat in towGoodsClassList track by $index" value="{{cat.id}}"
+                                ng-bind="cat.cat_name">
+                        </option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="input-group add-body-first_m_t">
+                <div class="input-group-btn">
+                    <label class="btn add-body-label">选择品牌：</label>
+                </div>
+                <div class="layui-input-inline">
+                    <select name="country" lay-verify="required" lay-filter="brand">
+                        <option value="">请选择</option>
+                        <option ng-repeat="brand in brandList track by $index" value="{{brand.id}}"
+                                ng-bind="brand.name_zh">
+                        </option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="input-group add-body-item-m-t">
+                <div class="input-group-btn">
+                    <label class="btn add-body-label">商品主编号：</label>
+                </div>
+                <input type="text" class="form-control add-body-input"  lay-verify="required"
+                       ng-model="goods.main_number">
+            </div>
+
+
+            <div class="input-group add-body-item-m-t">
+                <div class="input-group-btn">
+                    <label class="btn add-body-label">商品名称：</label>
+                </div>
+                <input type="text" class="form-control add-body-input"  lay-verify="required"
+                       ng-model="goods.name">
+            </div>
+            <div class="input-group add-body-item-m-t">
+                <div class="input-group-btn">
+                    <label class="btn add-body-label">零售价：</label>
+                </div>
+                <input type="number" class="form-control add-body-input"  lay-verify="required"
+                       ng-model="goods.market_price">
+            </div>
+            <div class="input-group add-body-item-m-t">
+                <div class="input-group-btn">
+                    <label class="btn add-body-label">折扣价：</label>
+                </div>
+                <input type="number" class="form-control add-body-input"
+                       ng-model="goods.promote_price">
+            </div>
+            <div class="input-group add-body-item-m-t">
+                <div class="input-group-btn">
+                    <label class="btn add-body-label">商品卖点：</label>
+                </div>
+                <div id="inputList">
+                    <input type="text" class="form-control add-body-input" style="margin-top: 5px">
+                </div>
+                <button type="button" class="btn" style="margin-left: 10px;margin-top: 5px" ng-click="addInput()">新增一条</button>
+            </div>
+
+            <div class="input-group add-body-first_m_t">
+                <div class="input-group-btn">
+                    <label class="btn add-body-label">适用性别：</label>
+                </div>
+                <div class="layui-input-inline">
+                    <select name="country" lay-verify="required" lay-filter="sex">
+                        <option value="">请选择</option>
+                        <option ng-repeat="sex in sexList track by $index" value="{{sex.key}}"
+                                ng-bind="sex.value">
+                        </option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="input-group add-body-first_m_t">
+                <div class="input-group-btn">
+                    <label class="btn add-body-label">适用年龄段：</label>
+                </div>
+                <div class="layui-input-inline">
+                    <!--<select name="country" lay-verify="required" lay-filter="age">
+                        <option value="">请选择</option>
+                        <option ng-repeat="age in ageList track by $index" value="{{age.key}}"
+                                ng-bind="age.value">
+                        </option>
+                    </select>-->
+                    <input ng-repeat="age in ageList track by $index"
+                           lay-filter="filter_age" type="checkbox" name="age" value="{{age.key}}" title="{{age.value}}" >
+                </div>
+            </div>
+
+            <div class="input-group add-body-first_m_t">
+                <div class="input-group-btn">
+                    <label class="btn add-body-label">适合季节：</label>
+                </div>
+                <div class="layui-input-inline">
+                    <!--<select name="country" lay-verify="required" lay-filter="season">
+                        <option value="">请选择</option>
+                        <option ng-repeat="season in seasonList track by $index" value="{{season.key}}"
+                                ng-bind="season.value">
+                        </option>
+                    </select>-->
+                    <input ng-repeat="season in seasonList track by $index"
+                           lay-filter="filter_season" type="checkbox" name="season" value="{{season.key}}" title="{{season.value}}" >
+                </div>
+            </div>
+
+            <div class="input-group add-body-item-m-t">
+                <div class="input-group-btn">
+                    <label class="btn add-body-label">材质：</label>
+                </div>
+                <input type="text" class="form-control add-body-input" name="name_zh" lay-verify="required"
+                       ng-model="goods.texture">
+            </div>
+
+            <div class="input-group add-body-item-m-t">
+                <div class="input-group-btn">
+                    <label class="btn add-body-label">产品主图：</label>
+                </div><!-- /btn-group -->
+                <div class="row">
+                    <div class="col-lg-2 goods-main-img">
+                        <img alt="" style="width: 111px;height: 111px;margin-bottom: 10px"
+                             src="{{host}}{{goods.img1_url}}"/>
+                        <input type="file" name="file" class="layui-upload-file" id="goodsImg1">
+                    </div>
+                    <div class="col-lg-2 goods-main-img">
+                        <img alt="" style="width: 111px;height: 111px;margin-bottom: 10px"
+                             src="{{host}}{{goods.img2_url}}"/>
+                        <br>
+                        <input type="file" name="file" class="layui-upload-file" id="goodsImg2">
+                    </div>
+                    <div class="col-lg-2 goods-main-img">
+                        <img alt="" style="width: 111px;height: 111px;margin-bottom: 10px"
+                             src="{{host}}{{goods.img3_url}}"/>
+                        <br>
+                        <input type="file" name="file" class="layui-upload-file" id="goodsImg3">
+                    </div>
+                    <div class="col-lg-2 goods-main-img">
+                        <img alt="" style="width: 111px;height: 111px;margin-bottom: 10px"
+                             src="{{host}}{{goods.img4_url}}"/>
+                        <br>
+                        <input type="file" name="file" class="layui-upload-file" id="goodsImg4">
+                    </div>
+                    <div class="col-lg-2 goods-main-img">
+                        <img alt="" style="width: 111px;height: 111px;margin-bottom: 10px"
+                             src="{{host}}{{goods.img5_url}}"/>
+                        <br>
+                        <input type="file" name="file" class="layui-upload-file" id="goodsImg5">
+                    </div>
+                </div>
+            </div>
+
+            <div class="input-group add-body-item-m-t">
+                <div class="input-group-btn">
+                    <label class="btn add-body-label">产地：</label>
+                </div>
+                <div class="layui-input-inline">
+                    <select name="country" lay-verify="required" lay-filter="country">
+                        <option value="">请选择</option>
+                        <option ng-repeat="country in countryList track by $index" value="{{country.id}}"
+                                ng-bind="country.name">
+                        </option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="input-group add-body-item-m-t add-body-last-m-b-t">
+                <div class="input-group-btn">
+                    <label class="btn add-body-label">商品tag：</label>
+                </div>
+                <div class="layui-input-inline">
+                    <select name="country" lay-verify="required" lay-filter="goodsTag">
+                        <option value="">请选择</option>
+                        <option ng-repeat="goodsTag in goodsTagList track by $index" value="{{goodsTag.id}}"
+                                ng-bind="goodsTag.name">
+                        </option>
+                    </select>
+                </div>
+            </div>
+
+
+            <p class="small-title">SKU设置</p>
+
+            <div ng-repeat="(key,value) in skuList">
+                <p class="small-sub-title">{{key}}：</p>
+                <div class=" row small-sub-body">
+                    <div class="layui-input-block col-lg-1 small-sub-checkbox" ng-repeat="sku in value track by $index">
+                        <input lay-filter="filter" type="checkbox" name="{{sku.parent_id}}:{{sku.id}}" title="{{sku.name}}" style="width: 100px;" value="{{sku.parent_id}}:{{sku.id}}">
+                    </div>
+                </div>
+            </div>
+
+            <div class="table-responsive">
+                <table class="table" id="myTable">
+                    <!--<tr class="success font-bold">
+                        <td class="col-lg-1">颜色</td>
+                        <td class="col-lg-1">零售价</td>
+                        <td class="col-lg-1">折扣价</td>
+                        <td class="col-lg-1">库存</td>
+                        <td class="col-lg-1">商家编码</td>
+                        <td class="col-lg-1">是否上架</td>
+                    </tr>
+                    <tr class="bg-white">
+                        <td>
+                            abc
+                            <input type="hidden" value="1">
+                        </td>
+                        <td><input type="number" class="form-control "  lay-verify="required"></td>
+                        <td><input type="number" class="form-control "  lay-verify="required"></td>
+                        <td><input type="text" class="form-control "  lay-verify="required"></td>
+                        <td>
+                            <input type="text" class="form-control "  lay-verify="required">
+                        </td>
+                        <td>
+                            <input lay-filter="putaway" type="checkbox" name="r" title="是否上架">
+                        </td>
+                    </tr>-->
+                </table>
+            </div>
+
+            <p class="small-title">商品详情</p>
+
+            <div class="input-group add-body-item-m-t add-body-item-m-b">
+                <div class="input-group-btn">
+                    <label class="btn add-body-label" disabled=""></label>
+                </div>
+                <!--<div style="width: 60%">
+                    <textarea class="layui-textarea" id="LAY_demo1" name="introduce" style="display: none"
+                              ng-model="brand.introduce">
+                    </textarea>
+                </div>-->
+                <div style="width: 60%">
+                    <div id="wangEditor" class="wang-edit">
+                        <p>请输入内容...</p>
+                    </div>
+                </div>
+            </div>
+
+
+            <p class="small-title">邮费设置</p>
+
+            <div class="input-group add-body-item-m-t add-body-item-m-b">
+                <div class="input-group-btn">
+                    <label class="btn add-body-label"></label>
+                </div>
+                <div class="layui-input-block" style="margin-left: 0px">
+                    <input lay-filter="filter" type="radio" name="status" value="0" title="包邮" checked>
+                    <input lay-filter="filter" type="radio" name="status" value="1" title="选择运费组">
+                    <div class="layui-input-inline">
+                        <select name="country"  lay-filter="postageGroup">
+                            <option value="">请选择</option>
+                            <option ng-repeat="postageGroup in postageGroupList track by $index"
+                                    value="{{postageGroup.id}}"
+                                    ng-bind="postageGroup.name">
+                            </option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <p class="small-title">其他商品信息</p>
+
+
+            <div class="input-group add-body-item-m-t">
+                <div class="input-group-btn">
+                    <label class="btn add-body-label">包装清单：</label>
+                </div>
+                <textarea style="width: 60%;height: 80px;padding: 5px;background: transparent" name="about"
+                          placeholder="字数控制在120字" ng-model="goods.packing_list"></textarea>
+            </div>
+
+            <div class="input-group add-body-item-m-t">
+                <div class="input-group-btn">
+                    <label class="btn add-body-label">售后服务：</label>
+                </div>
+                <textarea style="width: 60%;height: 80px;padding: 5px;background: transparent" name="about"
+                          placeholder="字数控制在120字" ng-model="goods.after_sales"></textarea>
+            </div>
+
+            <p class="small-title">状态</p>
+
+            <div class="input-group add-body-item-m-t">
+                <div class="input-group-btn">
+                    <label class="btn add-body-label"></label>
+                </div>
+                <div class="layui-input-block" style="margin-left: 0px">
+                    <input lay-filter="filter1" type="radio" name="putAway" value="1" title="上架销售" checked>
+                    <input lay-filter="filter1" type="radio" name="putAway" value="2" title="下架停售">
+                </div>
+            </div>
+
+            <div class="input-group add-body-last-m-b-t">
+                <div class="input-group-btn">
+                    <label class="btn add-body-label"></label>
+                </div>
+                <div class="layui-input-block" style="margin-left: 0px">
+                    <button class="layui-btn" lay-submit="" lay-filter="go">确认发布</button>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</div>

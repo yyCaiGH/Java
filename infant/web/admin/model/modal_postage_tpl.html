@@ -1,0 +1,326 @@
+<div class="modal-header">
+    <h3 class="modal-title">{{title}}</h3>
+</div>
+<div class="modal-body">
+
+    <div class="layui-form layui-form-pane">
+
+        <div class="input-group">
+            <div class="input-group-btn">
+                <label class="btn add-body-label">模板名称：</label>
+            </div>
+            <input type="text" class="form-control" name="name_en" lay-verify="required" ng-model="postageTpl.name">
+        </div>
+
+        <div class="input-group model_item_m_t">
+            <div class="input-group-btn">
+                <label class="btn add-body-label">选择快递：</label>
+            </div>
+            <div class="layui-input-inline">
+                <select name="country" lay-verify="required" id="mySelect">
+                    <option value="">请选择</option>
+
+                    <option ng-repeat="kd in kdList track by $index" value="{{kd.id}}"
+                            ng-bind="kd.value">
+                    </option>
+                </select>
+            </div>
+        </div>
+
+        <div class="input-group model_item_m_t">
+            <div class="input-group-btn">
+                <label class="btn add-body-label">设置运费：</label>
+            </div>
+            <div class="row"  id="allProvince">
+                <div class="col-lg-2 postage-modal-body" ng-repeat="province in provinceList track by $index">
+                    <div class="input-group ">
+                        <div class="input-group-btn" >
+                            <label class="btn postage-modal-lable" disabled="">{{province.province_name}}</label>
+                        </div>
+                        <input type="text" class="form-control postage-modal-input" ng-model = "province.postage">
+                    </div>
+                </div>
+
+                <!--<div class="col-lg-2 postage-modal-body">
+                    <div class="input-group ">
+                        <div class="input-group-btn" >
+                            <label class="btn postage-modal-lable" disabled="">北京市：</label>
+                        </div>
+                        <input type="text" class="form-control postage-modal-input">
+                    </div>
+                </div>
+                <div class="col-lg-2 postage-modal-body">
+                    <div class="input-group">
+                        <div class="input-group-btn">
+                            <label class="btn postage-modal-lable" disabled="">上海市：</label>
+                        </div>
+                        <input type="text" class="form-control postage-modal-input">
+                    </div>
+                </div>
+                <div class="col-lg-2 postage-modal-body">
+                    <div class="input-group ">
+                        <div class="input-group-btn">
+                            <label class="btn postage-modal-lable" disabled="">天津市：</label>
+                        </div>
+                        <input type="text" class="form-control postage-modal-input">
+                    </div>
+                </div>
+                <div class="col-lg-2 postage-modal-body">
+                    <div class="input-group">
+                        <div class="input-group-btn">
+                            <label class="btn postage-modal-lable" disabled="">重庆市：</label>
+                        </div>
+                        <input type="text" class="form-control postage-modal-input">
+                    </div>
+                </div>
+                <div class="col-lg-2 postage-modal-body">
+                    <div class="input-group ">
+                        <div class="input-group-btn">
+                            <label class="btn postage-modal-lable" disabled="">黑龙江：</label>
+                        </div>
+                        <input type="text" class="form-control postage-modal-input">
+                    </div>
+                </div>
+                <div class="col-lg-2 postage-modal-body">
+                    <div class="input-group">
+                        <div class="input-group-btn">
+                            <label class="btn postage-modal-lable" disabled="">辽宁省：</label>
+                        </div>
+                        <input type="text" class="form-control postage-modal-input">
+                    </div>
+                </div>
+                <div class="col-lg-2 postage-modal-body">
+                    <div class="input-group ">
+                        <div class="input-group-btn">
+                            <label class="btn postage-modal-lable" disabled="">吉林省：</label>
+                        </div>
+                        <input type="text" class="form-control postage-modal-input">
+                    </div>
+                </div>
+                <div class="col-lg-2 postage-modal-body">
+                    <div class="input-group">
+                        <div class="input-group-btn">
+                            <label class="btn postage-modal-lable" disabled="">河北省：</label>
+                        </div>
+                        <input type="text" class="form-control postage-modal-input">
+                    </div>
+                </div>
+                <div class="col-lg-2 postage-modal-body">
+                    <div class="input-group ">
+                        <div class="input-group-btn">
+                            <label class="btn postage-modal-lable" disabled="">河南省：</label>
+                        </div>
+                        <input type="text" class="form-control postage-modal-input">
+                    </div>
+                </div>
+                <div class="col-lg-2 postage-modal-body">
+                    <div class="input-group">
+                        <div class="input-group-btn">
+                            <label class="btn postage-modal-lable" disabled="">湖北省：</label>
+                        </div>
+                        <input type="text" class="form-control postage-modal-input">
+                    </div>
+                </div>
+                <div class="col-lg-2 postage-modal-body">
+                    <div class="input-group">
+                        <div class="input-group-btn">
+                            <label class="btn postage-modal-lable" disabled="">湖南省：</label>
+                        </div>
+                        <input type="text" class="form-control postage-modal-input">
+                    </div>
+                </div>
+                <div class="col-lg-2 postage-modal-body">
+                    <div class="input-group ">
+                        <div class="input-group-btn">
+                            <label class="btn postage-modal-lable" disabled="">山东省：</label>
+                        </div>
+                        <input type="text" class="form-control postage-modal-input">
+                    </div>
+                </div>
+                <div class="col-lg-2 postage-modal-body">
+                    <div class="input-group">
+                        <div class="input-group-btn">
+                            <label class="btn postage-modal-lable" disabled="">山西省：</label>
+                        </div>
+                        <input type="text" class="form-control postage-modal-input">
+                    </div>
+                </div>
+                <div class="col-lg-2 postage-modal-body">
+                    <div class="input-group">
+                        <div class="input-group-btn">
+                            <label class="btn postage-modal-lable" disabled="">陕西省：</label>
+                        </div>
+                        <input type="text" class="form-control postage-modal-input">
+                    </div>
+                </div>
+                <div class="col-lg-2 postage-modal-body">
+                    <div class="input-group ">
+                        <div class="input-group-btn">
+                            <label class="btn postage-modal-lable" disabled="">安徽省：</label>
+                        </div>
+                        <input type="text" class="form-control postage-modal-input">
+                    </div>
+                </div>
+                <div class="col-lg-2 postage-modal-body">
+                    <div class="input-group">
+                        <div class="input-group-btn">
+                            <label class="btn postage-modal-lable" disabled="">浙江省：</label>
+                        </div>
+                        <input type="text" class="form-control postage-modal-input">
+                    </div>
+                </div>
+                <div class="col-lg-2 postage-modal-body">
+                    <div class="input-group">
+                        <div class="input-group-btn">
+                            <label class="btn postage-modal-lable" disabled="">江苏省：</label>
+                        </div>
+                        <input type="text" class="form-control postage-modal-input">
+                    </div>
+                </div>
+                <div class="col-lg-2 postage-modal-body">
+                    <div class="input-group ">
+                        <div class="input-group-btn">
+                            <label class="btn postage-modal-lable" disabled="">福建省：</label>
+                        </div>
+                        <input type="text" class="form-control postage-modal-input">
+                    </div>
+                </div>
+                <div class="col-lg-2 postage-modal-body">
+                    <div class="input-group">
+                        <div class="input-group-btn">
+                            <label class="btn postage-modal-lable" disabled="">广东省：</label>
+                        </div>
+                        <input type="text" class="form-control postage-modal-input">
+                    </div>
+                </div>
+                <div class="col-lg-2 postage-modal-body">
+                    <div class="input-group">
+                        <div class="input-group-btn">
+                            <label class="btn postage-modal-lable" disabled="">海南省：</label>
+                        </div>
+                        <input type="text" class="form-control postage-modal-input">
+                    </div>
+                </div>
+                <div class="col-lg-2 postage-modal-body">
+                    <div class="input-group ">
+                        <div class="input-group-btn">
+                            <label class="btn postage-modal-lable" disabled="">四川省：</label>
+                        </div>
+                        <input type="text" class="form-control postage-modal-input">
+                    </div>
+                </div>
+                <div class="col-lg-2 postage-modal-body">
+                    <div class="input-group">
+                        <div class="input-group-btn">
+                            <label class="btn postage-modal-lable" disabled="">云南省：</label>
+                        </div>
+                        <input type="text" class="form-control postage-modal-input">
+                    </div>
+                </div>
+                <div class="col-lg-2 postage-modal-body">
+                    <div class="input-group">
+                        <div class="input-group-btn">
+                            <label class="btn postage-modal-lable" disabled="">贵州省：</label>
+                        </div>
+                        <input type="text" class="form-control postage-modal-input">
+                    </div>
+                </div>
+                <div class="col-lg-2 postage-modal-body">
+                    <div class="input-group">
+                        <div class="input-group-btn">
+                            <label class="btn postage-modal-lable" disabled="">青海省：</label>
+                        </div>
+                        <input type="text" class="form-control postage-modal-input">
+                    </div>
+                </div>
+                <div class="col-lg-2 postage-modal-body">
+                    <div class="input-group">
+                        <div class="input-group-btn">
+                            <label class="btn postage-modal-lable" disabled="">甘肃省：</label>
+                        </div>
+                        <input type="text" class="form-control postage-modal-input">
+                    </div>
+                </div>
+                <div class="col-lg-2 postage-modal-body">
+                    <div class="input-group">
+                        <div class="input-group-btn">
+                            <label class="btn postage-modal-lable" disabled="">江西省：</label>
+                        </div>
+                        <input type="text" class="form-control postage-modal-input">
+                    </div>
+                </div>
+                <div class="col-lg-2 postage-modal-body">
+                    <div class="input-group">
+                        <div class="input-group-btn">
+                            <label class="btn postage-modal-lable" disabled="">台湾省：</label>
+                        </div>
+                        <input type="text" class="form-control postage-modal-input">
+                    </div>
+                </div>
+                <div class="col-lg-2 postage-modal-body">
+                    <div class="input-group">
+                        <div class="input-group-btn">
+                            <label class="btn postage-modal-lable" disabled="">内蒙古：</label>
+                        </div>
+                        <input type="text" class="form-control postage-modal-input">
+                    </div>
+                </div>
+                <div class="col-lg-2 postage-modal-body">
+                    <div class="input-group">
+                        <div class="input-group-btn">
+                            <label class="btn postage-modal-lable" disabled="">广西：</label>
+                        </div>
+                        <input type="text" class="form-control postage-modal-input">
+                    </div>
+                </div>
+                <div class="col-lg-2 postage-modal-body">
+                    <div class="input-group">
+                        <div class="input-group-btn">
+                            <label class="btn postage-modal-lable" disabled="">西藏：</label>
+                        </div>
+                        <input type="text" class="form-control postage-modal-input">
+                    </div>
+                </div>
+                <div class="col-lg-2 postage-modal-body">
+                    <div class="input-group">
+                        <div class="input-group-btn">
+                            <label class="btn postage-modal-lable" disabled="">宁夏：</label>
+                        </div>
+                        <input type="text" class="form-control postage-modal-input">
+                    </div>
+                </div>
+                <div class="col-lg-2 postage-modal-body">
+                    <div class="input-group">
+                        <div class="input-group-btn">
+                            <label class="btn postage-modal-lable" disabled="">新疆：</label>
+                        </div>
+                        <input type="text" class="form-control postage-modal-input">
+                    </div>
+                </div>
+                <div class="col-lg-2 postage-modal-body">
+                    <div class="input-group">
+                        <div class="input-group-btn">
+                            <label class="btn postage-modal-lable" disabled="">香港：</label>
+                        </div>
+                        <input type="text" class="form-control postage-modal-input">
+                    </div>
+                </div>
+                <div class="col-lg-2 postage-modal-body">
+                    <div class="input-group">
+                        <div class="input-group-btn">
+                            <label class="btn postage-modal-lable" disabled="">澳门：</label>
+                        </div>
+                        <input type="text" class="form-control postage-modal-input">
+                    </div>
+                </div>-->
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+<div class="modal-footer model_footer_m_t">
+    <button class="btn btn-default" ng-click="cancel()">取消</button>
+    <button class="btn btn-primary" ng-click="ok()">确定</button>
+</div>

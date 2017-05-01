@@ -1,0 +1,30 @@
+<div class="modal-header">
+    <h3 class="modal-title">{{title}}</h3>
+</div>
+<div class="modal-body">
+
+    <div class="input-group add-body-item-m-t">
+        <div class="input-group-btn">
+            <label class="btn add-body-label">标题：</label>
+        </div>
+        <input type="text" class="form-control add-body-input" name="name_zh" lay-verify="required"
+               ng-model="mes.title">
+    </div>
+
+    <div class="input-group add-body-item-m-t">
+        <div class="input-group-btn">
+            <label class="btn add-body-label">内容：</label>
+        </div>
+        <div style="width: 60%">
+                    <textarea class="layui-textarea" id="LAY_demo1" name="introduce" style="display: none"
+                              ng-model="mes.content">
+                    </textarea>
+        </div>
+    </div>
+
+
+</div>
+<div class="modal-footer model_footer_m_t">
+    <button class="btn btn-default" ng-click="cancel()">取消</button>
+    <button class="btn btn-primary" ng-click="ok()">确定</button>
+</div>

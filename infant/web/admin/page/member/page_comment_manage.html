@@ -1,0 +1,40 @@
+<div ng-controller="CommentCtrl">
+
+<div class="wrapper-md bg-light b-b ">
+  <div class="row">
+
+    <h1 class="m-n font-thin h3 p-t-5 col-lg-3">评论管理</h1>
+
+  </div>
+</div>
+
+  <ul id="myTab" class="nav nav-tabs">
+    <li class="active"><a data-toggle="tab" ng-click="getComment(0)">全部评论</a></li>
+    <li><a  data-toggle="tab" ng-click="getComment(1)">隐藏的评论</a></li>
+  </ul>
+
+  <div class="table-responsive table-style">
+    <table class="table">
+      <tr class="success font-bold">
+        <td>评论时间</td>
+        <td>评论人昵称</td>
+        <td>评论内容</td>
+        <td>文章编号</td>
+        <td>操作</td>
+      </tr>
+      <tr class="bg-white" ng-repeat="item in list track by $index">
+        <td>{{item.create_time}}</td>
+        <td>{{item.nickname}}</td>
+        <td style='max-width: 300px;display:block;word-break: break-all;word-wrap: break-word;'>{{item.content}}</td>
+        <td>{{item.article_id}}</td>
+        <td ng-if="item.status==0">
+          <button type="button" class="btn btn-info " ng-click="hind(item.id)">隐藏</button>
+        </td>
+        <td ng-if="item.status==1">
+          <button type="button" class="btn btn-info " ng-click="show(item.id)">显示</button>
+        </td>
+      </tr>
+    </table>
+    <div id="layuiPage" align="center"></div>
+  </div>
+</div>

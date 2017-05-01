@@ -1,0 +1,31 @@
+<div class="modal-header">
+    <h3 class="modal-title">{{title}}</h3>
+</div>
+<div class="modal-body">
+    <div class="layui-form layui-form-pane">
+        <div class="input-group add-body-item-m-t">
+            <div class="input-group-btn">
+                <label class="btn add-body-label" disabled="">标签名称：</label>
+            </div>
+            <input type="text" class="form-control add-body-input" name="name_zh" lay-verify="required"
+                   ng-model="goodsTag.name">
+        </div>
+
+        <div class="input-group add-body-item-m-t">
+            <div class="input-group-btn">
+                <label class="btn add-body-label" disabled="">标签图片：</label>
+            </div><!-- /btn-group -->
+            <div>
+                <img id="preview2" alt="" style="width: 111px;height: 80px;margin-bottom: 10px"
+                     src="{{host}}{{goodsTag.img_url}}"/>
+                <br>
+                <input type="file" name="file" class="layui-upload-file" id="goodsTagImg">
+            </div>
+        </div>
+    </div>
+
+</div>
+<div class="modal-footer model_footer_m_t">
+    <button class="btn btn-default" ng-click="cancel()">取消</button>
+    <button class="btn btn-primary" ng-click="ok()">确定</button>
+</div>

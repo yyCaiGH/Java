@@ -1,0 +1,91 @@
+<div ng-controller="RepertoryCtrl">
+<div class="wrapper-md bg-light b-b ">
+    <div class="row layui-form layui-form-pane">
+
+        <h1 class="m-n font-thin h3 col-lg-2 p-t-5">实时库存</h1>
+
+        <button type="button"  class="btn btn-info pull-right col-lg-1" lay-submit="" lay-filter="go">搜索</button>
+
+        <div class="pull-right bar-m-r">
+            <div class="btn-group">
+                <div class="layui-input-inline" style="width: 130px">
+                    <select name="country"  lay-filter="putaway">
+                        <option value="">选择状态</option>
+                        <option value="">全部</option>
+                        <option value="1">上架在售</option>
+                        <option value="2">下架停售</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="pull-right bar-m-r">
+            <div class="btn-group">
+                <div class="layui-input-inline" style="width: 130px">
+                    <select name="country"  lay-filter="brand">
+                        <option value="">选择品牌</option>
+                        <option value="">全部</option>
+                        <option ng-repeat="brand in brandList track by $index" value="{{brand.id}}"
+                                ng-bind="brand.name_zh">
+                        </option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="pull-right bar-m-r">
+            <div class="input-group input-g-w ">
+                <div class="input-group-btn">
+                    <button type="button" class="btn btn-default" disabled>商品名称：</button>
+                </div><!-- /btn-group -->
+                <input type="text" class="form-control" ng-model="repertoryParams.goodsName">
+            </div><!-- /input-group -->
+        </div>
+
+        <div class="pull-right bar-m-r">
+            <div class="input-group input-g-w ">
+                <div class="input-group-btn">
+                    <button type="button" class="btn btn-default" disabled>商品编号：</button>
+                </div><!-- /btn-group -->
+                <input type="text" class="form-control" ng-model="repertoryParams.goodsNumber">
+            </div><!-- /input-group -->
+        </div>
+
+    </div>
+
+
+</div>
+
+<div class="table-responsive">
+    <table class="table">
+        <tr class="success font-bold">
+            <td>商品图片</td>
+            <td>商品名称</td>
+            <td>所属品牌</td>
+            <td>商品一级分类</td>
+            <td>商品二级分类</td>
+            <td>商品主编号</td>
+            <td>商品SKU编号</td>
+            <td>颜色规格相关信息</td>
+            <td>库存</td>
+            <td>状态</td>
+        </tr>
+        <tr class="bg-white"  ng-repeat="item in skuGoodsList track by $index">
+            <td>
+                <img src="{{host}}{{item.img1_url}}" class="goods-img" >
+            </td>
+            <td ng-bind="item.name" style='max-width: 150px;'></td>
+            <td ng-bind="item.name_zh"></td>
+            <td ng-bind="item.one_cat_name"></td>
+            <td ng-bind="item.tow_cat_name"></td>
+            <td ng-bind="item.main_number"></td>
+            <td ng-bind="item.goods_number"></td>
+            <td>{{item.sku1_name}}_{{item.sku2_name}}_{{item.sku3_name}}</td>
+            <td ng-bind="item.repertory"></td>
+            <td ng-if="item.putaway==1">上架在售</td>
+            <td ng-if="item.putaway==2">下架停售</td>
+        </tr>
+    </table>
+    <div id="layuiPage" align="center"></div>
+</div>
+</div>

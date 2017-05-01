@@ -1,0 +1,39 @@
+<div ng-controller="SysConfigCtrl">
+    <script type="text/ng-template" id="modal_add_config.html">
+        <div ng-include="'admin/model/modal_add_config.html'"></div>
+    </script>
+    <script type="text/ng-template" id="modal_add_returns_addr_config.html">
+        <div ng-include="'admin/model/modal_add_returns_addr_config.html'"></div>
+    </script>
+<div class="wrapper-md bg-light b-b ">
+    <div class="row">
+
+        <h1 class="m-n font-thin h3 col-lg-2 p-t-5">配置管理</h1>
+        <!--<button type="button" class="btn btn-info pull-right col-lg-1 top-right-btn"  ng-click="open('lg')">新增配置</button>-->
+    </div>
+
+
+</div>
+
+<div class="table-responsive table-style" >
+    <table class="table">
+        <tr class="success font-bold">
+            <td class="col-lg-3">标题</td>
+            <td class="col-lg-3">标识</td>
+            <td class="col-lg-4">配置值</td>
+            <td class="col-lg-2">操作</td>
+        </tr>
+        <tr class="bg-white" ng-repeat="config in configList track by $index">
+            <td ng-bind="config.title"></td>
+            <td ng-bind="config.identifying"></td>
+            <td>
+                <div ng-repeat="entry in config.sysConfigs track by $index">{{entry.key}}：{{entry.value}}</div>
+            </td>
+            <td>
+                <button type="button" class="btn btn-info " ng-click="openEdit(config.id,config.title,config.identifying,'lg')">编辑</button>
+                <!--<button type="button" class="btn btn-info " ng-click="delete(config.id)">删除</button>-->
+            </td>
+        </tr>
+    </table>
+</div>
+</div>

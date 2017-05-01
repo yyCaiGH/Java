@@ -1,0 +1,18 @@
+<div class="modal-header">
+    <h3 class="modal-title">{{title}}</h3>
+</div>
+<div class="modal-body">
+
+    <div class="input-group">
+        <div class="input-group-btn">
+            <!--<button type="button" class="btn btn-default" disabled>属性名：</button>-->
+            <label class="btn" disabled>运费组名：</label>
+        </div><!-- /btn-group -->
+        <input id="name" type="text" class="form-control" style="margin: 0px 10px"  ng-model="name">
+    </div><!-- /input-group -->
+
+</div>
+<div class="modal-footer model_footer_m_t">
+    <button class="btn btn-default" ng-click="cancel()">取消</button>
+    <button class="btn btn-primary" ng-click="ok()">确定</button>
+</div>

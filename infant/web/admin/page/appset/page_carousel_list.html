@@ -1,0 +1,39 @@
+<div ng-controller="CarouselListCtrl">
+  <script type="text/ng-template" id="modal_carousel.html">
+    <div ng-include="'admin/model/modal_carousel.html'"></div>
+  </script>
+<div class="wrapper-md bg-light b-b ">
+  <div class="row ">
+    <h1 class="m-n font-thin h3 p-t-5 col-lg-2">轮播管理</h1>
+    <button type="button" class="btn btn-info pull-right col-lg-1 top-right-btn"  ng-click="open(null,'lg')">新增轮播</button>
+  </div>
+</div>
+
+  <div class="table-responsive table-style">
+    <table class="table">
+      <tr class="success font-bold">
+        <td>图片</td>
+        <td>标题</td>
+        <td>上架时间</td>
+        <td>状态</td>
+        <td>排序</td>
+        <td>操作</td>
+      </tr>
+      <tr class="bg-white" ng-repeat="item in list track by $index">
+        <td>
+          <img src="{{host}}{{item.img}}" style="width: 144px;height: 48px;">
+        </td>
+        <td ng-bind="item.name"></td>
+        <td ng-bind="item.create_time"></td>
+        <td ng-if="item.is_show==1">显示</td>
+        <td ng-if="item.is_show==0">隐藏</td>
+        <td ng-bind="item.sort"></td>
+        <td>
+          <button type="button" class="btn btn-info " ng-click="open(item.id,'lg')">编辑</button>
+        </td>
+      </tr>
+    </table>
+    <div id="demo1" align="center"></div>
+  </div>
+
+</div>

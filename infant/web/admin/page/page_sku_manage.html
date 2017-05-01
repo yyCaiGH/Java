@@ -1,0 +1,33 @@
+<div ng-controller="SkuCtrl">
+    <script type="text/ng-template" id="modal_add_sku.html">
+        <div ng-include="'admin/model/modal_add_sku.html'"></div>
+    </script>
+    <script type="text/ng-template" id="modal_edit_sku.html">
+        <div ng-include="'admin/model/modal_edit_sku.html'"></div>
+    </script>
+<div class="wrapper-md bg-light b-b ">
+    <div class="row">
+
+        <h1 class="m-n font-thin h3 col-lg-2 p-t-5">SKU 管理</h1>
+        <button type="button" class="btn btn-info pull-right col-lg-1 top-right-btn"  ng-click="open('lg')">添加SUK</button>
+    </div>
+
+
+</div>
+
+<div class="table-responsive table-style" >
+    <table class="table">
+        <tr class="success font-bold">
+            <td class="col-lg-6">分类</td>
+            <td class="col-lg-6">操作</td>
+        </tr>
+        <tr class="bg-white" ng-repeat="sku in skuList track by $index">
+            <td ng-bind="sku.name"></td>
+            <td>
+                <button type="button" class="btn btn-info " ng-click="openEdit(sku.id,'lg')">编辑</button>
+                <button type="button" class="btn btn-info " ng-click="delete(sku.id)">删除</button>
+            </td>
+        </tr>
+    </table>
+</div>
+</div>

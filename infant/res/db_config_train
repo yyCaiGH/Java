@@ -1,0 +1,11 @@
+jdbcUrl = jdbc:mysql://localhost:3306/train?characterEncoding=utf8&zeroDateTimeBehavior=convertToNull
+user = root
+password =123
+
+devMode=true
+XG_SECRET_KEY=72e129adb42a85e80b976d8785f2b41e
+
+
+
+
+

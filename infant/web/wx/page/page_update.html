@@ -1,0 +1,34 @@
+<div class="container w-xxl w-auto-xs" ng-controller="UpdateCtrl">
+  <a href class="navbar-brand block m-t">报名信息修改</a>
+  <div class="m-b-lg">
+    <form name="form" class="form-validation">
+      <div class="list-group list-group-sm">
+        <div class="list-group-item">
+          <input type="text" placeholder="姓名" class="form-control no-border" ng-model="applyData.user_name" required>
+        </div>
+        <div class="list-group-item">
+           <input type="text" placeholder="电话" class="form-control no-border" ng-model="applyData.user_phone" disabled="true">
+        </div>
+        <div class="list-group-item">
+          <input type="text" placeholder="微信号" class="form-control no-border" ng-model="applyData.wx_account">
+        </div>
+        <div class="list-group-item">
+          <input type="text" placeholder="培训机构" class="form-control no-border" ng-model="applyData.name" disabled="true">
+        </div>
+        <!--<div class="weui-cell weui-cell_select list-group-item" style="height: 45px;" >
+          <div class="weui-cell__bd"  >
+            <select class="weui-select" name="select1" ng-change="change(applyData.org_id)" ng-model="applyData.org_id">
+              <option value="">选择培训机构</option>
+              <option ng-repeat="item in list track by $index" value="{{item.id}}"
+                      ng-bind="item.name">
+              </option>
+            </select>
+          </div>
+        </div>-->
+
+      </div>
+      <button type="submit" class="btn btn-lg btn-primary btn-block" ng-click="update()" ng-disabled='form.$invalid'>确认修改</button>
+      <div class="line line-dashed"></div>
+    </form>
+  </div>
+</div>

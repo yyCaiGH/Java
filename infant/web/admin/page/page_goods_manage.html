@@ -1,0 +1,106 @@
+<div ng-controller="GoodsCtrl">
+<div class="wrapper-md bg-light b-b ">
+    <div class="row layui-form layui-form-pane">
+
+        <h1 class="m-n font-thin h3 col-lg-2 p-t-5" ng-bind="title"></h1>
+
+        <button type="button"  class="btn btn-info pull-right col-lg-1" lay-submit="" lay-filter="go">搜索</button>
+
+        <div class="pull-right bar-m-r">
+            <div class="btn-group">
+                <div class="layui-input-inline" style="width: 130px">
+                    <select name="country"  lay-filter="towClass">
+                        <option value="">二级分类</option>
+                        <option ng-repeat="cat in towGoodsClassList track by $index" value="{{cat.id}}"
+                                ng-bind="cat.cat_name">
+                        </option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="pull-right bar-m-r">
+            <div class="btn-group">
+                <div class="layui-input-inline" style="width: 130px">
+                    <select name="country" lay-filter="oneClass">
+                        <option value="">一级分类</option>
+                        <option ng-repeat="cat in oneGoodsClassList track by $index" value="{{cat.id}}"
+                                ng-bind="cat.cat_name">
+                        </option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="pull-right bar-m-r">
+            <div class="btn-group">
+                <div class="layui-input-inline" style="width: 130px">
+                    <select name="country"  lay-filter="brand">
+                        <option value="">选择品牌</option>
+                        <option ng-repeat="brand in brandList track by $index" value="{{brand.id}}"
+                                ng-bind="brand.name_zh">
+                        </option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="pull-right bar-m-r">
+            <div class="input-group input-g-w ">
+                <div class="input-group-btn">
+                    <button type="button" class="btn btn-default" disabled>商品名称：</button>
+                </div><!-- /btn-group -->
+                <input type="text" class="form-control" ng-model="goods.name">
+            </div><!-- /input-group -->
+        </div>
+
+        <div class="pull-right bar-m-r">
+            <div class="input-group input-g-w ">
+                <div class="input-group-btn">
+                    <button type="button" class="btn btn-default" disabled>商品编号：</button>
+                </div><!-- /btn-group -->
+                <input type="text" class="form-control" ng-model="goods.main_number">
+            </div><!-- /input-group -->
+        </div>
+
+    </div>
+
+
+</div>
+
+<div class="table-responsive">
+    <table class="table">
+        <tr class="success font-bold">
+            <td>商品信息</td>
+            <td>零售价</td>
+            <td>折扣价</td>
+            <td>SKU总库存</td>
+            <td>总销量</td>
+            <td>上架时间</td>
+            <td>操作</td>
+        </tr>
+        <tr class="bg-white"  ng-repeat="item in goodsList track by $index">
+            <td>
+                <div>
+                    <img src="{{host}}{{item.img1_url}}" class="goods-img"  style="float:left;" >
+                    <div class="goods-des" style="position: relative">
+                        <span style="margin-left: 5px;" ng-bind="item.name | subString:0:12"></span>
+                        <br>
+                        <span style="position: absolute;bottom: 0;margin-left: 5px">编号：{{item.main_number}}</span>
+                    </div>
+                </div>
+
+            </td>
+            <td ng-bind="item.market_price"></td>
+            <td ng-bind="item.promote_price"></td>
+            <td ng-bind="item.totalStock"></td>
+            <td ng-bind="item.totalSales"></td>
+            <td ng-bind="item.create_time"></td>
+            <td>
+                <button type="button" class="btn btn-info " ng-click="editGoods(item.id)">编辑</button>
+            </td>
+        </tr>
+    </table>
+    <div id="layuiPage" align="center"></div>
+</div>
+</div>

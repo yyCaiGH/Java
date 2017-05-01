@@ -1,0 +1,14 @@
+<div class="container w-xxl w-auto-xs" ng-controller="ApplyListCtrl">
+  <a href class="navbar-brand block m-t">已报名列表</a>
+  <div class="m-b-lg">
+    <div class="weui-cells">
+      <a class="weui-cell weui-cell_access" href="javascript:;" ng-repeat="item in applyData track by $index" ng-click="gotoLook(item.id)">
+        <div class="weui-cell__bd">
+          <p>{{item.name}}--{{item.create_time}}</p>
+        </div>
+        <div class="weui-cell__ft">
+        </div>
+      </a>
+    </div>
+  </div>
+</div>

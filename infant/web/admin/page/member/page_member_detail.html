@@ -1,0 +1,317 @@
+<div ng-controller="MemberDetailCtrl">
+
+    <div class="wrapper-md bg-light b-b ">
+        <div class="row ">
+            <h1 class="m-n font-thin h3 p-t-5 col-lg-2">会员详情</h1>
+        </div>
+    </div>
+
+    <ul id="myTab" class="nav nav-tabs">
+        <li class="active"><a data-toggle="tab" ng-click="memberTab(0)">会员基本信息</a></li>
+        <li><a data-toggle="tab" ng-click="memberTab(1)">购买记录</a></li>
+        <li><a data-toggle="tab" ng-click="memberTab(2)">退货记录</a></li>
+        <li><a data-toggle="tab" ng-click="memberTab(3)">发布的文章</a></li>
+        <li><a data-toggle="tab" ng-click="memberTab(4)">关注的朋友</a></li>
+        <li><a data-toggle="tab" ng-click="memberTab(5)">粉丝</a></li>
+        <li><a data-toggle="tab" ng-click="memberTab(6)">收藏的商品</a></li>
+        <li><a data-toggle="tab" ng-click="memberTab(7)">购物车</a></li>
+    </ul>
+
+    <!--会员基本信息-->
+    <div id="memberTab0" class="showTab">
+        <div class="member-header row">
+            <div class="col-lg-2">
+                <div><img src="img/b10.jpg" onerror="this.onerror=null; this.src='img/b10.jpg'" class="member-img">
+                </div>
+                <button type="button" class="btn btn-info" style="width: 120px;margin-top: 10px" ng-if="member.status==0"
+                        ng-click="blackMember()">拉黑该会员
+                </button>
+                <button type="button" class="btn btn-info" style="width: 120px;margin-top: 10px" ng-if="member.status==1"
+                        ng-click="noBlackMember()">取消拉黑
+                </button>
+            </div>
+            <div class="col-lg-3">
+                <div class="member-div"><label class="member-key">会员编号：</label><label class="member-value" ng_bind="member.id"></label>
+                </div>
+                <div class="member-div"><label class="member-key">会员类型：</label><label class="member-value">手机用户</label>
+                </div>
+                <div class="member-div"><label class="member-key">注册时间：</label><label class="member-value"ng_bind="member.register_time"></label>
+                </div>
+                <div class="member-div">
+                    <label class="member-key">注册来源：</label>
+                    <label class="member-value" ng-if="member.register_from==1">IOS客户端</label>
+                    <label class="member-value" ng-if="member.register_from==2">Android客户端</label>
+                    <label class="member-value" ng-if="member.register_from==3">微信客户端</label>
+                    <label class="member-value" ng-if="member.register_from==4">微博客户端</label>
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="member-div"><label class="member-key">会员手机号：</label><label class="member-value" ng_bind="member.phone"></label>
+                </div>
+                <div class="member-div"><label class="member-key">微信OPENID：</label><label class="member-value" ng_bind="member.open_id"></label>
+                </div>
+                <div class="member-div"><label class="member-key">会员昵称：</label><label class="member-value" ng_bind="member.nickname"></label></div>
+                <div class="member-div"><label class="member-key">会员等级：</label><label class="member-value" ng_bind="member.grade_name"></label>
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="member-div"><label class="member-key">消费次数：</label><label class="member-value" ng_bind="member.consume_count"></label>
+                </div>
+                <div class="member-div"><label class="member-key">消费总金额：</label><label class="member-value" ng_bind="member.consume_amount"></label>
+                </div>
+                <div class="member-div"><label class="member-key">剩余返点：</label><label class="member-value" ng_bind="member.rebate_count"></label></div>
+            </div>
+        </div>
+        <p class="small-title">孩子信息</p>
+        <div class="table-responsive table-style">
+            <table class="table" style="margin-top: 2px">
+                <tr class="success font-bold">
+                    <td class="col-lg-2">性别</td>
+                    <td class="col-lg-2">出生年月</td>
+                </tr>
+                <tr class="bg-white" ng-repeat="item in childrenList track by $index">
+                    <td ng-if="item.sex==1">男</td>
+                    <td ng-if="item.sex==2">女</td>
+                    <td ng-if="item.sex==3">中性</td>
+                    <td>{{item.birthday | date:'yyyy-MM-dd'}}</td>
+                </tr>
+            </table>
+        </div>
+        <div class="small-title">收货地址管理
+        </div>
+        <div class="layui-form layui-form-pane">
+            <div class="table-responsive table-style">
+                <table class="table" id="myTable">
+                    <tr class="success font-bold">
+                        <td class="col-lg-1-5">收件人姓名</td>
+                        <td class="col-lg-1-5">收件人电话</td>
+                        <td >地址</td>
+                        <td class="col-lg-1">默认地址</td>
+                    </tr>
+                    <tr class="bg-white" ng-repeat="item in addressList track by $index">
+                        <td class="col-lg-1-5" ng-bind="item.consignee"></td>
+                        <td class="col-lg-1-5" ng-bind="item.phone"></td>
+                        <td>{{item.province}}&nbsp;&nbsp;{{item.city}}&nbsp;&nbsp;{{item.area}}&nbsp;&nbsp;{{item.address}}</td>
+                        <td class="col-lg-1" ng-if="item.def==1">默认</td>
+                        <td class="col-lg-1" ng-if="item.def==0"></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!--购买记录-->
+    <div class="table-responsive table-style" id="memberTab1" style="display: none">
+        <table class="table">
+            <tr class="success font-bold">
+                <td>订单编号</td>
+                <td>数量</td>
+                <td>下单时间</td>
+                <td>订单类型</td>
+                <td>订单来源</td>
+                <td>交易状态</td>
+                <td>总价</td>
+                <td>实收</td>
+                <td>操作</td>
+            </tr>
+            <tr class="bg-white" ng-repeat="item in orderList track by $index">
+                <td>{{item.serial_number}}</td>
+                <td>{{item.count}}</td>
+                <td>{{item.time_create}}</td>
+                <td ng-if="item.type==1">手动建单</td>
+                <td ng-if="item.type==2">自主下单</td>
+
+                <td ng-if="item.from==1">IOS订单</td>
+                <td ng-if="item.from==2">Android订单</td>
+                <td ng-if="item.from==3">微信</td>
+                <td ng-if="item.from==4">微博</td>
+
+                <td ng-if="item.status==1">已下单待付款</td>
+                <td ng-if="item.status==2">已付款待发货</td>
+                <td ng-if="item.status==3">已发货待收货</td>
+                <td ng-if="item.status==4">交易成功</td>
+                <td ng-if="item.status==5">退款中</td>
+                <td ng-if="item.status==6&&item.status_returns==1">买家申请退货中</td>
+                <td ng-if="item.status==6&&item.status_returns==2">等待买家发货</td>
+                <td ng-if="item.status==6&&item.status_returns==3">买家已发货</td>
+                <td ng-if="item.status==6&&item.status_returns==4">退货完成</td>
+                <td ng-if="item.status==7">订单关闭</td>
+                <td>{{item.price}}</td>
+                <td>{{item.real_price}}</td>
+                <td>
+                    <button type="button" class="btn btn-info " ng-click="detail(item.id)">详情</button>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <!--退货记录-->
+    <div class="table-responsive table-style"  id="memberTab2"  style="display: none">
+        <table class="table">
+            <tr class="success font-bold">
+                <td>订单编号</td>
+                <td>数量</td>
+                <td>下单时间</td>
+                <td>订单类型</td>
+                <td>订单来源</td>
+                <td>交易状态</td>
+                <td>总价</td>
+                <td>实收</td>
+                <td>操作</td>
+            </tr>
+            <tr class="bg-white" ng-repeat="item in orderList track by $index">
+                <td>{{item.serial_number}}</td>
+                <td>{{item.count}}</td>
+                <td>{{item.time_create}}</td>
+                <td ng-if="item.type==1">手动建单</td>
+                <td ng-if="item.type==2">自主下单</td>
+
+                <td ng-if="item.from==1">IOS订单</td>
+                <td ng-if="item.from==2">Android订单</td>
+                <td ng-if="item.from==3">微信</td>
+                <td ng-if="item.from==4">微博</td>
+
+                <td ng-if="item.status==1">已下单待付款</td>
+                <td ng-if="item.status==2">已付款待发货</td>
+                <td ng-if="item.status==3">已发货待收货</td>
+                <td ng-if="item.status==4">交易成功</td>
+                <td ng-if="item.status==5">退款中</td>
+                <td ng-if="item.status==6&&item.status_returns==1">买家申请退货中</td>
+                <td ng-if="item.status==6&&item.status_returns==2">等待买家发货</td>
+                <td ng-if="item.status==6&&item.status_returns==3">买家已发货</td>
+                <td ng-if="item.status==6&&item.status_returns==4">退货完成</td>
+                <td ng-if="item.status==7">订单关闭</td>
+                <td>{{item.price}}</td>
+                <td>{{item.real_price}}</td>
+                <td>
+                    <button type="button" class="btn btn-info " ng-click="detail(item.id)">详情</button>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <!--发布的文章-->
+    <div id="memberTab3"  style="display: none;">
+        <div class="article-all" ng-repeat="item in list track by $index">
+            <div class="article-body">
+
+                <div style="margin-bottom: 10px">
+                        发布时间：{{item.create_time}}
+                </div>
+
+                <div style="margin-bottom: 5px">
+                    <label ng-bind="item.content"></label>
+                </div>
+                <img src="{{host}}{{item.img_url}}" onerror="this.onerror=null; this.src='img/c6.jpg'">
+            </div>
+            <div class="article-footer">
+                <div style="line-height: 34px">
+                    文章编号：<label ng-bind="item.id"></label>
+                    &nbsp;&nbsp;
+                    浏览数：<label ng-bind="item.page_view"></label>
+                    &nbsp;&nbsp;
+                    点赞数：<label ng-bind="item.like_count"></label>
+                    &nbsp;&nbsp;
+                    评论数：<label  ng-bind="item.comment"></label>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--关注的朋友-->
+    <div id="memberTab4" class="table-responsive table-style"  style="display: none">
+        <table class="table">
+            <tr class="success font-bold">
+                <td>头像</td>
+                <td>朋友昵称</td>
+                <td>关注时间</td>
+            </tr>
+            <tr class="bg-white" ng-repeat="item in couponlist track by $index">
+                <td>
+                    <img src="{{host}}{{item.heart_img_url}}" onerror="this.onerror=null; this.src='img/b10.jpg'" class="article-img" >
+                </td>
+                <td>{{item.nickname}}</td>
+                <td>{{item.create_time}}</td>
+            </tr>
+        </table>
+    </div>
+    <!--粉丝-->
+    <div id="memberTab5" class="table-responsive table-style" style="display: none">
+        <table class="table">
+            <tr class="success font-bold">
+                <td>头像</td>
+                <td>粉丝昵称</td>
+                <td>关注时间</td>
+            </tr>
+            <tr class="bg-white" ng-repeat="item in couponlist track by $index">
+                <td>
+                    <img src="{{host}}{{item.heart_img_url}}" onerror="this.onerror=null; this.src='img/b10.jpg'" class="article-img" >
+                </td>
+                <td>{{item.nickname}}</td>
+                <td>{{item.create_time}}</td>
+            </tr>
+        </table>
+    </div>
+    <!--收藏的商品-->
+    <div id="memberTab6"  style="display: none">
+        <table class="table">
+            <tr class="success font-bold">
+                <td>商品信息</td>
+                <td>品牌</td>
+                <td>一级分类</td>
+                <td>二级分类</td>
+                <td>单价</td>
+            </tr>
+            <tr class="bg-white" ng-repeat="item in collectlist track by $index">
+                <td>
+                    <div>
+                        <img src="{{host}}{{item.img1_url}}" onerror="this.onerror=null; this.src='img/b10.jpg'" class="goods-img"  style="float:left;" >
+                        <div class="goods-des" style="position: relative">
+                            <span style="margin-left: 5px;" ng-bind="item.name | subString:0:12"></span>
+                            <br>
+                            <span style="position: absolute;bottom: 0;margin-left: 5px">编号：{{item.main_number}}</span>
+                        </div>
+                    </div>
+                </td>
+                <td>{{item.name_zh}}</td>
+                <td>{{item.one_cat_name}}</td>
+                <td>{{item.tow_cat_name}}</td>
+                <td>{{item.market_price}}</td>
+            </tr>
+        </table>
+    </div>
+    <!--购物车-->
+    <div id="memberTab7"  style="display: none">
+        <table class="table">
+            <tr class="success font-bold">
+                <td>商品信息</td>
+                <td>单价</td>
+                <td>数量</td>
+                <td>加入购物车时间</td>
+                <td>订单来源</td>
+                <td>实收</td>
+            </tr>
+            <tr class="bg-white" ng-repeat="item in cartList track by $index">
+                <td>
+                    <div>
+                        <img src="{{host}}{{item.img1_url}}" onerror="this.onerror=null; this.src='img/b10.jpg'" class="goods-img"  style="float:left;" >
+                        <div class="goods-des" style="position: relative">
+                            <span style="margin-left: 5px;" ng-bind="item.name | subString:0:12"></span>
+                            <br>
+                            <span style="position: absolute;bottom: 0;margin-left: 5px">编号：{{item.goods_number}}</span>
+                        </div>
+                    </div>
+                </td>
+                <td>{{item.market_price}}</td>
+                <td>{{item.count}}</td>
+                <td>{{item.create_time}}</td>
+                <td ng-if="item.from==1">IOS订单</td>
+                <td ng-if="item.from==2">Android订单</td>
+                <td ng-if="item.from==3">微信</td>
+                <td ng-if="item.from==4">微博</td>
+                <td>{{item.promote_price}}</td>
+            </tr>
+        </table>
+    </div>
+
+    <div id="layuiPage" align="center"></div>
+
+
+</div>

@@ -1,0 +1,99 @@
+<div ng-controller="ArticleCtrl">
+
+    <div class="wrapper-md bg-light b-b ">
+        <div class="row">
+
+            <h1 class="m-n font-thin h3 p-t-5 col-lg-3">朋友圈文章管理</h1>
+
+        </div>
+    </div>
+
+    <ul id="myTab" class="nav nav-tabs">
+        <li class="active"><a data-toggle="tab" ng-click="getAtricle(0)">全部文章</a></li>
+        <li><a data-toggle="tab" ng-click="getAtricle(1)">置顶的文章</a></li>
+        <li><a data-toggle="tab" ng-click="getAtricle(2)">推荐的文章</a></li>
+        <li><a data-toggle="tab" ng-click="getAtricle(3)">隐藏的文章</a></li>
+    </ul>
+
+    <!--<div class="article-all">
+        <div class="article-body">
+
+            <div style="margin-bottom: 20px">
+                <img src="img/b9.jpg" class="article-img" style="float:left;">
+                <div class="article-des" style="position: relative">
+                    <span style="margin-left: 5px;font-weight: bold">用户昵称</span>
+                    <div class="pull-right" style="color: #8b8e99">置顶时间：<span>2016-12-12 12:12</span></div>
+                    <br>
+                    <span style="position: absolute;bottom: 0;margin-left: 5px;color: #8b8e99">2016-12-12 21:22  来自IOS客户端</span>
+                    <div class="" style="position: absolute;bottom: 0;right: 0px;color: #8b8e99">推荐时间：<span>2016-12-12 12:12</span></div>
+                </div>
+            </div>
+
+            <div style="margin-bottom: 5px">
+                <label> 一个人的处境是苦是乐常是主观的。
+                    有人安于某种生活，有人不能。因此能安于自已目前处境的不妨就如此生活下去，不能的只好努力另找出路。你无法断言哪里才是成功的，也无法肯定当自已到达了某一点之后，会不会快乐。有些人永远不会感到满足，他的快乐只建立在不断地追求与争取的过程之中，因此，他的目标不断地向远处推移。这种人的快乐可能少，但成就可能大。
+                    苦乐全凭自已判断，这和客观环境并不一定有直接关系，正如一个不爱珠宝的女人，即使置身在极其重视虚荣的环境，也无伤她的自尊。
+                    拥有万卷书的穷书生，并不想去和百万富翁交换钻石或股票。满足于田园生活的人也并不艳羡任何学者的荣誉头衔，或高官厚禄。
+                    你的爱好就是你的方向，你的兴趣就是你的资本，你的性情就是你的命运。各
+                    人有各人理想的乐园，有自已所乐于安享的花花世界。</label>
+            </div>
+            <img src="img/c0.jpg">
+        </div>
+        <div class="article-footer">
+            <div style="line-height: 34px">
+                文章编号：<label>1003</label>
+                &nbsp;&nbsp;
+                浏览数：<label>1003</label>
+                &nbsp;&nbsp;
+                点赞数：<label>1003</label>
+                &nbsp;&nbsp;
+                评论数：<label>1003</label>
+                <button type="button" class="btn btn-default pull-right " ng-click="addCountry('lg')">隐藏该文章</button>
+                <button type="button" class="btn btn-default pull-right " ng-click="addCountry('lg')" style="margin-right: 20px">取消推荐</button>
+                <button type="button" class="btn btn-default pull-right " ng-click="addCountry('lg')" style="margin-right: 20px">取消置顶</button>
+            </div>
+        </div>
+    </div>-->
+
+    <div class="article-all" ng-repeat="item in list track by $index">
+        <div class="article-body">
+
+            <div style="margin-bottom: 20px">
+                <img src="{{host}}{{item.heart_img_url}}" onerror="this.onerror=null; this.src='img/b10.jpg'" class="article-img" style="float:left;">
+                <div class="article-des" style="position: relative">
+                    <span style="margin-left: 5px;font-weight: bold" ng-bind="item.nickname"></span>
+                    <div class="pull-right" style="color: #8b8e99" ng-if="item.is_top">置顶时间：<span ng-bind="item.top_time"></span></div>
+                    <br>
+                    <span style="position: absolute;bottom: 0;margin-left: 5px;color: #8b8e99" ng-if="item.from==1">{{item.create_time}} 来自IOS客户端</span>
+                    <span style="position: absolute;bottom: 0;margin-left: 5px;color: #8b8e99" ng-if="item.from==2">{{item.create_time}} 来自Android客户端</span>
+                    <span style="position: absolute;bottom: 0;margin-left: 5px;color: #8b8e99" ng-if="item.from==3">{{item.create_time}} 来自微信客户端</span>
+                    <span style="position: absolute;bottom: 0;margin-left: 5px;color: #8b8e99" ng-if="item.from==4">{{item.create_time}} 来自微博客户端</span>
+                    <div class="" style="position: absolute;bottom: 0;right: 0px;color: #8b8e99" ng-if="item.is_recommend">推荐时间：<span ng-bind="item.recommend_time">2016-12-12 12:12</span></div>
+                </div>
+            </div>
+
+            <div style="margin-bottom: 5px">
+                <label ng-bind="item.content"></label>
+            </div>
+            <img src="{{host}}{{item.img_url}}" onerror="this.onerror=null; this.src='img/c6.jpg'">
+        </div>
+        <div class="article-footer">
+            <div style="line-height: 34px">
+                文章编号：<label ng-bind="item.id"></label>
+                &nbsp;&nbsp;
+                浏览数：<label ng-bind="item.page_view"></label>
+                &nbsp;&nbsp;
+                点赞数：<label ng-bind="item.like_count"></label>
+                &nbsp;&nbsp;
+                评论数：<label  ng-bind="item.comment"></label>
+                <button type="button" class="btn btn-default pull-right " ng-click="hide(item.id)" ng-if="item.status==0">隐藏该文章</button>
+                <button type="button" class="btn btn-default pull-right " ng-click="show(item.id)" ng-if="item.status==1">显示该文章</button>
+                <button type="button" class="btn btn-default pull-right " ng-click="recommend(item.id)" style="margin-right: 20px" ng-if="!item.is_recommend">推荐</button>
+                <button type="button" class="btn btn-default pull-right " ng-click="noRecommend(item.id)" style="margin-right: 20px" ng-if="item.is_recommend">取消推荐</button>
+                <button type="button" class="btn btn-default pull-right " ng-click="top(item.id)" style="margin-right: 20px" ng-if="!item.is_top">置顶</button>
+                <button type="button" class="btn btn-default pull-right " ng-click="noTop(item.id)" style="margin-right: 20px" ng-if="item.is_top">取消置顶</button>
+            </div>
+        </div>
+    </div>
+    <div id="layuiPage" align="center"></div>
+</div>

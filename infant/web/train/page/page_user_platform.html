@@ -1,0 +1,33 @@
+<div ng-controller="UserPlatformCtrl">
+<div class="wrapper-md bg-light b-b ">
+    <div class="row">
+        <h1 class="m-n font-thin h3 col-lg-2 p-t-5">报名管理</h1>
+    </div>
+
+
+</div>
+
+<div class="table-responsive table-style">
+    <table class="table">
+        <tr class="success font-bold">
+            <td class="col-lg-2">姓名</td>
+            <td class="col-lg-2">电话</td>
+            <td class="col-lg-2">报名时间</td>
+            <td class="col-lg-2">状态</td>
+            <td class="col-lg-2">是否缴费</td>
+            <td class="col-lg-2">培训机构</td>
+        </tr>
+        <tr class="bg-white" ng-repeat="item in list track by $index">
+            <td>{{item.user_name}}</td>
+            <td>{{item.user_phone}}</td>
+            <td>{{item.create_time}}</td>
+            <td ng-if="item.status==1">已报名</td>
+            <td ng-if="item.status==2">正式培训</td>
+            <td ng-if="item.status==3">放弃培训</td>
+            <td ng-if="item.org_sure_pay==true">已缴费</td>
+            <td ng-if="item.org_sure_pay==false">未缴费</td>
+            <td>{{item.name}}</td>
+        </tr>
+    </table>
+</div>
+</div>

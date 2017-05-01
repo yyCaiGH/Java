@@ -1,0 +1,41 @@
+<div class="container w-xxl w-auto-xs" ng-controller="ApplyResultCtrl">
+
+  <div class="" style="margin-bottom: 20px">
+    <div class="weui-msg__icon-area" align="center">
+      <i class="weui-icon-success weui-icon_msg" ng-if="applyData.status==1 || applyData.status==2"></i>
+      <i class="weui-icon-warn weui-icon_msg" ng-if="applyData.status==3"></i>
+    </div>
+    <div class="weui-msg__text-area">
+      <h2 class="weui-msg__title" align="center" ng-if="applyData.status==1">报名成功</h2>
+      <h2 class="weui-msg__title" align="center" ng-if="applyData.status==2">缴费成功，加入培训</h2>
+      <h2 class="weui-msg__title" align="center" ng-if="applyData.status==3">放弃培训</h2>
+    </div>
+    <div class="weui-msg__opr-area">
+      <p class="weui-btn-area" ng-if="applyData.user_sure_pay==false && applyData.status==1">
+        <a href="javascript:;" class="weui-btn weui-btn_primary" ng-click="hasPay()">我已支付培训费用</a>
+        <a href="javascript:;" class="weui-btn weui-btn_primary" ng-click="giveUp()">放弃培训</a>
+        <a href="javascript:;" class="weui-btn weui-btn_plain-default" ng-click="update()">修改报名信息</a>
+      </p>
+      <p class="weui-btn-area" ng-if="applyData.user_sure_pay==true&&applyData.org_sure_pay==false" style="color:rebeccapurple" align="center">
+        <label ng-if="applyData.status==1">培训机构尚未验证您的验证码，您确认已经支付？请将验证码给到培训机构确认。可拨打底部客服电话求助咨询</label>
+      </p>
+      <p class="weui-btn-area" ng-if="applyData.status==3" style="color:rebeccapurple" align="center">
+        <label>您已放弃培训</label>
+      </p>
+      <p class="weui-btn-area" ng-if="applyData.org_sure_pay==true" style="color:rebeccapurple" align="center">
+        培训机构确认您已缴费，1-2天内我们将通过微信转账给到您50块回馈。
+      </p>
+    </div>
+    <p class="weui-msg__desc" style="color:#1c2b36">
+      <label style="color: #0bb20c">验证码：</label><label style="color: red;font-weight: bold;">{{applyData.cd_key}}</label><br>
+      尊敬的“{{applyData.user_name}}”用户，您于{{applyData.create_time}}已成功报名“{{applyData.name}}”培训机构。<br>
+      <label style="color: #0bb20c">回馈用户：</label><br>
+      为了感谢您对平台的信任，平台将在您正式参与培训后给予您50块的回馈。金额虽小，但起步阶段还望见谅。下面为获取途径：<br>
+      1、当您了解了培训机构的课程后，如果您对其价格与课程体验挺满意也愿意参与培训的话，支付完培训费用后麻烦将上面的红色验证码给予培训机构验证。<br>
+      2、点击”我已支付培训费用“，或者修改您的报名信息，将您的微信号填上。或者添加平台客服微信号：LL815310523。<br>
+      3、我们将通过微信转账的方式，给到您50元回馈。<br>
+      方式比较粗糙，还请见谅。如有疑问，您也可以拨打客服电话，林小二：15880016811
+    </p>
+  </div>
+
+</div>

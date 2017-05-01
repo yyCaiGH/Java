@@ -1,0 +1,64 @@
+<div ng-controller="RepertoryPurchaseCtrl">
+    <script type="text/ng-template" id="model_repertory_purchase_select.html">
+        <div ng-include="'admin/model/model_repertory_purchase_select.html'"></div>
+    </script>
+    <div class="wrapper-md bg-light b-b ">
+        <div class="row">
+
+            <h1 class="m-n font-thin h3 col-lg-2 p-t-5">新增采购入库</h1>
+
+            <button type="button" class="btn btn-info pull-right col-lg-1 top-right-btn" ng-click="open('lg')">新增入库商品
+            </button>
+        </div>
+
+
+    </div>
+
+    <div class="table-responsive layui-form layui-form-pane">
+        <table class="table">
+            <tr class="success font-bold">
+                <td>商品图片</td>
+                <td>所属品牌</td>
+                <td>商品一级分类</td>
+                <td>商品二级分类</td>
+                <td>商品主编号</td>
+                <td>商品SKU编号</td>
+                <td>颜色规格相关信息</td>
+                <td>输入入库数量</td>
+                <td>操作</td>
+            </tr>
+            <tr class="bg-white" ng-repeat="item in sukGoodsSelected track by $index">
+                <td>
+                    <img src="{{host}}{{item.img1_url}}" class="goods-img">
+                </td>
+                <td ng-bind="item.name_zh"></td>
+                <td ng-bind="item.one_cat_name"></td>
+                <td ng-bind="item.tow_cat_name"></td>
+                <td ng-bind="item.main_number"></td>
+                <td ng-bind="item.goods_number"></td>
+                <td ng-bind="item.sku_info"></td>
+                <td>
+                    <input type="number" class="form-control add-body-input-100" lay-verify="required" ng-model="item.repertory">
+                </td>
+                <td>
+                    <button type="button" class="btn btn-info " ng-click="delete(item.id)">删除</button>
+                </td>
+            </tr>
+        </table>
+        <div class="input-group add-body-item-m-t">
+            <div class="input-group-btn">
+                <label class="btn add-body-label">备注：</label>
+            </div>
+            <textarea style="width: 60%;height: 80px;padding: 5px;background: transparent" name="about"
+                      placeholder="字数控制在120字" ng-model="remark"></textarea>
+        </div>
+        <div class="input-group add-body-last-m-b-t">
+            <div class="input-group-btn">
+                <label class="btn add-body-label"></label>
+            </div>
+            <div class="layui-input-block" style="margin-left: 0px">
+                <button class="layui-btn" lay-submit="" lay-filter="go">确认提交</button>
+            </div>
+        </div>
+    </div>
+</div>

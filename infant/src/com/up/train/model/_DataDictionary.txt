@@ -1,0 +1,50 @@
+Table: t_admin
+-------+-------------+------+-----+---------+---------
+ Field | Type        | Null | Key | Default | Remarks 
+-------+-------------+------+-----+---------+---------
+ id    | INT(10)     | NO   | PRI |         |         
+ name  | VARCHAR(32) | NO   |     |         | 管理员名称   
+-------+-------------+------+-----+---------+---------
+
+Table: t_apply
+---------------+--------------+------+-----+---------+---------
+ Field         | Type         | Null | Key | Default | Remarks 
+---------------+--------------+------+-----+---------+---------
+ id            | INT(10)      | NO   | PRI |         | 报名记录    
+ user_id       | INT(10)      | YES  |     |         | 用户id（注册才有）
+ wx_account    | VARCHAR(64)  | YES  |     |         | 微信号     
+ cd_key        | VARCHAR(6)   | YES  |     |         | 验证码（缴费完成，让培训机构验证）
+ user_name     | VARCHAR(32)  | NO   |     |         | 报名者姓名   
+ user_phone    | VARCHAR(11)  | NO   |     |         | 报名者电话   
+ org_id        | VARCHAR(11)  | NO   |     |         | 报名的培训机构id
+ create_time   | DATETIME(19) | NO   |     |         | 报名时间    
+ pay_time      | DATETIME(19) | YES  |     |         | 确认付款时间（培训机构确认）
+ user_sure_pay | BIT          | YES  |     | 0       | 用户确认付款  
+ org_sure_pay  | BIT          | YES  |     | 0       | 培训机构确认付款
+ status        | INT(10)      | NO   |     |         | 状态（1：已报名，2：愿意培训，3：放弃培训）
+---------------+--------------+------+-----+---------+---------
+
+Table: t_organization
+----------+--------------+------+-----+---------+---------
+ Field    | Type         | Null | Key | Default | Remarks 
+----------+--------------+------+-----+---------+---------
+ id       | INT(10)      | NO   | PRI |         |         
+ account  | VARCHAR(32)  | NO   |     |         | 后台登陆账号  
+ password | VARCHAR(32)  | NO   |     |         | 后台登陆密码  
+ name     | VARCHAR(64)  | NO   |     |         | 培训机构名称  
+ phone    | VARCHAR(11)  | YES  |     |         | 培训机构电话  
+ province | VARCHAR(32)  | YES  |     |         | 省       
+ city     | VARCHAR(32)  | YES  |     |         | 市       
+ area     | VARCHAR(32)  | YES  |     |         | 县/区     
+ address  | VARCHAR(255) | YES  |     |         | 详细地址    
+----------+--------------+------+-----+---------+---------
+
+Table: t_user
+-------+-------------+------+-----+---------+---------
+ Field | Type        | Null | Key | Default | Remarks 
+-------+-------------+------+-----+---------+---------
+ id    | INT(10)     | NO   | PRI |         |         
+ name  | VARCHAR(32) | NO   |     |         | 用户名称    
+ phone | VARCHAR(11) | NO   |     |         | 电话号码    
+-------+-------------+------+-----+---------+---------
+

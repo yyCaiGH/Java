@@ -1,0 +1,46 @@
+<div class="modal-header" >
+    <h3 class="modal-title">选择推荐商品</h3>
+</div>
+<div class="modal-body layui-form layui-form-pane">
+
+    <div class="table-responsive">
+        <table class="table">
+            <tr class="success font-bold">
+                <td>商品信息</td>
+                <td>零售价</td>
+                <td>折扣价</td>
+                <td>SKU总库存</td>
+                <td>总销量</td>
+                <td>上架时间</td>
+                <td>选择</td>
+            </tr>
+            <tr class="bg-white"  ng-repeat="item in goodsList track by $index">
+                <td>
+                    <div>
+                        <img src="{{host}}{{item.img1_url}}" class="goods-img"  style="float:left;" >
+                        <div class="goods-des" style="position: relative">
+                            <span style="margin-left: 5px;" ng-bind="item.name | subString:0:12"></span>
+                            <br>
+                            <span style="position: absolute;bottom: 0;margin-left: 5px">编号：{{item.main_number}}</span>
+                        </div>
+                    </div>
+
+                </td>
+                <td ng-bind="item.market_price"></td>
+                <td ng-bind="item.promote_price"></td>
+                <td ng-bind="item.sku_repertory"></td>
+                <td ng-bind="item.total_sales"></td>
+                <td ng-bind="item.create_time"></td>
+                <td>
+                    <input id="myChecked{{item.id}}" class="myChecked" lay-filter="select" type="checkbox" name="r" title="选择" value="{{item.id}}">
+                </td>
+            </tr>
+        </table>
+        <div id="layuiPage1" align="center"></div>
+    </div>
+
+</div>
+<div class="modal-footer model_footer_m_t">
+    <button class="btn btn-default" ng-click="cancel()">取消</button>
+    <button class="btn btn-primary" ng-click="ok()">确定</button>
+</div>

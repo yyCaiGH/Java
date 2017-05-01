@@ -1,0 +1,87 @@
+<div ng-controller="GoodsClassCtrl">
+
+    <script type="text/ng-template" id="modal_add_class.html">
+        <div ng-include="'admin/model/modal_add_class.html'"></div>
+    </script>
+
+    <div class="wrapper-md bg-light b-b ">
+        <div class="row">
+            <h1 class="m-n font-thin h3 col-lg-2 p-t-5">商品分类</h1>
+            <button type="button" class="btn btn-info pull-right col-lg-1 top-right-btn"  ng-click="addClass(0,null,'lg')">添加一级分类</button>
+        </div>
+    </div>
+
+    <div class="table-responsive table-style">
+        <table class="table">
+            <tr class="success font-bold">
+                <td class="col-lg-4">分类名称</td>
+                <td class="col-lg-4">级别</td>
+                <td class="col-lg-4">操作</td>
+            </tr>
+            <tr class="bg-white" ng-repeat="class in classList track by $index">
+                <td ng-if="class.parent_id==0">
+                    <label ng-bind="class.cat_name" style="padding: 3px 8px;background-color: #1a9c39;color: #fff;border-radius: 5px"></label>
+                </td>
+                <td ng-if="class.parent_id!=0">
+                    <label ng-bind="class.cat_name" style="padding: 3px 8px;background-color: #5FB878;color: #fff;border-radius: 5px;margin-left: 50px"></label>
+                </td>
+                <td ng-if="class.parent_id==0">一级分类</td>
+                <td ng-if="class.parent_id!=0">二级分类</td>
+                <td>
+                    <button type="button" class="btn btn-info " ng-click="addClass(class.id,class.cat_name,'lg')" ng-if="class.parent_id==0">新增二级分类</button>
+                    <button type="button" class="btn btn-info " ng-click="delete(class.id,class.parent_id)">删除</button>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+</div>
+
+
+<!--
+<form action="" class="form-horizontal form-wrap" id="myMainForm" >
+
+    <div class="control-group" >
+        <div class="controls" >
+            <div class="btn-wrap" >
+                <a href="javascript:void(0)" ng-click="addClass()"  data-toggle="modal">
+                    <span class="btn btn-info" style="margin-right: 10px">添加</span>
+                </a>
+                <a href="javascript:void(0)" ng-click="editClass()"  data-toggle="modal">
+                    <span class="btn btn-info" style="margin-right: 10px">修改</span>
+                </a>
+                <a href="javascript:void(0)" ng-click="delClass()"  data-toggle="modal">
+                    <span class="btn btn-info">删除</span>
+                </a>
+            </div>
+            <div class="muti-select">
+                <div class="muti-left" style="margin-right: 20px;margin-top: 20px">
+                    <div class="title">商品一级分类</div>
+                    <div class="sel-wrap">
+                        <select multiple="multiple" class="left-sel" id="goodsClasses" name="goodsClasses">
+                            <option value="1">分类1</option>
+                            <option value="1">分类1</option>
+                            <option value="1">分类1</option>
+                            <option value="1">分类1</option>
+                            <option value="1">分类1</option>
+                        </select>
+
+                    </div>
+                </div>
+            </div>
+            <div class="muti-select">
+                <div class="muti-left" style="margin-right: 20px;margin-top: 20px">
+                    <div class="title">商品二级分类</div>
+                    <div class="sel-wrap">
+                        <select multiple="multiple" class="left-sel" id="goodsClasses2" name="goodsClasses2">
+                            <option value="1">分类2</option>
+                            <option value="1">分类2</option>
+                            <option value="1">分类2</option>
+                        </select>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>-->

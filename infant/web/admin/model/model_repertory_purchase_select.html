@@ -1,0 +1,65 @@
+<div class="modal-header" >
+    <h3 class="modal-title">选择入库商品</h3>
+</div>
+<div class="modal-body layui-form layui-form-pane">
+
+    <div class="wrapper-sm bg-light b-b ">
+        <div class="row">
+
+            <button type="button"  class="btn btn-info pull-right col-lg-1" style="margin-right: 20px" lay-submit="" lay-filter="go">搜索</button>
+
+            <div class="pull-right bar-m-r">
+                <div class="btn-group">
+                    <div class="layui-input-inline" style="width: 130px">
+                        <select name="country"  lay-filter="brand">
+                            <option value="">选择品牌</option>
+                            <option value="">全部</option>
+                            <option ng-repeat="brand in brandList track by $index" value="{{brand.id}}"
+                                    ng-bind="brand.name_zh">
+                            </option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+
+    </div>
+
+    <div class="table-responsive" >
+        <table class="table">
+            <tr class="success font-bold">
+                <td>商品图片</td>
+                <td>商品品牌</td>
+                <td>一级分类</td>
+                <td>二级分类</td>
+                <td>商品主编号</td>
+                <td>商品编号</td>
+                <td>Sku信息</td>
+                <td>选择</td>
+            </tr>
+            <tr class="bg-white"  ng-repeat="item in skuGoodsList track by $index">
+                <td>
+                    <img src="{{host}}{{item.img1_url}}" class="goods-img" >
+                </td>
+                <td ng-bind="item.name_zh"></td>
+                <td ng-bind="item.one_cat_name"></td>
+                <td ng-bind="item.tow_cat_name"></td>
+                <td ng-bind="item.main_number"></td>
+                <td ng-bind="item.goods_number"></td>
+                <td>{{item.sku1_name}}_{{item.sku2_name}}_{{item.sku3_name}}</td>
+                <td>
+                    <input id="myChecked{{item.id}}" class="myChecked" lay-filter="select" type="checkbox" name="r" title="选择"
+                           value="{{item.id}},{{item.img1_url}},{{item.name_zh}},{{item.one_cat_name}},{{item.tow_cat_name}},{{item.main_number}},{{item.goods_number}},{{item.sku1_name}}_{{item.sku2_name}}_{{item.sku3_name}}">
+                </td>
+            </tr>
+        </table>
+        <div id="layuiPage" align="center"></div>
+    </div>
+
+</div>
+<div class="modal-footer model_footer_m_t">
+    <button class="btn btn-default" ng-click="cancel()">取消</button>
+    <button class="btn btn-primary" ng-click="ok()">确定</button>
+</div>

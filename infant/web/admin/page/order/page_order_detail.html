@@ -1,0 +1,287 @@
+<div ng-controller="OrderDetailCtrl">
+
+    <div class="wrapper-md bg-light b-b ">
+        <div class="row ">
+            <h1 class="m-n font-thin h3 p-t-5 col-lg-2">订单详情</h1>
+        </div>
+    </div>
+
+    <div class="order-body">
+        <div>
+            <lable class="col-lg-4 order-tab"
+                   style="background-color: #CC6600;color: #fff;border-right: 3px solid #fff">第一步：买家付款
+            </lable>
+
+            <lable class="col-lg-4 order-tab" style="background-color: #CC6600;color: #fff;border-right: 3px solid #fff"
+                   ng-if="order.status!=1&&order.status!=7">第二步：卖家发货
+            </lable>
+            <lable class="col-lg-4 order-tab" style="background-color: #CCCCCC;border-right: 3px solid #fff"
+                   ng-if="order.status==1||order.status==7">第二步：卖家发货
+            </lable>
+
+            <lable class="col-lg-4 order-tab" style="background-color: #CC6600;color: #fff;"
+                   ng-if="order.status!=1&&order.status!=2&&order.status!=7">第三部：买家确认收货
+            </lable>
+            <lable class="col-lg-4 order-tab" style="background-color: #CCCCCC;"
+                   ng-if="order.status==1||order.status==2||order.status==7">第三部：买家确认收货
+            </lable>
+        </div>
+
+        <div class="order-state" ng-if="order.status==1">
+            <div style="font-size: 17px;font-weight: bold;margin-top: 30px;margin-bottom: 20px">当前订单状态：商品已拍下，等待买家付款
+            </div>
+            <button type="button" class="btn btn-info " ng-click="closeOrder()" style="margin-bottom: 30px">关闭交易
+            </button>
+        </div>
+
+        <p class="order-small-title">订单信息</p>
+
+        <div class="order-info">
+            <p class="order-info-label font-bold">客户信息</p>
+            <div style="padding: 10px">
+
+                昵称：<label class="order-info-value">{{order.nickname}}</label> &nbsp;&nbsp;
+                客户等级：<label class="order-info-value">{{order.grade_name}}</label>&nbsp;&nbsp;
+                消费金额：<label class="order-info-value">{{order.consume_amount | currency:'￥'}}</label>&nbsp;&nbsp;
+                订单来源：<label class="order-info-value" ng-if="order.from == 1">IOS客户端</label>
+                <label class="order-info-value" ng-if="order.from == 2">Android客户端</label>
+                <label class="order-info-value" ng-if="order.from == 3">微信</label>
+                <label class="order-info-value" ng-if="order.from == 4">微博</label>
+                <br><br>
+
+                收货姓名：<label class="order-info-value" ng-bind="order.contact"></label>&nbsp;&nbsp;
+                电话：<label class="order-info-value" ng-bind="order.phone"></label>
+
+                <br><br>
+                <div ng-if="order.delivery_type==0">
+                    地址：<label class="order-info-value">{{order.province}}&nbsp;&nbsp;{{order.city}}&nbsp;&nbsp;{{order.area}}&nbsp;&nbsp;{{order.address}}</label>
+                </div>
+                <div ng-if="order.delivery_type==1">
+                    配送方式：<label class="order-info-value">用户自取</label>
+                </div>
+            </div>
+            <p class="order-info-label font-bold">购买明细</p>
+            <div style="padding: 10px;">
+                订单状态：
+                <label class="order-info-value" ng-if="order.status==1">已下单待付款</label>
+                <label class="order-info-value" ng-if="order.status==2">已付款待发货</label>
+                <label class="order-info-value" ng-if="order.status==3">已发货待收货</label>
+                <label class="order-info-value" ng-if="order.status==4">交易成功</label>
+                <label class="order-info-value" ng-if="order.status==5">退款中</label>
+                <label class="order-info-value" ng-if="order.status==6&&order.status_returns==1">买家申请退货中</label>
+                <label class="order-info-value" ng-if="order.status==6&&order.status_returns==2">卖家同意退货</label>
+                <label class="order-info-value" ng-if="order.status==6&&order.status_returns==3">买家已发货</label>
+                <label class="order-info-value" ng-if="order.status==6&&order.status_returns==4">退货完成</label>
+                <label class="order-info-value" ng-if="order.status==7">订单关闭</label>
+                <br>
+                订单编号：<label class="order-info-value" ng-bind="order.serial_number"></label>&nbsp;&nbsp;
+                创建时间：<label class="order-info-value" ng-bind="order.time_create"></label>&nbsp;&nbsp;
+                <br>
+                <div ng-if="order.status!=1&&order.status!=7">
+                    付款类型：
+                    <label class="order-info-value" ng-if="order.pay_type==1">支付宝支付</label>
+                    <label class="order-info-value" ng-if="order.pay_type==2">微信支付</label>
+                    &nbsp;&nbsp;
+                    付款时间：<label class="order-info-value" ng-bind="order.time_pay"></label>&nbsp;&nbsp;
+                    支付交易号：<label class="order-info-value" ng-bind="order.pay_sn"></label>
+                </div>
+            </div>
+            <div class="table-responsive">
+                <table class="table" style="margin-top: 2px">
+                    <tr class="success font-bold">
+                        <td class="">商品信息</td>
+                        <td class="">品牌</td>
+                        <td class="">Sku信息</td>
+                        <td class="">购买数量</td>
+                        <td class="">单价</td>
+                        <!--<td class="">会员折扣</td>
+                        <td class="">状态</td>
+                        <td class="">优惠券</td>
+                        <td class="">实收</td>-->
+                    </tr>
+                    <tr class="bg-white" ng-repeat="item in orderGoodsList track by $index">
+                        <td>
+                            <div>
+                                <img src="{{host}}{{item.img1_url}}" class="goods-img" style="float:left;">
+                                <div class="goods-des" style="position: relative">
+                                    <span style="margin-left: 5px;" ng-bind="item.name | subString:0:12"></span>
+                                    <br>
+                                    <span style="position: absolute;bottom: 0;margin-left: 5px">编号：{{item.goods_sn}}</span>
+                                </div>
+                            </div>
+                        </td>
+                        <td ng-bind="item.name_zh"></td>
+                        <td ng-bind="item.sku_info"></td>
+                        <td ng-bind="item.count"></td>
+                        <td ng-bind="item.dis_price | currency:'￥'"></td>
+                    </tr>
+                </table>
+            </div>
+
+            <div style="padding: 10px;" ng-if="order.status!=1&&order.status!=7">
+                合计金额：<label class="order-info-value" ng-bind="order.price | currency:'￥'"></label>&nbsp;&nbsp;
+                <br>
+                会员折扣：<label class="order-info-value">{{order.vip_discounts}}折</label>&nbsp;&nbsp;
+                <br>
+                运费：<label class="order-info-value" ng-bind="order.postage_price | currency:'￥'"></label>&nbsp;&nbsp;
+                <br>
+                使用返点：<label class="order-info-value" ng-bind="order.rebate | currency:'￥'"></label>&nbsp;&nbsp;
+                <br>
+                <div ng-if="order.member_coupon_id!=null">
+                    优惠券：<label class="order-info-value">{{order.title}}（{{order.cdkey}}）</label>&nbsp;&nbsp;
+                </div>
+                <div ng-if="order.type == 1">
+                    优惠金额：<label class="order-info-value">{{order.coupon_amount||0 | currency:'￥'}}（后台手动输入优惠金额）</label>&nbsp;&nbsp;
+                </div>
+                <br>
+                合计实收：<label class="order-info-value" ng-bind="order.real_price | currency:'￥'"></label>&nbsp;&nbsp;
+                <br>
+                <br>
+                <label style="color: red">买家留言：</label><label class="order-info-value"
+                                                              ng-bind="order.leave_word"></label>
+            </div>
+
+        </div>
+
+        <div ng-if="order.status>1&&order.status!=7">
+            <p class="order-small-title">卖家发货</p>
+
+            <div style="padding: 20px" ng-if="order.status!=2">
+
+                快递：<label class="order-info-value" ng-bind="order.expressage"></label> &nbsp;&nbsp;
+                快递单号：<label class="order-info-value" ng-bind="order.logistics_number"></label>&nbsp;&nbsp;
+                发货时间：<label class="order-info-value" ng-bind="order.time_deliver"> </label>&nbsp;&nbsp;
+                备注：<label class="order-info-value" ng-bind="order.deliver_reamrk"></label>
+
+            </div>
+
+            <div class="layui-form layui-form-pane" ng-if="order.status==2">
+                <div class="input-group add-body-item-m-t">
+                    <div class="input-group-btn">
+                        <label class="btn add-body-label" disabled="">快递：</label>
+                    </div>
+                    <div class="layui-input-inline">
+                        <select name="country" ng-if="order.postage_price==0" lay-filter="expressage">
+                            <option value="">请选择</option>
+                            <option ng-repeat="addr in expressageList track by $index" value="{{addr.value}}"
+                                    ng-bind="addr.value">
+                            </option>
+                        </select>
+                        <label class="form-control add-body-input-20" ng-bind="order.expressage"
+                               ng-if="order.postage_price!=0"></label>
+                    </div>
+                    &nbsp;&nbsp;&nbsp;&nbsp;输入快递单号：
+                    <input id="typeInfo3" type="text" class="form-control add-body-input-20" style="float: none"
+                           lay-verify="required"
+                           name="name_zh" ng-model="order.logistics_number">
+                </div>
+                <div class="input-group add-body-item-m-t">
+                    <div class="input-group-btn">
+                        <label class="btn add-body-label">订单备注：</label>
+                    </div>
+                    <textarea style="width: 60%;height: 80px;padding: 5px" name="about" placeholder="字数控制在120字"
+                              ng-model="order.deliver_reamrk"></textarea>
+                </div>
+                <div class="input-group add-body-last-m-b-t">
+                    <div class="input-group-btn">
+                        <label class="btn add-body-label"></label>
+                    </div>
+                    <div class="layui-input-block" style="margin-left: 0px">
+                        <button class="layui-btn" lay-submit="" lay-filter="go">确认发货</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div ng-if="order.status==6">
+            <p class="order-small-title">买家退货</p>
+            <div style="padding: 20px" ng-if="order.status_returns>=2">
+
+                同意时间：<label class="order-info-value" ng-bind="order.time_returns_agree"></label> &nbsp;&nbsp;
+                退货地址：<label class="order-info-value" ng-bind="order.returns_address"></label>&nbsp;&nbsp;
+                退货备注：<label class="order-info-value" ng-bind="order.returns_remark"></label>&nbsp;&nbsp;
+
+            </div>
+            <div class="layui-form layui-form-pane" ng-if="order.status_returns==1">
+                <div class="input-group add-body-item-m-t" style="width: 50%">
+                    <div class="input-group-btn">
+                        <label class="btn add-body-label">退货地址：</label>
+                    </div>
+                    <select name="country" lay-verify="required" lay-filter="address">
+                        <option value="">请选择</option>
+                        <option ng-repeat="addr in addrList track by $index" value="{{addr.value}}"
+                                ng-bind="addr.value">
+                        </option>
+                    </select>
+                </div>
+                <div class="input-group add-body-item-m-t">
+                    <div class="input-group-btn">
+                        <label class="btn add-body-label">退货备注：</label>
+                    </div>
+                    <textarea style="width: 60%;height: 80px;padding: 5px" name="about" placeholder="字数控制在120字"
+                              ng-model="order.returns_remark"></textarea>
+                </div>
+                <div class="input-group add-body-last-m-b-t">
+                    <div class="input-group-btn">
+                        <label class="btn add-body-label"></label>
+                    </div>
+                    <div class="layui-input-block" style="margin-left: 0px">
+                        <button class="layui-btn" lay-submit="" lay-filter="go1">同意退货</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div ng-if="order.status==3||order.status==4">
+            <p class="order-small-title">买家确认收货</p>
+
+            <div style="padding: 20px" ng-if="order.status==3">
+                未收货<br><br>
+                <div class="layui-input-block" style="margin-left: 0px">
+                    <button class="layui-btn" lay-submit="" lay-filter="go11">买家申请退货</button>
+                </div>
+            </div>
+            <div style="padding: 20px" ng-if="order.status==4">
+                收货时间：<label class="order-info-value" ng-bind="order.time_receiving"></label>
+            </div>
+        </div>
+        <div ng-if="order.status==6&&order.status_returns>2">
+            <p class="order-small-title">买家退货物流信息</p>
+            <div style="padding: 20px">
+
+                买家发货时间：<label class="order-info-value" ng-bind="order.time_returns_deliver"></label> &nbsp;&nbsp;
+                发货物流：<label class="order-info-value" ng-bind="order.returns_expressage"></label>&nbsp;&nbsp;
+                物流单号：<label class="order-info-value" ng-bind="order.returns_logistics_number"></label>&nbsp;&nbsp;
+
+            </div>
+        </div>
+        <div ng-if="order.status==6&&order.status_returns>2">
+            <p class="order-small-title">卖家确认收货（买家退货）</p>
+            <div style="padding: 20px" ng-if="order.status_returns==4">
+                <label class="order-info-value" style="font-size: 15px">退货完成</label>
+                <br><br>
+                确认收货时间：<label class="order-info-value" ng-bind="order.time_returns_finish"></label>
+                <br>
+                备注：<label class="order-info-value" ng-bind="order.returns_receiving_ramark"></label>&nbsp;&nbsp;
+            </div>
+            <div class="layui-form layui-form-pane" ng-if="order.status_returns==3">
+                <div class="input-group add-body-item-m-t">
+                    <div class="input-group-btn">
+                        <label class="btn add-body-label">备注：</label>
+                    </div>
+                    <textarea style="width: 60%;height: 80px;padding: 5px" name="about" placeholder="字数控制在120字"
+                              ng-model="order.returns_receiving_ramark"></textarea>
+                </div>
+                <div class="input-group add-body-last-m-b-t">
+                    <div class="input-group-btn">
+                        <label class="btn add-body-label"></label>
+                    </div>
+                    <div class="layui-input-block" style="margin-left: 0px">
+                        <button class="layui-btn" lay-submit="" lay-filter="go2">确认收到买家退货</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="returnInfo"></div>
+
+    </div>
+</div>

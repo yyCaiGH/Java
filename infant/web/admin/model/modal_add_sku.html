@@ -1,0 +1,33 @@
+<div class="modal-header">
+    <h3 class="modal-title">新增SKU属性</h3>
+</div>
+<div class="modal-body">
+
+        <div class="input-group">
+            <div class="input-group-btn">
+                <!--<button type="button" class="btn btn-default" disabled>属性名：</button>-->
+                <label class="btn" disabled>属性名：</label>
+            </div><!-- /btn-group -->
+            <input id="skuName" type="text" class="form-control" style="margin: 0px 10px"  ng-model="skuName">
+        </div><!-- /input-group -->
+
+    <div class="input-group model_item_m_t">
+        <div class="input-group-btn">
+            <label class="btn" disabled>属性值：</label>
+        </div><!-- /btn-group -->
+        <div id="inputList">
+        <input type="text" class="form-control"style="width: 17%;margin: 5px 10px">
+        <input type="text" class="form-control"style="width: 17%;margin: 5px 10px">
+        <input type="text" class="form-control"style="width: 17%;margin: 5px 10px">
+        <input type="text" class="form-control"style="width: 17%;margin: 5px 10px">
+        <input type="text" class="form-control"style="width: 17%;margin: 5px 10px">
+        </div>
+        <button type="button" class="btn" style="width: 17%;margin: 5px 10px" ng-click="addInput()">新增一个</button>
+    </div><!-- /input-group -->
+
+
+</div>
+<div class="modal-footer model_footer_m_t">
+    <button class="btn btn-default" ng-click="cancel()">取消</button>
+    <button class="btn btn-primary" ng-click="ok()">确定</button>
+</div>

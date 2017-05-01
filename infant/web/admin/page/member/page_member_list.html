@@ -1,0 +1,77 @@
+<div ng-controller="MemberListCtrl">
+
+<div class="wrapper-md bg-light b-b ">
+  <div class="row layui-form layui-form-pane">
+
+    <h1 class="m-n font-thin h3 p-t-5 col-lg-5">
+      会员列表&nbsp&nbsp
+      <label class="h5" >会员总人数：{{totalMember}} &nbsp&nbsp   今日新增会员：{{todayMember}}  &nbsp&nbsp    昨日新增会员：{{yesterdayMember}}</label>
+    </h1>
+
+
+
+    <button type="button"  class="btn btn-info pull-right col-lg-1" lay-submit="" lay-filter="go">搜索</button>
+
+      <div class="pull-right bar-m-r">
+        <div class="input-group input-g-w-sm ">
+          <div class="input-group-btn">
+          </div><!-- /btn-group -->
+          <input type="text" class="form-control" ng-model="member.nickname" placeholder="会员昵称/手机号">
+        </div><!-- /input-group -->
+      </div>
+
+    <div class="pull-right bar-m-r">
+      <div class="btn-group">
+        <div class="layui-input-inline" style="width: 130px">
+          <select name="country"  lay-filter="grade">
+            <option value="">会员等级</option>
+            <option value="">全部</option>
+            <option ng-repeat="grade in gradeList track by $index" value="{{grade.id}}"
+                    ng-bind="grade.name">
+            </option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+  <ul id="myTab" class="nav nav-tabs">
+    <li class="active"><a data-toggle="tab" ng-click="getMembers(0)">正常会员</a></li>
+    <li><a  data-toggle="tab" ng-click="getMembers(1)">黑名单</a></li>
+  </ul>
+
+  <div class="table-responsive table-style">
+    <table class="table">
+      <tr class="success font-bold">
+        <td>会员编号</td>
+        <td>会员昵称</td>
+        <td>会员类型</td>
+        <td>会员等级</td>
+        <td>返点余额</td>
+        <td>总消费次数</td>
+        <td>退货次数</td>
+        <td>累计消费金额</td>
+        <td>注册时间</td>
+        <td>操作</td>
+      </tr>
+      <tr class="bg-white" ng-repeat="item in list track by $index">
+        <td>{{item.id}}</td>
+        <td>{{item.nickname}}</td>
+        <td>{{item.register_from}}</td>
+        <td>{{item.grade_name}}</td>
+        <td>{{item.rebate_count}}</td>
+        <td>{{item.consume_count}}</td>
+        <td>{{item.refund_count}}</td>
+        <td>{{item.consume_amount}}</td>
+        <td>{{item.register_time}}</td>
+        <td>
+          <button type="button" class="btn btn-info " ng-click="detail(item.id)">详情</button>
+        </td>
+      </tr>
+    </table>
+    <div id="layuiPage" align="center"></div>
+  </div>
+
+</div>

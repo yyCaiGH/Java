@@ -1,0 +1,248 @@
+<div ng-controller="AddOrderCtrl">
+
+    <script type="text/ng-template" id="model_repertory_purchase_select.html">
+        <div ng-include="'admin/model/model_sku_goods_select.html'"></div>
+    </script>
+
+    <div class="wrapper-md bg-light b-b ">
+        <div class="row">
+            <h1 class="m-n font-thin h3 col-lg-2 p-t-5">手动新增订单</h1>
+        </div>
+    </div>
+    <div class="layui-form layui-form-pane">
+        <div>
+            <p class="small-title">客户信息</p>
+            <div class="input-group add-body-item-m-t">
+                <div class="input-group-btn">
+                    <label class="btn add-body-label" disabled="">搜索会员：</label>
+                </div>
+                <input type="text" class="form-control add-body-input" lay-verify="required" list="url_list" placeholder="输入会员编号/手机号/昵称"
+                       ng-model="member.nickname" ng-change="inputValueChange()">
+                <datalist id="url_list">
+                    <option ng-repeat="item in memberList track by $index" label="{{item.grade_name}}"
+                            value="编号：{{item.id}}，&nbsp;&nbsp;&nbsp;昵称：{{item.nickname}}，&nbsp;&nbsp;&nbsp;电话：{{item.phone}}"/>
+                </datalist>
+            </div>
+            <div class="input-group add-body-item-m-t">
+                <div class="input-group-btn">
+                    <label class="btn add-body-label" disabled="">配送方式：</label>
+                </div>
+                <div class="layui-input-block" style="margin-left: 0px">
+                    <div>
+                        <input lay-filter="filter0" type="radio" name="type0" value="1" title="自取" checked>
+                    </div>
+                    <div class="add-body-radio-m-t">
+                        <input lay-filter="filter0" type="radio" name="type0" value="0" title="快递">
+                        <div class="layui-input-inline" style="width: 500px">
+                            <select name="country" lay-filter="address">
+                                <option value="">选择用户预留地址</option>
+                                <option value="">自定义</option>
+                                <option ng-repeat="item in addressList track by $index"
+                                        value="{{item.province}},{{item.city}},{{item.area}},{{item.address}},{{item.id}}"
+                                        ng-bind="item.province+' '+item.city+' '+item.area+' '+item.address">
+                                </option>
+                            </select>
+                        </div>
+                        <br><br>
+                        <label style="margin-left: 90px">收货地址：</label>
+                        <div class="layui-input-inline" style="width: 150px">
+                            <select name="country" lay-filter="area1">
+                                <option value="">{{order.province||'选择省'}}</option>
+                                <option ng-repeat="item in List1 track by $index" value="{{item.code}},{{item.name}}"
+                                        ng-bind="item.name">
+                                </option>
+                            </select>
+                        </div>
+
+                        <div class="layui-input-inline" style="width: 150px">
+                            <select name="country" lay-filter="area2">
+                                <option value="">{{order.city||'选择市'}}</option>
+                                <option ng-repeat="item in List2 track by $index" value="{{item.code}},{{item.name}}"
+                                        ng-bind="item.name">
+                                </option>
+                            </select>
+                        </div>
+
+                        <div class="layui-input-inline" style="width: 150px">
+                            <select name="country" lay-filter="area3">
+                                <option value="">{{order.area||'选择区/县'}}</option>
+                                <option ng-repeat="item in List3 track by $index" value="{{item.code}},{{item.name}}"
+                                        ng-bind="item.name">
+                                </option>
+                            </select>
+                        </div>
+                        <input type="text" class="form-control" style="float: none;width: 300px"
+                               ng-model="order.address">
+                        <br><br>
+                        <label style="margin-left: 90px">收货人：</label>
+                        <input type="text" class="form-control add-body-input-20" style="float: none"
+                               lay-verify="required"
+                               ng-model="order.contact">
+                        <label style="margin-left: 20px">电话号码：</label>
+                        <input type="number" class="form-control add-body-input-20" style="float: none"
+                               lay-verify="phone"
+                               oninput="if(value.length>11)value=value.slice(0,11)"
+                               ng-model="order.phone">
+                    </div>
+                </div>
+            </div>
+            <div class="input-group add-body-item-m-t add-body-item-m-b">
+                <div class="input-group-btn">
+                    <label class="btn add-body-label" disabled="">运费：</label>
+                </div>
+                <div class="layui-input-block" style="margin-left: 0px">
+                    <div>
+                        <input lay-filter="filter1" type="radio" name="type1" value="0" title="包邮" checked>
+                    </div>
+                    <div class="add-body-radio-m-t">
+                        <input lay-filter="filter1" type="radio" name="type1" value="1" title="选择运费模板">
+                        <div class="layui-input-inline">
+                            <select name="country" lay-filter="postageGroupId" style="width: 200px">
+                                <option value="">请选择运费组</option>
+                                <option ng-repeat="item in postageGroupList track by $index" value="{{item.id}}"
+                                        ng-bind="item.name">
+                                </option>
+                            </select>
+                        </div>
+                        <div class="layui-input-inline">
+                            <select name="country" lay-filter="postageTplId" style="width: 200px" id="mySelect">
+                                <option value="">请选择运费模板</option>
+                                <option ng-repeat="item in postageTplList track by $index" value="{{item.id}},{{item.name}}"
+                                        ng-bind="item.name">
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div>
+            <div class="small-title" style="line-height: 36px">
+                选择商品
+                <button type="button" class="btn btn-info pull-right col-lg-1 top-right-btn" ng-click="open('lg')">
+                    添加商品
+                </button>
+            </div>
+
+            <div class="table-responsive table-style">
+                <table class="table" style="margin-bottom: 0px;">
+                    <tr class="font-bold" style="background-color: #D8E0E0;">
+                        <td class="col-lg-3">商品信息</td>
+                        <td class="col-lg-2">数量</td>
+                        <td class="col-lg-1">单价</td>
+                        <td class="col-lg-2">会员折扣</td>
+                        <td class="col-lg-2">优惠金额</td>
+                        <td class="col-lg-1">实收</td>
+                        <td class="col-lg-1">操作</td>
+                    </tr>
+                    <tr class="bg-white" ng-repeat="item in sukGoodsSelected track by $index">
+                        <!--<tr class="bg-white">-->
+                        <td>
+                            <div>
+                                <img src="{{host}}{{item.img1_url}}" class="goods-img" style="float:left;">
+                                <div class="goods-des" style="position: relative">
+                                    <span style="margin-left: 5px;"
+                                          ng-bind="item.name|| '商品标题' | subString:0:12 "></span>
+                                    <br>
+                                    <span style="position: absolute;bottom: 0;margin-left: 5px">{{item.name_zh}}/{{item.sku_info}}</span>
+                                </div>
+                            </div>
+
+                        </td>
+                        <td>
+                            <input type="number" class="form-control add-body-input" lay-verify="required"
+                                   ng-model="item.count"  ng-change="inputValueChange1()">
+                        </td>
+                        <td ng-bind="item.promote_price| currency:'￥'"></td>
+                        <td>{{member.discount}}折</td>
+                        <td>
+                            <input type="number" class="form-control add-body-input" lay-verify="required"
+                                   ng-model="item.coupon_amount" ng-change="inputValueChange1()">
+                        </td>
+                        <td ng-bind="item.real_price | currency:'￥'"></td>
+                        <td>
+                            <button type="button" class="btn btn-info " ng-click="delete(item.id)">删除</button>
+                        </td>
+                    </tr>
+                </table>
+                <div style="background-color: #D8E0E0;padding: 10px;" align="right">
+                    <label style="font-weight: bold;margin-right: 20px">商品总实收：{{orderExtra.real_price | currency:'￥'}}</label>
+                </div>
+            </div>
+
+        </div>
+        <div>
+            <p class="small-title">其他信息</p>
+            <div class="input-group add-body-first_m_t">
+                <div class="input-group-btn">
+                    <label class="btn add-body-label">订单来源：</label>
+                </div>
+                <div class="layui-input-inline">
+                    <select name="country" lay-verify="required" lay-filter="orderOrigin">
+                        <option value="">请选择</option>
+                        <option ng-repeat="item in orderOriginList track by $index" value="{{item.key}}"
+                                ng-bind="item.value">
+                        </option>
+                    </select>
+                </div>
+            </div>
+            <div class="input-group add-body-first_m_t">
+                <div class="input-group-btn">
+                    <label class="btn add-body-label">付款方式：</label>
+                </div>
+                <div class="layui-input-inline">
+                    <select name="country" lay-verify="required" lay-filter="payType">
+                        <option value="">请选择</option>
+                        <option value="1">支付宝</option>
+                        <option value="2">微信</option>
+                    </select>
+                </div>
+            </div>
+            <div class="input-group add-body-item-m-t add-body-item-m-b">
+                <div class="input-group-btn">
+                    <label class="btn add-body-label">订单备注：</label>
+                </div>
+                <textarea style="width: 60%;height: 80px;padding: 5px;background: transparent" name="about"
+                          placeholder="字数控制在120字" ng-model="order.leave_word"></textarea>
+            </div>
+        </div>
+        <div>
+            <p class="small-title">合计</p>
+            <div class="input-group add-body-first_m_t">
+                <div class="input-group-btn">
+                    <label class="btn add-body-label">商品实收：</label>
+                </div>
+                <div class="layui-input-inline">
+                    <label class="form-control" ng-bind="orderExtra.real_price | currency:'￥'"></label>
+                </div>
+            </div>
+            <div class="input-group add-body-first_m_t">
+                <div class="input-group-btn">
+                    <label class="btn add-body-label">运费：</label>
+                </div>
+                <div class="layui-input-inline">
+                    <label class="form-control" ng-bind="order.postage_price | currency:'￥'"></label>
+                </div>
+            </div>
+            <div class="input-group add-body-first_m_t">
+                <div class="input-group-btn">
+                    <label class="btn add-body-label">总计：</label>
+                </div>
+                <div class="layui-input-inline">
+                    <label class="form-control" style="color: red" ng-bind="order.real_price | currency:'￥'"></label>
+                </div>
+            </div>
+
+            <div class="input-group add-body-last-m-b-t">
+                <div class="input-group-btn">
+                    <label class="btn add-body-label"></label>
+                </div>
+                <div class="layui-input-block" style="margin-left: 0px">
+                    <button class="layui-btn" lay-submit="" lay-filter="go1">确定添加订单</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

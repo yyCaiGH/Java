@@ -1,0 +1,30 @@
+<div ng-controller="PostageTplCtrl">
+    <script type="text/ng-template" id="modal_postage_tpl.html">
+        <div ng-include="'admin/model/modal_postage_tpl.html'"></div>
+    </script>
+<div class="wrapper-md bg-light b-b ">
+    <div class="row">
+
+        <h1 class="m-n font-thin h3 col-lg-3 p-t-5">“{{postageGroup.name}}”运费模板</h1>
+        <button type="button" class="btn btn-info pull-right col-lg-1 top-right-btn"  ng-click="open(null,'lg')">添加运费模板</button>
+    </div>
+
+
+</div>
+
+<div class="table-responsive table-style" >
+    <table class="table">
+        <tr class="success font-bold">
+            <td class="col-lg-6">运费模板名称</td>
+            <td class="col-lg-6">操作</td>
+        </tr>
+        <tr class="bg-white" ng-repeat="postageTpl in postageTplList track by $index">
+            <td ng-bind="postageTpl.name"></td>
+            <td>
+                <button type="button" class="btn btn-info " ng-click="open(postageTpl.id,'lg')">编辑</button>
+                <button type="button" class="btn btn-info " ng-click="delete(postageTpl.id)">删除</button>
+            </td>
+        </tr>
+    </table>
+</div>
+</div>

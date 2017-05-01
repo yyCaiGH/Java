@@ -1,0 +1,99 @@
+<div class="layui-form layui-form-pane">
+<div class="modal-header">
+    <h3 class="modal-title">{{title}}</h3>
+</div>
+<div class="modal-body">
+
+        <div class="input-group add-body-item-m-t">
+            <div class="input-group-btn">
+                <label class="btn add-body-label" disabled="">标题：</label>
+            </div>
+            <input type="text" class="form-control add-body-input" name="name_zh" lay-verify="required"
+                   ng-model="banner.name">
+        </div>
+
+        <div class="input-group add-body-item-m-t">
+            <div class="input-group-btn">
+                <label class="btn add-body-label" disabled="">图片：</label>
+            </div><!-- /btn-group -->
+            <div>
+                <img id="preview2" alt="" style="width: 111px;height: 80px;margin-bottom: 10px"
+                     src="{{host}}{{banner.img}}"/>
+                <br>
+                <input type="file" name="file" class="layui-upload-file" id="goodsTagImg">
+            </div>
+        </div>
+        <div class="input-group add-body-item-m-t">
+            <div class="input-group-btn">
+                <label class="btn add-body-label" disabled="">排序：</label>
+            </div>
+            <input type="number" class="form-control add-body-input" name="name_zh" lay-verify="required"
+                   ng-model="banner.sort">
+        </div>
+        <div class="input-group add-body-item-m-t">
+            <div class="input-group-btn">
+                <label class="btn add-body-label" disabled="">跳转：</label>
+            </div>
+            <div class="layui-input-block" style="margin-left: 0px">
+                <input lay-filter="filter1" type="radio" name="type" value="0" title="单页" checked>
+                <input id="type_1" lay-filter="filter1" type="radio" name="type" value="1" title="领取code码">
+                <input id="type_2" lay-filter="filter1" type="radio" name="type" value="2" title="文章">
+                <input id="type_3" lay-filter="filter1" type="radio" name="type" value="3" title="选择品牌">
+            </div>
+        </div>
+        <div class="input-group add-body-item-m-t" id="type1">
+            <div class="input-group-btn">
+                <label class="btn add-body-label" disabled=""></label>
+            </div>
+            <input type="text" class="form-control add-body-input" name="name_zh"  placeholder="输入单页文章编号"
+                   ng-model="banner.type_expand">
+        </div>
+        <div class="input-group add-body-item-m-t hide" id="type2">
+            <div class="input-group-btn">
+                <label class="btn add-body-label" disabled=""></label>
+            </div>
+            <div class="layui-input-inline">
+                <select name="country"  lay-filter="coupon" id="coupon">
+                    <option value="">请选择优惠劵</option>
+                    <option ng-repeat="coupon in couponList track by $index" value="{{coupon.id}}"
+                            ng-bind="coupon.title" ng-if="coupon.id==banner.type_expand" selected="true">
+                    </option>
+                    <option ng-repeat="coupon in couponList track by $index" value="{{coupon.id}}"
+                            ng-bind="coupon.title" ng-if="coupon.id!=banner.type_expand">
+                    </option>
+                </select>
+            </div>
+        </div>
+        <div class="input-group add-body-item-m-t hide" id="type3">
+            <div class="input-group-btn">
+                <label class="btn add-body-label" disabled=""></label>
+            </div>
+            <div class="layui-input-inline">
+                <select name="country"  lay-filter="brand" id="brand">
+                    <option value="">请选择品牌</option>
+                    <option ng-repeat="brand in brandList track by $index" value="{{brand.id}}"
+                            ng-bind="brand.name_zh"  ng-if="brand.id==banner.type_expand" selected="true">
+                    </option>
+                    <option ng-repeat="brand in brandList track by $index" value="{{brand.id}}"
+                            ng-bind="brand.name_zh"  ng-if="brand.id!=banner.type_expand">
+                    </option>
+                </select>
+            </div>
+        </div>
+        <div class="input-group add-body-item-m-t">
+            <div class="input-group-btn">
+                <label class="btn add-body-label" disabled="">状态：</label>
+            </div>
+            <div class="layui-input-block" style="margin-left: 0px">
+                <input id="statusShow" lay-filter="filter2" type="radio" name="status" value="1" title="显示"  checked="true">
+                <input id="statusHide" lay-filter="filter2" type="radio" name="status" value="0" title="隐藏">
+            </div>
+        </div>
+
+
+</div>
+<div class="modal-footer model_footer_m_t">
+    <button class="btn btn-default" ng-click="cancel()">取消</button>
+    <button class="btn btn-primary" lay-submit="" lay-filter="go">确定</button>
+</div>
+</div>

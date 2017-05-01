@@ -1,0 +1,551 @@
+Table: t_article
+----------------+----------------+------+-----+---------+---------
+ Field          | Type           | Null | Key | Default | Remarks 
+----------------+----------------+------+-----+---------+---------
+ id             | INT(10)        | NO   | PRI |         | 文章id(编号)
+ member_id      | INT(10)        | NO   |     |         | 会员id    
+ content        | VARCHAR(200)   | NO   |     |         | 内容（限制两百个字）
+ img_url        | VARCHAR(255)   | YES  |     |         | 图片      
+ page_view      | INT(10)        | YES  |     | 0       | 浏览数     
+ like_count     | INT(10)        | YES  |     | 0       | 点赞数     
+ comment        | INT(10)        | YES  |     | 0       | 评论数     
+ create_time    | DATETIME(19)   | NO   |     |         | 发布时间    
+ is_top         | BIT            | YES  |     | 0       | 是否置顶（永久置顶）,1为置顶，0不置顶
+ top_time       | DATETIME(19)   | YES  |     |         | 置顶时间    
+ is_recommend   | BIT            | YES  |     | 0       | 是否推荐（只能推荐24小时）0代表不推荐。1代表推荐
+ recommend_time | DATETIME(19)   | YES  |     |         | 推荐时间    
+ status         | INT(10)        | YES  |     | 0       | 状态（0：正常，1：隐藏）
+ from           | INT(10)        | NO   |     |         | 文章来源（1、ios，2、安卓，3、微信，4微博）
+ brand1         | VARCHAR(255)   | YES  |     |         |         
+ brand2         | VARCHAR(255)   | YES  |     |         |         
+ brand3         | VARCHAR(255)   | YES  |     |         |         
+ brand4         | VARCHAR(255)   | YES  |     |         |         
+ brand5         | VARCHAR(255)   | YES  |     |         |         
+ brand6         | VARCHAR(255)   | YES  |     |         |         
+ tags           | TEXT(65535)    | YES  |     |         |         
+ ratio          | DECIMAL(12,10) | NO   |     |         | 文章的大图片的宽高比例
+----------------+----------------+------+-----+---------+---------
+
+Table: t_banner
+-------------+--------------+------+-----+---------+---------
+ Field       | Type         | Null | Key | Default | Remarks 
+-------------+--------------+------+-----+---------+---------
+ id          | INT(10)      | NO   | PRI |         | id      
+ name        | VARCHAR(255) | NO   |     |         | 标题      
+ img         | VARCHAR(255) | NO   |     |         | 图片      
+ sort        | TINYINT(3)   | NO   |     | 1       | 排序      
+ is_show     | TINYINT(3)   | NO   |     | 0       | 是否显示，0否，1是
+ type        | TINYINT(3)   | NO   |     | 0       | 跳转类型，0单页，2文章，1优惠券，3品牌
+ type_expand | VARCHAR(255) | YES  |     |         | (type=0,则是单页Id)(type=1,优惠券code码)(type=2,则是文章ID)(type=3,则是品牌id)
+ create_time | DATETIME(19) | NO   |     |         | 创建时间    
+-------------+--------------+------+-----+---------+---------
+
+Table: t_brand
+----------------+--------------+------+-----+---------+---------
+ Field          | Type         | Null | Key | Default | Remarks 
+----------------+--------------+------+-----+---------+---------
+ id             | INT(10)      | NO   | PRI |         |         
+ name_zh        | VARCHAR(20)  | YES  |     |         | 品牌中文名称  
+ name_en        | VARCHAR(20)  | YES  |     |         | 品牌英文名称  
+ country_id     | INT(10)      | NO   |     |         | 品牌所在国籍  
+ logo_big_url   | VARCHAR(255) | YES  |     |         | 品牌logo图片地址（大）
+ logo_small_url | VARCHAR(255) | YES  |     |         | 品牌logo图片地址（小）
+ banner_url     | VARCHAR(255) | YES  |     |         | 品牌banner图片地址
+ about          | VARCHAR(255) | YES  |     |         | 品牌简介    
+ introduce      | TEXT(65535)  | YES  |     |         | 品牌介绍    
+ status         | INT(10)      | NO   |     |         | 状态（1:上架，2：下架）
+ recommend      | BIT          | NO   |     | 0       | 是否推荐（0：不推荐，1：推荐）
+ create_time    | DATETIME(19) | YES  |     |         |         
+ goods_sj_count | INT(10)      | YES  |     | 0       | 上架商品数   
+ goods_xj_count | INT(10)      | YES  |     | 0       | 下架商品数   
+ total_stock    | INT(10)      | YES  |     | 0       | 总库存数    
+ total_sales    | INT(10)      | YES  |     | 0       | 总销售数    
+ total_saleroom | DOUBLE(11,2) | YES  |     | 0.00    | 总销售额    
+----------------+--------------+------+-----+---------+---------
+
+Table: t_cart
+--------------+--------------+------+-----+---------+---------
+ Field        | Type         | Null | Key | Default | Remarks 
+--------------+--------------+------+-----+---------+---------
+ id           | INT(10)      | NO   | PRI |         | 购物车id   
+ member_id    | INT(10)      | NO   |     |         | 会员id    
+ sku_goods_id | INT(10)      | NO   |     |         | sku商品id 
+ count        | INT(10)      | NO   |     |         | 数量      
+ create_time  | DATETIME(19) | NO   |     |         | 加入购物车的时间
+ from         | INT(10)      | YES  |     |         | 订单来源（1、ios订单，2、安卓订单，3、微信，4微博）
+ status       | INT(10)      | YES  |     |         | 订单状态（1：等待付款，一般只有等待付款的状态）
+ real_price   | DOUBLE(9,2)  | YES  |     |         | 实收总额    
+--------------+--------------+------+-----+---------+---------
+
+Table: t_category
+-----------+--------------+------+-----+---------+---------
+ Field     | Type         | Null | Key | Default | Remarks 
+-----------+--------------+------+-----+---------+---------
+ id        | INT(10)      | NO   | PRI |         |         
+ cat_name  | VARCHAR(50)  | NO   |     |         | 分类名称    
+ parent_id | INT(10)      | NO   |     |         | 父级分类id  
+ cat_desc  | VARCHAR(100) | YES  |     |         | 分类描述    
+ status    | INT(10)      | YES  |     | 0       | 0:正常，1：删除
+-----------+--------------+------+-----+---------+---------
+
+Table: t_collect
+-------------+----------+------+-----+---------+---------
+ Field       | Type     | Null | Key | Default | Remarks 
+-------------+----------+------+-----+---------+---------
+ id          | INT(10)  | NO   | PRI |         | 收藏id    
+ member_id   | INT(10)  | NO   |     |         | 会员id    
+ goods_id    | INT(10)  | NO   |     |         | 商品id    
+ create_time | DATE(10) | NO   |     |         | 创建时间    
+-------------+----------+------+-----+---------+---------
+
+Table: t_comment
+-------------+--------------+------+-----+---------+---------
+ Field       | Type         | Null | Key | Default | Remarks 
+-------------+--------------+------+-----+---------+---------
+ id          | INT(10)      | NO   | PRI |         | 评论表id   
+ article_id  | INT(10)      | NO   |     |         | 文章id    
+ member_id   | INT(10)      | NO   |     |         | 评论人id   
+ type        | INT(10)      | NO   |     |         | 0点赞，1评论 
+ content     | VARCHAR(255) | YES  |     |         | 评论内容    
+ create_time | DATETIME(19) | NO   |     |         | 评论时间    
+ status      | INT(10)      | NO   |     | 0       | 状态（0：正常，1：隐藏）
+-------------+--------------+------+-----+---------+---------
+
+Table: t_concern
+------------------+--------------+------+-----+---------+---------
+ Field            | Type         | Null | Key | Default | Remarks 
+------------------+--------------+------+-----+---------+---------
+ id               | INT(10)      | NO   | PRI |         | 关注id    
+ from_member_id   | INT(10)      | NO   |     |         | 主动关注者   
+ from_member_name | VARCHAR(64)  | YES  |     |         | 主动关注者姓名 
+ to_member_id     | INT(10)      | NO   |     |         | 被关注者    
+ to_member_name   | VARCHAR(64)  | YES  |     |         | 被关注者姓名  
+ create_time      | DATETIME(19) | NO   |     |         | 关注时间    
+------------------+--------------+------+-----+---------+---------
+
+Table: t_country
+---------+--------------+------+-----+---------+---------
+ Field   | Type         | Null | Key | Default | Remarks 
+---------+--------------+------+-----+---------+---------
+ id      | INT(10)      | NO   | PRI |         |         
+ name    | VARCHAR(20)  | NO   |     |         | 国家名称    
+ img_url | VARCHAR(255) | YES  |     |         | 国旗图片地址  
+ status  | INT(10)      | YES  |     | 0       | 0：正常，1：删除
+---------+--------------+------+-----+---------+---------
+
+Table: t_coupon
+-----------------+--------------+------+-----+---------+---------
+ Field           | Type         | Null | Key | Default | Remarks 
+-----------------+--------------+------+-----+---------+---------
+ id              | INT(10)      | NO   | PRI |         |         
+ cdkey           | VARCHAR(10)  | NO   |     |         |         
+ title           | VARCHAR(255) | NO   |     |         | 优惠券标题   
+ start_time      | DATETIME(19) | YES  |     |         | 开始时间    
+ end_time        | DATETIME(19) | YES  |     |         | 结束时间    
+ issue_count     | INT(10)      | YES  |     | 0       | 手动的发行数量，自动的生成数量
+ get_count       | INT(10)      | YES  |     | 0       | 已领取     
+ use_count       | INT(10)      | YES  |     | 0       | 已使用     
+ get_type        | INT(10)      | NO   |     | 0       | 获取途径，0用户点击获取，1管理员手动分配,2系统自动分配，3用户注册时分配
+ type            | INT(10)      | NO   |     | 0       | 优惠券类型，0折扣券，1抵用券，2满减券，3免运费
+ type_info       | VARCHAR(255) | YES  |     |         | 优惠券类型扩展字段,type=0(表示折扣数)1(表示抵用金额)2(表示满？减？，格式100-10)3(为空)
+ create_time     | DATETIME(19) | NO   |     |         | 创建时间    
+ get_type_expand | INT(10)      | NO   |     | 1       | 每次获取数量（系统自动分配给每个会员的数量）
+ day_count       | INT(10)      | YES  |     | 1       | 系统自动派送劵的有效期
+ des             | TEXT(65535)  | NO   |     |         | 优惠券说明   
+-----------------+--------------+------+-----+---------+---------
+
+Table: t_custom_page
+-------------+--------------+------+-----+---------+---------
+ Field       | Type         | Null | Key | Default | Remarks 
+-------------+--------------+------+-----+---------+---------
+ id          | INT(10)      | NO   | PRI |         |         
+ type        | TINYINT(3)   | NO   |     | 0       | 单页类型：0普通单页，1关于我们，2，退货说明，3用户协议
+ is_show     | TINYINT(3)   | NO   |     | 0       | 是否显示，0显示，1隐藏
+ title       | VARCHAR(255) | NO   |     |         | 标题      
+ note        | VARCHAR(255) | YES  |     |         | 备注      
+ content     | TEXT(65535)  | NO   |     |         | 单页内容    
+ create_time | DATETIME(19) | NO   |     |         |         
+-------------+--------------+------+-----+---------+---------
+
+Table: t_exp
+------------+--------------+------+-----+---------+---------
+ Field      | Type         | Null | Key | Default | Remarks 
+------------+--------------+------+-----+---------+---------
+ id         | INT(10)      | NO   | PRI |         |         
+ imgUrl     | VARCHAR(255) | YES  |     |         | 快递公司的图片/logo
+ simpleName | VARCHAR(255) | YES  |     |         | 拼音或英文简称 
+ phone      | VARCHAR(255) | YES  |     |         | 官方电话    
+ expName    | VARCHAR(255) | YES  |     |         | /快递名称   
+ url        | VARCHAR(255) | YES  |     |         | 官方网址    
+ note       | VARCHAR(255) | YES  |     |         | 备注信息    
+------------+--------------+------+-----+---------+---------
+
+Table: t_goods
+-----------------+--------------+------+-----+---------+---------
+ Field           | Type         | Null | Key | Default | Remarks 
+-----------------+--------------+------+-----+---------+---------
+ id              | INT(10)      | NO   | PRI |         |         
+ one_cat_id      | INT(10)      | NO   |     |         | 一级分类id  
+ tow_cat_id      | INT(10)      | NO   |     |         | 二级分类id  
+ brand_id        | INT(10)      | NO   |     |         | 品牌id    
+ main_number     | VARCHAR(50)  | NO   |     |         | 商品主编号   
+ name            | VARCHAR(255) | NO   |     |         | 商品名称    
+ market_price    | DOUBLE(9,2)  | YES  |     | 0.00    | 零售价(原价，划掉的价格)
+ promote_price   | DOUBLE(9,2)  | YES  |     | 0.00    | 折扣价(出售价，当前的价格)
+ about           | VARCHAR(512) | YES  |     |         | 商品买点简介  
+ apply_sex       | INT(10)      | YES  |     |         | 适用性别    
+ apply_age       | VARCHAR(255) | YES  |     |         | 适用年龄段(格式：key;key;key)
+ apply_season    | VARCHAR(255) | YES  |     |         | 适用季节(格式：key;key;key)
+ texture         | VARCHAR(32)  | YES  |     |         | 材质      
+ img1_url        | VARCHAR(255) | YES  |     |         | 商品介绍图1  
+ img2_url        | VARCHAR(255) | YES  |     |         | 商品介绍图2  
+ img3_url        | VARCHAR(255) | YES  |     |         | 商品介绍图3  
+ img4_url        | VARCHAR(255) | YES  |     |         | 商品介绍图4  
+ img5_url        | VARCHAR(255) | YES  |     |         | 商品介绍图5  
+ tag_id          | INT(10)      | YES  |     |         | 商品tag id
+ production_area | VARCHAR(255) | YES  |     |         | 产地      
+ describe        | TEXT(65535)  | YES  |     |         | 商品描述    
+ postage         | INT(10)      | YES  |     |         | 邮费（0、包邮，其他值为运费组id）
+ packing_list    | VARCHAR(512) | YES  |     |         | 包装清单    
+ after_sales     | VARCHAR(512) | YES  |     |         | 售后服务    
+ putaway         | INT(10)      | NO   |     |         | 是否上架（1、上架，2、下架）
+ sku_repertory   | INT(10)      | YES  |     | 0       | sku总库存  
+ total_sales     | INT(10)      | YES  |     | 0       | 总销量     
+ create_time     | DATETIME(19) | NO   |     |         | 创建时间    
+ putaway_time    | DATETIME(19) | YES  |     |         | 最近上架时间  
+ soldout_time    | DATETIME(19) | YES  |     |         | 最近下架时间  
+ recommend       | BIT          | YES  |     | 0       | 1:推荐，0：不推荐
+ view_count      | INT(10)      | YES  |     | 0       | 浏览次数    
+-----------------+--------------+------+-----+---------+---------
+
+Table: t_goods_points
+------------+--------------+------+-----+---------+---------
+ Field      | Type         | Null | Key | Default | Remarks 
+------------+--------------+------+-----+---------+---------
+ id         | INT(10)      | NO   | PRI |         | 商品卖点id  
+ goods_id   | INT(10)      | NO   |     |         | 商品id    
+ sell_point | VARCHAR(512) | NO   |     |         | 卖点内容    
+------------+--------------+------+-----+---------+---------
+
+Table: t_goods_tag
+---------+--------------+------+-----+---------+---------
+ Field   | Type         | Null | Key | Default | Remarks 
+---------+--------------+------+-----+---------+---------
+ id      | INT(10)      | NO   | PRI |         |         
+ name    | VARCHAR(32)  | NO   |     |         | 标签名称    
+ img_url | VARCHAR(255) | NO   |     |         | 标签配图    
+---------+--------------+------+-----+---------+---------
+
+Table: t_identifying
+-------------+--------------+------+-----+---------+---------
+ Field       | Type         | Null | Key | Default | Remarks 
+-------------+--------------+------+-----+---------+---------
+ id          | INT(10)      | NO   | PRI |         |         
+ title       | VARCHAR(255) | NO   |     |         |         
+ identifying | VARCHAR(255) | NO   |     |         |         
+-------------+--------------+------+-----+---------+---------
+
+Table: t_member
+----------------+--------------+------+-----+---------+---------
+ Field          | Type         | Null | Key | Default | Remarks 
+----------------+--------------+------+-----+---------+---------
+ id             | INT(10)      | NO   | PRI |         | 会员id（编号）
+ nickname       | VARCHAR(32)  | YES  |     |         | 昵称      
+ phone          | VARCHAR(11)  | NO   |     |         | 手机号     
+ password       | VARCHAR(255) | NO   |     |         |         
+ heart_img_url  | VARCHAR(255) | YES  |     |         | 会员头像    
+ open_id        | VARCHAR(64)  | YES  |     |         | 微信openid
+ consume_count  | INT(10)      | YES  |     | 0       | 消费次数    
+ consume_amount | DOUBLE(9,2)  | YES  |     | 0.00    | 消费总金额   
+ rebate_count   | DOUBLE(9,2)  | YES  |     | 0.00    | 剩余返点数   
+ register_time  | DATETIME(19) | YES  |     |         | 注册时间    
+ register_from  | INT(10)      | YES  |     |         | 注册来源（1、IOS客服端，2、Android客户端，3...）
+ vip_grade_id   | INT(10)      | YES  |     | 1       | 会员等级id  
+ update_time    | DATETIME(19) | YES  |     |         | 修改信息时间  
+ refund_count   | INT(10)      | YES  |     | 0       | 退货次数    
+ status         | INT(10)      | YES  |     | 0       | 0:正常，1:拉黑
+----------------+--------------+------+-----+---------+---------
+
+Table: t_member_addr
+-----------+--------------+------+-----+---------+---------
+ Field     | Type         | Null | Key | Default | Remarks 
+-----------+--------------+------+-----+---------+---------
+ id        | INT(10)      | NO   | PRI |         | 会员地址管理  
+ member_id | INT(10)      | NO   |     |         |         
+ consignee | VARCHAR(32)  | NO   |     |         | 收货人     
+ phone     | VARCHAR(11)  | NO   |     |         | 收货电话    
+ address   | VARCHAR(255) | NO   |     |         | 收货地址    
+ def       | INT(10)      | NO   |     | 1       | （1：默认，0：不默认）
+ province  | VARCHAR(255) | NO   |     |         | 省       
+ city      | VARCHAR(255) | NO   |     |         | 市       
+ area      | VARCHAR(255) | NO   |     |         | 区       
+-----------+--------------+------+-----+---------+---------
+
+Table: t_member_child
+-----------+--------------+------+-----+---------+---------
+ Field     | Type         | Null | Key | Default | Remarks 
+-----------+--------------+------+-----+---------+---------
+ id        | INT(10)      | NO   | PRI |         | 会员孩子    
+ sex       | INT(10)      | NO   |     | 1       | 性别（1、男，2、女）
+ birthday  | DATETIME(19) | NO   |     |         | 生日      
+ member_id | INT(10)      | NO   |     |         |         
+-----------+--------------+------+-----+---------+---------
+
+Table: t_member_coupon
+--------------------+--------------+------+-----+---------+---------
+ Field              | Type         | Null | Key | Default | Remarks 
+--------------------+--------------+------+-----+---------+---------
+ id                 | INT(10)      | NO   | PRI |         |         
+ cdkey              | VARCHAR(10)  | NO   |     |         | 优惠券码    
+ coupon_id          | INT(10)      | NO   |     |         | 优惠券id   
+ member_id_get      | INT(10)      | YES  |     |         | 领劵人的会员id
+ member_id_exchange | INT(10)      | YES  |     |         | 兑换优惠的人  
+ member_id_use      | INT(10)      | YES  |     |         | 使用劵人的会员id
+ status             | INT(10)      | NO   |     |         | 0未使用，1已使用，2已过期
+ allot              | BIT          | YES  |     |         | 是否已分配   
+ order_id           | INT(10)      | YES  |     |         | 关联订单    
+ order_amount       | DOUBLE(9,2)  | YES  |     | 0.00    | 消费金额    
+ use_time           | DATETIME(19) | YES  |     |         | 优惠券使用时间 
+--------------------+--------------+------+-----+---------+---------
+
+Table: t_member_message
+-----------+---------+------+-----+---------+---------
+ Field     | Type    | Null | Key | Default | Remarks 
+-----------+---------+------+-----+---------+---------
+ id        | INT(10) | NO   | PRI |         |         
+ member_id | INT(10) | NO   |     |         |         
+ msg_id    | INT(10) | NO   |     |         |         
+ is_read   | INT(10) | NO   |     | 0       | 0未读，1已读 
+-----------+---------+------+-----+---------+---------
+
+Table: t_order
+--------------------------+--------------+------+-----+---------+---------
+ Field                    | Type         | Null | Key | Default | Remarks 
+--------------------------+--------------+------+-----+---------+---------
+ id                       | INT(10)      | NO   | PRI |         |         
+ serial_number            | VARCHAR(64)  | NO   |     |         | 订单编号    
+ pay_sn                   | VARCHAR(64)  | YES  |     |         | 支付流水号   
+ member_id                | INT(10)      | NO   |     |         | 会员id    
+ member_addr_id           | INT(10)      | YES  |     |         | 收货地址信息（包括地址，收货人，电话）
+ count                    | INT(10)      | YES  |     |         | 购买数量    
+ price                    | DOUBLE(9,2)  | NO   |     |         | 订单总价    
+ vip_discounts            | DOUBLE(7,2)  | NO   |     |         | 会员折扣    
+ delivery_type            | INT(10)      | YES  |     | 0       | 配送方式（0：快递，1：自取）
+ coupon_amount            | DOUBLE(9,2)  | YES  |     |         | 优惠金额（后台手动建单，可直接输入）
+ member_coupon_id         | INT(10)      | YES  |     |         | 用户优惠券Id 
+ rebate                   | DOUBLE(7,2)  | YES  |     | 0.00    | 返点数     
+ postage_price            | DOUBLE(5,2)  | YES  |     | 0.00    | 订单邮费    
+ real_price               | DOUBLE(9,2)  | YES  |     |         | 实收总价（经由会员打折和优惠劵使用后并加上邮费后的实际付款总额）
+ pay_type                 | INT(10)      | YES  |     |         | 付款方式，1支付宝，2微信
+ leave_word               | VARCHAR(150) | YES  |     |         | 买家留言    
+ deliver_reamrk           | VARCHAR(255) | YES  |     |         | 卖家发货备注  
+ type                     | INT(10)      | NO   |     |         | 订单类型（1、手动建单，2、自主下单）
+ from                     | INT(10)      | NO   |     |         | 订单来源（1、ios订单，2、安卓订单，3、微信，4微博）
+ status                   | INT(10)      | NO   |     |         | 订单状态（1、已下单待付款，2、已付款待发货，3、已发货待收货、4、交易成功，5、退款中，6、退货中、7、订单关闭，）
+ status_returns           | INT(10)      | YES  |     |         | 退货状态（1、买家申请退货中，2、卖家同意退货，3、买家已发货、4、卖家确认收货（退货完成））
+ time_create              | DATETIME(19) | NO   |     |         | 下单时间（订单创建时间）
+ time_pay                 | DATETIME(19) | YES  |     |         | 付款时间    
+ time_deliver             | DATETIME(19) | YES  |     |         | 发货时间    
+ time_receiving           | DATETIME(19) | YES  |     |         | 收货时间    
+ time_returns             | DATETIME(19) | YES  |     |         | 买家退货申请时间
+ time_returns_agree       | DATETIME(19) | YES  |     |         | 卖家同意退货时间
+ time_returns_deliver     | DATETIME(19) | YES  |     |         | 买家发货时间（退货）
+ time_returns_finish      | DATETIME(19) | YES  |     |         | 卖家确认收货时间（退货）
+ expressage               | VARCHAR(32)  | YES  |     |         | 选择快递    
+ logistics_number         | VARCHAR(64)  | YES  |     |         | 物流单号    
+ contact                  | VARCHAR(255) | YES  |     |         | 联系人     
+ phone                    | VARCHAR(255) | YES  |     |         | 电话      
+ address                  | VARCHAR(255) | YES  |     |         | 地址      
+ province                 | VARCHAR(255) | YES  |     |         | 省       
+ city                     | VARCHAR(255) | YES  |     |         | 市       
+ area                     | VARCHAR(255) | YES  |     |         | 区       
+ returns_address          | VARCHAR(255) | YES  |     |         | 退货地址    
+ returns_remark           | VARCHAR(255) | YES  |     |         | 退货备注    
+ returns_expressage       | VARCHAR(32)  | YES  |     |         | 买家发货快递  
+ returns_logistics_number | VARCHAR(64)  | YES  |     |         | 买家发货物流单号
+ returns_receiving_ramark | VARCHAR(255) | YES  |     |         | 卖家确认收货备注
+ success_rebate           | DOUBLE(7,2)  | YES  |     | 0.00    | 交易成功，订单返点数
+--------------------------+--------------+------+-----+---------+---------
+
+Table: t_order_goods
+--------------+--------------+------+-----+---------+---------
+ Field        | Type         | Null | Key | Default | Remarks 
+--------------+--------------+------+-----+---------+---------
+ id           | INT(10)      | NO   | PRI |         | 订单商品关联表 
+ sku_goods_id | INT(10)      | NO   |     |         | sku商品id 
+ order_id     | INT(10)      | NO   |     |         | 订单id    
+ count        | INT(10)      | NO   |     |         | 商品数量    
+ price        | DOUBLE(7,2)  | NO   |     |         | 商品价格    
+ dis_price    | DOUBLE(7,2)  | NO   |     |         | 折扣价     
+ sku_info     | VARCHAR(255) | NO   |     |         | sku信息   
+ goods_sn     | VARCHAR(255) | NO   |     |         | sku编号   
+ img_url      | VARCHAR(255) | YES  |     |         | 商品图片地址  
+--------------+--------------+------+-----+---------+---------
+
+Table: t_postage_group
+-------+-------------+------+-----+---------+---------
+ Field | Type        | Null | Key | Default | Remarks 
+-------+-------------+------+-----+---------+---------
+ id    | INT(10)     | NO   | PRI |         |         
+ name  | VARCHAR(16) | NO   |     |         | 运费组名称   
+-------+-------------+------+-----+---------+---------
+
+Table: t_postage_province
+---------------+-------------+------+-----+---------+---------
+ Field         | Type        | Null | Key | Default | Remarks 
+---------------+-------------+------+-----+---------+---------
+ id            | INT(10)     | NO   | PRI |         |         
+ pt_id         | INT(10)     | NO   |     |         | 运费模板id  
+ province_name | VARCHAR(16) | NO   |     |         | 省份      
+ postage       | DOUBLE(7,2) | YES  |     | 0.00    | 运费      
+---------------+-------------+------+-----+---------+---------
+
+Table: t_postage_tpl
+------------+-------------+------+-----+---------+---------
+ Field      | Type        | Null | Key | Default | Remarks 
+------------+-------------+------+-----+---------+---------
+ id         | INT(10)     | NO   | PRI |         |         
+ pg_id      | INT(10)     | NO   |     |         | 运费组id   
+ name       | VARCHAR(32) | NO   |     |         | 运费模板名称  
+ expressage | VARCHAR(32) | NO   |     |         | 快递公司    
+------------+-------------+------+-----+---------+---------
+
+Table: t_province
+---------------+-------------+------+-----+---------+---------
+ Field         | Type        | Null | Key | Default | Remarks 
+---------------+-------------+------+-----+---------+---------
+ id            | INT(10)     | NO   | PRI |         |         
+ code          | VARCHAR(6)  | NO   |     |         | 省编码     
+ province_name | VARCHAR(40) | YES  |     |         | 省名称     
+---------------+-------------+------+-----+---------+---------
+
+Table: t_purchase_details
+--------------+---------+------+-----+---------+---------
+ Field        | Type    | Null | Key | Default | Remarks 
+--------------+---------+------+-----+---------+---------
+ id           | INT(10) | NO   | PRI |         | 采购详情id  
+ purchase_id  | INT(10) | NO   |     |         | 总采购id   
+ sku_goods_id | INT(10) | NO   |     |         | 商品id    
+ count        | INT(10) | NO   |     |         | 采购数量    
+--------------+---------+------+-----+---------+---------
+
+Table: t_region
+------------+--------------+------+-----+---------+---------
+ Field      | Type         | Null | Key | Default | Remarks 
+------------+--------------+------+-----+---------+---------
+ code       | INT(10)      | NO   | PRI |         |         
+ parentCode | INT(10)      | NO   |     |         |         
+ type       | TINYINT(3)   | NO   |     |         |         
+ name       | VARCHAR(128) | NO   |     |         |         
+ fullName   | VARCHAR(128) | NO   |     |         |         
+------------+--------------+------+-----+---------+---------
+
+Table: t_sku
+-----------+-------------+------+-----+---------+---------
+ Field     | Type        | Null | Key | Default | Remarks 
+-----------+-------------+------+-----+---------+---------
+ id        | INT(10)     | NO   | PRI |         |         
+ name      | VARCHAR(32) | NO   |     |         | sku名称   
+ parent_id | INT(10)     | YES  |     |         | 0代表该sku是最外层
+ status    | INT(10)     | YES  |     | 0       | 0：正常，1：删除
+-----------+-------------+------+-----+---------+---------
+
+Table: t_sku_goods
+---------------+-------------+------+-----+---------+---------
+ Field         | Type        | Null | Key | Default | Remarks 
+---------------+-------------+------+-----+---------+---------
+ id            | INT(10)     | NO   | PRI |         |         
+ goods_id      | INT(10)     | NO   |     |         | 商品id    
+ sku1_id       | INT(10)     | YES  |     |         |         
+ sku2_id       | INT(10)     | YES  |     |         |         
+ sku3_id       | INT(10)     | YES  |     |         |         
+ sku4_id       | INT(10)     | YES  |     |         |         
+ sku5_id       | INT(10)     | YES  |     |         |         
+ market_price  | DOUBLE(9,2) | YES  |     | 0.00    | 零售价     
+ promote_price | DOUBLE(9,2) | YES  |     | 0.00    | 折扣价     
+ repertory     | INT(10)     | YES  |     |         | 库存      
+ goods_number  | VARCHAR(50) | YES  |     |         | 商品编号    
+ putaway       | INT(10)     | NO   |     | 2       | 是否上架（1、上架，2、下架、3，删除）
+---------------+-------------+------+-----+---------+---------
+
+Table: t_storage_purchase
+--------+--------------+------+-----+---------+---------
+ Field  | Type         | Null | Key | Default | Remarks 
+--------+--------------+------+-----+---------+---------
+ id     | INT(10)      | NO   | PRI |         | 采购入库记录id
+ count  | INT(10)      | NO   |     |         | 入库总数量   
+ time   | DATETIME(19) | NO   |     |         | 入库时间    
+ remark | VARCHAR(512) | YES  |     |         | 备注      
+--------+--------------+------+-----+---------+---------
+
+Table: t_storage_returns
+----------+---------+------+-----+---------+---------
+ Field    | Type    | Null | Key | Default | Remarks 
+----------+---------+------+-----+---------+---------
+ id       | INT(10) | NO   | PRI |         | 退货入库记录id
+ order_id | INT(10) | NO   |     |         | 订单id    
+ status   | INT(10) | NO   |     |         | 退货状态    
+----------+---------+------+-----+---------+---------
+
+Table: t_sys_config
+-------------+--------------+------+-----+---------+---------
+ Field       | Type         | Null | Key | Default | Remarks 
+-------------+--------------+------+-----+---------+---------
+ id          | INT(10)      | NO   | PRI |         |         
+ i_id        | INT(10)      | NO   |     |         |         
+ key         | INT(10)      | NO   |     |         |         
+ value       | VARCHAR(255) | NO   |     |         |         
+ status      | INT(10)      | YES  |     | 0       | 0：正常，1：删除
+ simple_name | VARCHAR(255) | YES  |     |         | 快递简称    
+-------------+--------------+------+-----+---------+---------
+
+Table: t_sys_message
+-------------+--------------+------+-----+---------+---------
+ Field       | Type         | Null | Key | Default | Remarks 
+-------------+--------------+------+-----+---------+---------
+ id          | INT(10)      | NO   | PRI |         |         
+ title       | VARCHAR(255) | NO   |     |         | 系统消息标题  
+ content     | TEXT(65535)  | NO   |     |         | 系统消息内容  
+ create_time | DATETIME(19) | NO   |     |         | 创建时间    
+ type        | INT(10)      | NO   |     | 0       | 0普通消息，1推送消息
+-------------+--------------+------+-----+---------+---------
+
+Table: t_system_message
+-------------+--------------+------+-----+---------+---------
+ Field       | Type         | Null | Key | Default | Remarks 
+-------------+--------------+------+-----+---------+---------
+ id          | INT(10)      | NO   | PRI |         |         
+ title       | VARCHAR(255) | NO   |     |         | 标题      
+ content     | TEXT(65535)  | NO   |     |         | 内容      
+ create_time | DATETIME(19) | NO   |     |         |         
+-------------+--------------+------+-----+---------+---------
+
+Table: t_user
+----------+--------------+------+-----+---------+---------
+ Field    | Type         | Null | Key | Default | Remarks 
+----------+--------------+------+-----+---------+---------
+ id       | INT(10)      | NO   | PRI |         |         
+ name     | VARCHAR(255) | NO   |     |         |         
+ password | VARCHAR(255) | NO   |     |         |         
+ role     | INT(10)      | YES  |     |         |         
+ status   | INT(10)      | YES  |     |         |         
+----------+--------------+------+-----+---------+---------
+
+Table: t_vip_grade
+----------+-------------+------+-----+---------+---------
+ Field    | Type        | Null | Key | Default | Remarks 
+----------+-------------+------+-----+---------+---------
+ id       | INT(10)     | NO   | PRI |         | vip等级   
+ name     | VARCHAR(32) | NO   |     |         | 等级名称    
+ amount   | DOUBLE(9,2) | NO   |     | 0.00    | 累计消费金额  
+ discount | DOUBLE(4,2) | NO   |     |         | 对应消费折扣(0-1)
+ rebate   | DOUBLE(22)  | NO   |     |         | 返点（0-1） 
+----------+-------------+------+-----+---------+---------
+
+Table: test
+-------+---------+------+-----+---------+---------
+ Field | Type    | Null | Key | Default | Remarks 
+-------+---------+------+-----+---------+---------
+ id    | INT(10) | NO   | PRI |         |         
+-------+---------+------+-----+---------+---------
+

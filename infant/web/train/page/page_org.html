@@ -1,0 +1,22 @@
+<div ng-controller="OrgCtrl">
+<div class="wrapper-md bg-light b-b ">
+    <div class="row">
+        <h1 class="m-n font-thin h3 col-lg-2 p-t-5">机构管理</h1>
+    </div>
+
+
+</div>
+
+<div class="table-responsive table-style">
+    <table class="table">
+        <tr class="success font-bold">
+            <td class="col-lg-6">名称</td>
+            <td class="col-lg-6">电话</td>
+        </tr>
+        <tr class="bg-white" ng-repeat="item in list track by $index">
+            <td>{{item.name}}</td>
+            <td>{{item.phone}}</td>
+        </tr>
+    </table>
+</div>
+</div>

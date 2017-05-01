@@ -1,0 +1,29 @@
+<div ng-controller="PurchaseLogCtrl">
+<div class="wrapper-md bg-light b-b ">
+    <div class="row">
+        <h1 class="m-n font-thin h3 col-lg-2 p-t-5">采购入库记录</h1>
+    </div>
+
+
+</div>
+
+<div class="table-responsive table-style" >
+    <table class="table">
+        <tr class="success font-bold">
+            <td class="col-lg-3">入库时间</td>
+            <td class="col-lg-3">入库数量</td>
+            <td class="col-lg-3">备注</td>
+            <td class="col-lg-3">操作</td>
+        </tr>
+        <tr class="bg-white" ng-repeat="item in list track by $index">
+            <td ng-bind="item.time"></td>
+            <td ng-bind="item.count"></td>
+            <td ng-bind="item.remark"></td>
+            <td>
+                <button type="button" class="btn btn-info " ng-click="openEdit(item.id,item.time)">详情</button>
+            </td>
+        </tr>
+    </table>
+    <div id="layuiPage" align="center"></div>
+</div>
+</div>

@@ -1,0 +1,51 @@
+<div ng-controller="BrandCtrl">
+
+<div class="wrapper-md bg-light b-b ">
+  <div class="row">
+    <h1 class="m-n font-thin h3 col-lg-2 p-t-5">品牌管理</h1>
+  </div>
+</div>
+
+  <ul id="myTab" class="nav nav-tabs">
+    <li class="active"><a data-toggle="tab" ng-click="onSellBrands()">在售中的品牌</a></li>
+    <li><a  data-toggle="tab" ng-click="haltSalesBrands()">停售中的品牌</a></li>
+  </ul>
+
+  <div class="table-responsive table-style">
+    <table class="table">
+      <tr class="success font-bold">
+        <td >Logo</td>
+        <td>中文名称</td>
+        <td>英文名称</td>
+        <td>上架宝贝数</td>
+        <td>下架宝贝数</td>
+        <td>总库存数</td>
+        <td>已销售数</td>
+        <td>累计销售额</td>
+        <td>是否推荐</td>
+        <td>操作</td>
+      </tr>
+      <tr class="bg-white" ng-repeat="brand in brandList track by $index">
+        <td>
+          <img src="{{host}}{{brand.logo_big_url}}" style="width: 72px;height: 24px;">
+        </td>
+        <td>{{brand.name_en}}</td>
+        <td>{{brand.name_zh}}</td>
+        <td>{{brand.sjNum}}</td>
+        <td>{{brand.xjNum}}</td>
+        <td>{{brand.totalStock}}</td>
+        <td>{{brand.totalSales}}</td>
+        <td>{{brand.totalSaleroom}}</td>
+        <td ng-if="brand.recommend">推荐</td>
+        <td ng-if="!brand.recommend">不推荐</td>
+        <td>
+          <!--<button type="button" class="btn btn-info " ng-click="openEdit(country.id,'lg')">编辑</button>
+          <button type="button" class="btn btn-info " ng-click="delete(country.id)">删除</button>-->
+          <button type="button" class="btn btn-info " ng-click="detail(brand.id)">详情</button>
+        </td>
+      </tr>
+    </table>
+    <div id="demo1" align="center"></div>
+  </div>
+
+</div>

@@ -1,0 +1,263 @@
+<div ng-controller="BrandDetailCtrl">
+    <script type="text/ng-template" id="modal_send_coupon.html">
+        <div ng-include="'admin/model/modal_send_coupon.html'"></div>
+    </script>
+
+    <div class="wrapper-md bg-light b-b ">
+        <div class="row ">
+            <h1 class="m-n font-thin h3 p-t-5 col-lg-5">‘{{title}}’详情</h1>
+        </div>
+    </div>
+
+    <ul id="myTab" class="nav nav-tabs">
+        <li class="active"><a data-toggle="tab" ng-click="couponTab(0)">出售中的商品</a></li>
+        <li><a data-toggle="tab" ng-click="couponTab(1)">下架中的商品</a></li>
+        <li><a data-toggle="tab" ng-click="couponTab(2)">销售明细</a></li>
+        <li><a data-toggle="tab" ng-click="couponTab(3)">品牌信息</a></li>
+    </ul>
+
+    <div class="table-responsive table-style showTab" id="couponTab0">
+        <table class="table">
+            <tr class="success font-bold">
+                <td>商品信息</td>
+                <td>零售价</td>
+                <td>折扣价</td>
+                <td>SKU总库存</td>
+                <td>总销量</td>
+                <td>上架时间</td>
+                <td>操作</td>
+            </tr>
+            <tr class="bg-white"  ng-repeat="item in goodsList track by $index">
+                <td>
+                    <div>
+                        <img src="{{host}}{{item.img1_url}}" class="goods-img"  style="float:left;" >
+                        <div class="goods-des" style="position: relative">
+                            <span style="margin-left: 5px;" ng-bind="item.name | subString:0:12"></span>
+                            <br>
+                            <span style="position: absolute;bottom: 0;margin-left: 5px">编号：{{item.main_number}}</span>
+                        </div>
+                    </div>
+
+                </td>
+                <td ng-bind="item.market_price"></td>
+                <td ng-bind="item.promote_price"></td>
+                <td ng-bind="item.sku_repertory"></td>
+                <td ng-bind="item.total_sales"></td>
+                <td ng-bind="item.create_time"></td>
+                <td>
+                    <button type="button" class="btn btn-info " ng-click="editGoods(item.id)">编辑</button>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="table-responsive table-style" id="couponTab1" style="display: none">
+        <table class="table">
+            <tr class="success font-bold">
+                <td>商品信息</td>
+                <td>零售价</td>
+                <td>折扣价</td>
+                <td>SKU总库存</td>
+                <td>总销量</td>
+                <td>上架时间</td>
+                <td>操作</td>
+            </tr>
+            <tr class="bg-white"  ng-repeat="item in goodsList track by $index">
+                <td>
+                    <div>
+                        <img src="{{host}}{{item.img1_url}}" class="goods-img"  style="float:left;" >
+                        <div class="goods-des" style="position: relative">
+                            <span style="margin-left: 5px;" ng-bind="item.name | subString:0:12"></span>
+                            <br>
+                            <span style="position: absolute;bottom: 0;margin-left: 5px">编号：{{item.main_number}}</span>
+                        </div>
+                    </div>
+
+                </td>
+                <td ng-bind="item.market_price"></td>
+                <td ng-bind="item.promote_price"></td>
+                <td ng-bind="item.sku_repertory"></td>
+                <td ng-bind="item.total_sales"></td>
+                <td ng-bind="item.create_time"></td>
+                <td>
+                    <button type="button" class="btn btn-info " ng-click="editGoods(item.id)">编辑</button>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="table-responsive table-style" id="couponTab2" style="display: none">
+        <table class="table">
+            <tr class="success font-bold">
+                <td>商品信息</td>
+                <td>商品编码</td>
+                <td>单价</td>
+                <td>数量</td>
+                <td>买家</td>
+                <td>订单类型</td>
+                <td>订单来源</td>
+                <td>交易状态</td>
+                <td>操作</td>
+            </tr>
+            <tr class="bg-white"  ng-repeat="item in saleList track by $index">
+                <td>
+                    <div>
+                        <img src="{{host}}{{item.img1_url}}" class="goods-img"  style="float:left;" >
+                        <div class="goods-des" style="position: relative">
+                            <span style="margin-left: 5px;" ng-bind="item.name | subString:0:12"></span>
+                            <br>
+                            <span style="position: absolute;bottom: 0;margin-left: 5px">订单编号：{{item.serial_number}}</span>
+                        </div>
+                    </div>
+
+                </td>
+                <td ng-bind="item.goods_number"></td>
+                <td ng-bind="item.dis_price"></td>
+                <td ng-bind="item.count"></td>
+                <td ng-bind="item.nickname"></td>
+
+                <td ng-if="item.type==1">手动建单</td>
+                <td ng-if="item.type==2">自主下单</td>
+
+                <td ng-if="item.from==1">IOS订单</td>
+                <td ng-if="item.from==2">Android订单</td>
+                <td ng-if="item.from==3">微信</td>
+                <td ng-if="item.from==4">微博</td>
+
+                <td ng-if="item.status==1">已下单待付款</td>
+                <td ng-if="item.status==2">已付款待发货</td>
+                <td ng-if="item.status==3">已发货待收货</td>
+                <td ng-if="item.status==4">交易成功</td>
+                <td ng-if="item.status==5">退款中</td>
+                <td ng-if="item.status==6&&item.status_returns==1">买家申请退货中</td>
+                <td ng-if="item.status==6&&item.status_returns==2">等待买家发货</td>
+                <td ng-if="item.status==6&&item.status_returns==3">买家已发货</td>
+                <td ng-if="item.status==6&&item.status_returns==4">退货完成</td>
+                <td ng-if="item.status==7">订单关闭</td>
+                <td>
+                    <button type="button" class="btn btn-info " ng-click="detail(item.order_id)">详情</button>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="table-responsive table-style" id="couponTab3" style="display: none">
+        <div class="layui-form layui-form-pane">
+
+            <div class="input-group add-body-first_m_t">
+                <div class="input-group-btn">
+                    <label class="btn add-body-label">中文名称：</label>
+                </div>
+                <input type="text" class="form-control add-body-input" name="name_en" lay-verify="required" ng-model="brand.name_zh">
+            </div>
+
+
+            <div class="input-group add-body-item-m-t">
+                <div class="input-group-btn">
+                    <label class="btn add-body-label">英文名称：</label>
+                </div>
+                <input type="text" class="form-control add-body-input" name="name_zh" lay-verify="required" ng-model="brand.name_en">
+            </div>
+
+            <div class="input-group add-body-item-m-t">
+                <div class="input-group-btn">
+                    <label class="btn add-body-label">所在国籍：</label>
+                </div>
+                <div class="layui-input-inline">
+                    <select name="country"  lay-verify="required">
+                        <option value="">请选择国籍</option>
+                        <option  ng-repeat="country in countryList track by $index" value="{{country.id}}"
+                                 ng-bind="country.name" ng-if="country.id==brand.country_id" selected="true">
+                        </option>
+                        <option  ng-repeat="country in countryList track by $index" value="{{country.id}}"
+                                 ng-bind="country.name" ng-if="country.id!=brand.country_id">
+                        </option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="input-group add-body-item-m-t">
+                <div class="input-group-btn">
+                    <label class="btn add-body-label">品牌logo：</label>
+                </div><!-- /btn-group -->
+                <div class="row" style="padding-left: 2px">
+                    <div class="col-lg-3">
+                        <img id="preview" alt="" style="width: 216px;height: 72px;margin-bottom: 10px"
+                             src="{{host}}{{brand.logo_big_url}}" />
+                        <!--<input id="file" type="file" name="imgFile" onchange="imgChange()" />-->
+                        <input type="file" name="file" class="layui-upload-file" id="brandBigImg">
+                    </div>
+                    <div class="col-lg-2">
+                        <img id="preview1" alt="" style="width: 72px;height: 72px;margin-bottom: 10px"
+                             src="{{host}}{{brand.logo_small_url}}"/>
+                        <br>
+                        <!--<input id="file1" type="file" name="imgFile" onchange="imgChange()" />-->
+                        <input type="file" name="file" class="layui-upload-file" id="brandSmallImg">
+                    </div>
+                </div>
+            </div>
+
+            <div class="input-group add-body-item-m-t">
+                <div class="input-group-btn">
+                    <label class="btn add-body-label">品牌banner：</label>
+                </div><!-- /btn-group -->
+                <div>
+                    <img id="preview2" alt="" style="width: 216px;height: 72px;margin-bottom: 10px"
+                         src="{{host}}{{brand.banner_url}}"/>
+                    <br>
+                    <input type="file" name="file" class="layui-upload-file" id="brandBannerImg">
+                </div>
+            </div>
+
+            <div class="input-group add-body-item-m-t">
+                <div class="input-group-btn">
+                    <label class="btn add-body-label">品牌简介：</label>
+                </div>
+                <textarea style="width: 60%;height: 80px;padding: 5px" name="about" placeholder="简介的字数控制在120字" ng-model="brand.about"></textarea>
+            </div>
+            <div class="input-group add-body-item-m-t">
+                <div class="input-group-btn">
+                    <label class="btn add-body-label">品牌介绍：</label>
+                </div>
+                <!--<div style="width: 60%">
+                    <textarea class="layui-textarea" id="LAY_demo1" name="introduce" style="display: none" ng-model="brand.introduce">
+                    </textarea>
+                </div>-->
+                <div style="width: 60%">
+                    <div id="wangEditor" style="height:400px;max-height:100%;">
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="input-group add-body-item-m-t">
+                <div class="input-group-btn">
+                    <label class="btn add-body-label">是否推荐：</label>
+                </div>
+                <div class="layui-input-block" style="margin-left: 0px">
+                    <input lay-filter="filter" type="checkbox" name="r" title="推荐" ng-checked="brand.recommend">
+                </div>
+            </div>
+
+            <div class="input-group add-body-item-m-t">
+                <div class="input-group-btn">
+                    <label class="btn add-body-label">状态：</label>
+                </div>
+                <div class="layui-input-block" style="margin-left: 0px">
+                    <input lay-filter="filter" type="radio" name="status" value="1" title="上架" checked>
+                    <input id="putaway2" lay-filter="filter" type="radio" name="status" value="2" title="下架" >
+                </div>
+            </div>
+            <div class="input-group add-body-last-m-b-t">
+                <div class="input-group-btn">
+                    <label class="btn add-body-label"></label>
+                </div>
+                <div class="layui-input-block" style="margin-left: 0px">
+                    <button class="layui-btn" lay-submit="" lay-filter="go" >保存修改</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="layuiPage" align="center"></div>
+
+
+</div>

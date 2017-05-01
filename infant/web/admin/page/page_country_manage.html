@@ -1,0 +1,37 @@
+<div ng-controller="CountryCtrl">
+    <script type="text/ng-template" id="modal_add_country.html">
+        <div ng-include="'admin/model/modal_add_country.html'"></div>
+    </script>
+    <script type="text/ng-template" id="modal_edit_country.html">
+        <div ng-include="'admin/model/modal_edit_country.html'"></div>
+    </script>
+<div class="wrapper-md bg-light b-b ">
+    <div class="row">
+
+        <h1 class="m-n font-thin h3 col-lg-2 p-t-5">国家管理</h1>
+        <button type="button" class="btn btn-info pull-right col-lg-1 top-right-btn"  ng-click="addCountry('lg')">新增国家</button>
+    </div>
+
+
+</div>
+
+<div class="table-responsive table-style">
+    <table class="table">
+        <tr class="success font-bold">
+            <td class="col-lg-4">国家</td>
+            <td class="col-lg-4">国旗</td>
+            <td class="col-lg-4">操作</td>
+        </tr>
+        <tr class="bg-white" ng-repeat="country in countryList track by $index">
+            <td>{{country.name}}</td>
+            <td>
+                <img src="{{host}}{{country.img_url}}" style="width: 90px;height: 60px;">
+            </td>
+            <td>
+                <button type="button" class="btn btn-info " ng-click="openEdit(country.id,'lg')">编辑</button>
+                <button type="button" class="btn btn-info " ng-click="delete(country.id)">删除</button>
+            </td>
+        </tr>
+    </table>
+</div>
+</div>

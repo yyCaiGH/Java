@@ -1,0 +1,53 @@
+<div class="layui-form layui-form-pane">
+    <div class="modal-header">
+        <button type="button" class="btn btn-info pull-right" ng-click="addTr()">新增一行</button>
+        <button type="button" class="btn btn-danger pull-right" style="margin-right: 10px" ng-click="deleteTr()">删除一行</button>
+
+        <h3 class="modal-title">编辑配置</h3>
+    </div>
+    <div class="modal-body">
+
+        <div class="input-group">
+            <div class="input-group-btn">
+                <label class="btn model-label" disabled> 标题：</label>
+            </div><!-- /btn-group -->
+            <input id="configName" type="text" class="form-control" style="margin: 0px 10px" ng-model="configInfo.title"  lay-verify="required">
+        </div><!-- /input-group -->
+
+        <div class="input-group model_item_m_t">
+            <div class="input-group-btn">
+                <label class="btn model-label" disabled>标识：</label>
+            </div><!-- /btn-group -->
+            <input id="configIdentify" type="text" class="form-control" style="margin: 0px 10px"  lay-verify="required"
+                   ng-model="configInfo.identifying">
+        </div><!-- /input-group -->
+        <div class="input-group model_item_m_t">
+            <div class="input-group-btn">
+                <label class="btn model-label" disabled></label>
+            </div><!-- /btn-group -->
+                <table class="table" id="myTable">
+                    <tr class="success font-bold">
+                        <td>配置值</td>
+                        <td>配置名称</td>
+                    </tr>
+                    <tr class="bg-white myRow" ng-repeat="item in list track by $index">
+                        <input type="hidden" class="form-control table-input-50" value="{{item.id}}">
+                        <td>
+                            <input type="number" class="form-control " lay-verify="required"
+                                   value="{{item.key}}">
+                        </td>
+                        <td>
+                            <input type="text" class="form-control " lay-verify="required"
+                                   value="{{item.value}}">
+                        </td>
+                    </tr>
+                </table>
+        </div><!-- /input-group -->
+
+
+    </div>
+    <div class="modal-footer model_footer_m_t">
+        <button class="btn btn-default" ng-click="cancel()">取消</button>
+        <button class="btn btn-primary" lay-submit="" lay-filter="go">确定</button>
+    </div>
+</div>

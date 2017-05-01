@@ -1,0 +1,27 @@
+#���ݿ�
+#jdbcUrl = jdbc:mysql://localhost:3306/my?characterEncoding=utf8&zeroDateTimeBehavior=convertToNull
+#user = root
+#password =123
+jdbcUrl = jdbc:mysql://139.224.192.136:3306/my?characterEncoding=utf8&zeroDateTimeBehavior=convertToNull
+user = root
+password =my2016my
+##���ݿ�����
+#jdbcUrl = jdbc:mysql://222.76.215.8:52058/my?characterEncoding=utf8&zeroDateTimeBehavior=convertToNull
+#user = dt
+#password =dt123
+
+
+#������ģʽ
+devMode=true
+
+
+
+
+#������KEY
+#�Ÿ�
+XG_SECRET_KEY=72e129adb42a85e80b976d8785f2b41e
+
+
+
+
+

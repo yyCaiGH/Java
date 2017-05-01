@@ -1,0 +1,46 @@
+<div ng-controller="UpdatePswCtrl">
+
+  <div class="wrapper-md bg-light b-b ">
+    <div class="row">
+      <h1 class="m-n font-thin h3 col-lg-2 p-t-5">修改密码</h1>
+    </div>
+  </div>
+
+  <div class="add_body">
+    <div class="layui-form layui-form-pane">
+
+      <div class="input-group add-body-first_m_t">
+        <div class="input-group-btn">
+          <label class="btn add-body-label">原密码：</label>
+        </div>
+        <input type="password" class="form-control table-input" name="name_en" lay-verify="required" ng-model="psw.old_password">
+      </div>
+
+
+      <div class="input-group add-body-item-m-t">
+        <div class="input-group-btn">
+          <label class="btn add-body-label">新密码：</label>
+        </div>
+        <input type="password" class="form-control table-input" name="name_zh" lay-verify="required" ng-model="psw.new_password">
+      </div>
+
+      <div class="input-group add-body-item-m-t">
+        <div class="input-group-btn">
+          <label class="btn add-body-label">确认新密码：</label>
+        </div>
+        <input type="password" class="form-control table-input" name="name_zh" lay-verify="required" ng-model="psw.new_password_again">
+      </div>
+
+      <div class="input-group add-body-last-m-b-t">
+        <div class="input-group-btn">
+          <label class="btn add-body-label"></label>
+        </div>
+        <div class="layui-input-block" style="margin-left: 0px">
+          <button class="layui-btn" lay-submit="" lay-filter="go" >确认修改</button>
+        </div>
+      </div>
+    </div>
+
+
+  </div>
+</div>

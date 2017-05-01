@@ -1,0 +1,48 @@
+<div ng-controller="RecommendListCtrl">
+  <script type="text/ng-template" id="model_goods_select.html">
+    <div ng-include="'admin/model/model_goods_select.html'"></div>
+  </script>
+<div class="wrapper-md bg-light b-b ">
+  <div class="row ">
+    <h1 class="m-n font-thin h3 p-t-5 col-lg-2">首页每日推荐</h1>
+    <button type="button" class="btn btn-info pull-right col-lg-1 top-right-btn"  ng-click="open('lg')">新增推荐商品</button>
+  </div>
+</div>
+
+  <div class="table-responsive">
+    <table class="table">
+      <tr class="success font-bold">
+        <td>商品信息</td>
+        <td>零售价</td>
+        <td>折扣价</td>
+        <td>SKU总库存</td>
+        <td>总销量</td>
+        <td>上架时间</td>
+        <td>操作</td>
+      </tr>
+      <tr class="bg-white"  ng-repeat="item in goodsList track by $index">
+        <td>
+          <div>
+            <img src="{{host}}{{item.img1_url}}" class="goods-img"  style="float:left;" >
+            <div class="goods-des" style="position: relative">
+              <span style="margin-left: 5px;" ng-bind="item.name | subString:0:12"></span>
+              <br>
+              <span style="position: absolute;bottom: 0;margin-left: 5px">编号：{{item.main_number}}</span>
+            </div>
+          </div>
+
+        </td>
+        <td ng-bind="item.market_price"></td>
+        <td ng-bind="item.promote_price"></td>
+        <td ng-bind="item.sku_repertory"></td>
+        <td ng-bind="item.total_sales"></td>
+        <td ng-bind="item.create_time"></td>
+        <td>
+          <button type="button" class="btn btn-info " ng-click="suerCancel(item.id)">取消推荐</button>
+        </td>
+      </tr>
+    </table>
+    <div id="layuiPage" align="center"></div>
+  </div>
+
+</div>
