@@ -40,10 +40,13 @@ app.controller('HomeCtrl',  ['ENV','$scope', '$modal','$state','$stateParams',fu
                         'hideOptionMenu',
                     ]
                 });
+                wx.error(function(res){
+                    alert("error res="+res);
+                });
                 var shareTitle = "一起分享吧！";
                 var shareImg = "http://imgsrc.baidu.com/baike/pic/item/509b9fcb7bf335ab52664fdb.jpg";
                 wx.ready(function(){
-                    alert("准备分享");
+                    alert("准备分享2222");
                     wx.onMenuShareTimeline({
                         title : shareTitle, // 分享标题
                         link : '', // 分享链接
@@ -51,6 +54,12 @@ app.controller('HomeCtrl',  ['ENV','$scope', '$modal','$state','$stateParams',fu
                         success : function() {                      //没有进来。。。。。。。。。。。。。。。。。。。。。。。。。。。
                             // 用户确认分享后执行的回调函数
                             alert("分享成功");
+                        },
+                        fail:function(){
+                            alert("分享失败");
+                        },
+                        complete:function () {
+                            alert("分享完成");
                         },
                         cancel : function() {
                             // 用户取消分享后执行的回调函数
