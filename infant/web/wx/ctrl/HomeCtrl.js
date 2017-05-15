@@ -5,6 +5,7 @@ app.controller('HomeCtrl',  ['ENV','$scope', '$modal','$state','$stateParams',fu
     var api_apply= $scope.host+"wx/apply";
     var api_apply_data= $scope.host+"wx/getApplyDataByPhone";
     var api_wx_share= $scope.host+"wxsdk/share";
+    var wx_share_img = $scope.host+"img/baomingla.png";
     $scope.applyData = {};
     initData();
     function initData() {
@@ -27,7 +28,7 @@ app.controller('HomeCtrl',  ['ENV','$scope', '$modal','$state','$stateParams',fu
             data,
             function (obj) {
                 var data = obj.data;
-                console.log(data.appid+" "+data.timestamp+" "+data.nonceStr+" "+data.signature);
+                //console.log(data.appid+" "+data.timestamp+" "+data.nonceStr+" "+data.signature);
                 wx.config({
                     debug: true,
                     appId: data.appid,
@@ -37,6 +38,7 @@ app.controller('HomeCtrl',  ['ENV','$scope', '$modal','$state','$stateParams',fu
                     jsApiList: [
                         'checkJsApi',
                         'onMenuShareTimeline',
+                        'onMenuShareAppMessage',
                         'hideOptionMenu',
                     ]
                 });
@@ -44,14 +46,13 @@ app.controller('HomeCtrl',  ['ENV','$scope', '$modal','$state','$stateParams',fu
                     alert("error res="+res);
                 });
                 var shareTitle = "一起分享吧！";
-                var shareImg = "http://imgsrc.baidu.com/baike/pic/item/509b9fcb7bf335ab52664fdb.jpg";
                 wx.ready(function(){
-                    alert("准备分享2222");
-                    wx.onMenuShareTimeline({
+                    alert("准备分享到朋友22222");
+                    /*wx.onMenuShareTimeline({
                         title : shareTitle, // 分享标题
-                        link : '', // 分享链接
+                        link : 'http://cyy.tunnel.qydev.com/index-wx.html', // 分享链接
                         imgUrl : shareImg, // 分享图标
-                        success : function() {                      //没有进来。。。。。。。。。。。。。。。。。。。。。。。。。。。
+                        success : function() {
                             // 用户确认分享后执行的回调函数
                             alert("分享成功");
                         },
@@ -62,6 +63,22 @@ app.controller('HomeCtrl',  ['ENV','$scope', '$modal','$state','$stateParams',fu
                             alert("分享完成");
                         },
                         cancel : function() {
+                            // 用户取消分享后执行的回调函数
+                            alert("分享取消");
+                        }
+                    });*/
+                    wx.onMenuShareAppMessage({
+                        title: '来报名吧，聚优惠2', // 分享标题
+                        desc: '无缘无故省了200块，什么情况,续集', // 分享描述
+                        link: 'http://cyy.tunnel.qydev.com/index-wx.html?id=520', // 分享链接
+                        imgUrl: wx_share_img, // 分享图标
+                        type: 'link', // 分享类型,music、video或link，不填默认为link
+                        dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
+                        success: function () {
+                            // 用户确认分享后执行的回调函数
+                            alert("分享成功");
+                        },
+                        cancel: function () {
                             // 用户取消分享后执行的回调函数
                             alert("分享取消");
                         }

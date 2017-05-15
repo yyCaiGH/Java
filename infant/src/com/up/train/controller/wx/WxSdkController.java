@@ -25,7 +25,7 @@ public class WxSdkController  extends BaseController {
         if(url.contains("#")){
             url = url.substring(0,url.indexOf("#"));
         }
-        String jsapi_ticket = "kgt8ON7yVITDhtdwci0qeda7a9B-Vz29as7SsLu3SuJsIQmyIIHpMg8HuTAXzVMxaJ5fT21skauB3M_8PS2IKQ";
+        String jsapi_ticket = "kgt8ON7yVITDhtdwci0qeda7a9B-Vz29as7SsLu3SuJYv0IhkuAowOuARVM5RX2nffTMKF_c5-_mQClFCC2nlw";
         String timestamp = Long.toString(System.currentTimeMillis() / 1000);
         String nonceStr = UUID.randomUUID().toString();
         System.out.println("jsapi_ticket="+jsapi_ticket);
