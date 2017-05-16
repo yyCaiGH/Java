@@ -5,24 +5,101 @@ app.controller('HomeCtrl',  ['ENV','$scope', '$modal','$state','$stateParams',fu
     var api_apply= $scope.host+"wx/apply";
     var api_apply_data= $scope.host+"wx/getApplyDataByPhone";
     var api_wx_share= $scope.host+"wxsdk/share";
+    var api_get_wx_user_info= $scope.host+"wxsdk/getWxUserInfo";
     var wx_share_img = $scope.host+"img/baomingla.png";
     $scope.applyData = {};
     initData();
     function initData() {
-        showLog("HomeCtrl init");
-        getHomeData();
+        showLog("HomeCtrl init11");
+        var url = window.location.href;
+        var isCodeExist = url.toString().indexOf('type=2');//用type=2来作为需要弹出授权框的标志,比较俗气
+        if(isCodeExist!=-1){
+            wxLogin();
+        }
+        else{
+            wxJmLogin();
+        }
+    }
+    /**
+     * 微信登陆(静默授权)
+     */
+    function wxJmLogin() {
+        var url = window.location;
+        console.log("yy-url="+url);
+        var isCodeExist = url.toString().indexOf('code=');
+        console.log("yy-isCodeExist="+isCodeExist);
+        if(isCodeExist!=-1){
+            console.log("yy-授权获取code值1");
+            var code=url.toString().substr(url.toString().indexOf('code=')+5,32);
+            getWxUserInfo(code,1);
+            getHomeData();//授权后再获取数据
+        }
+        else{
+            console.log("yy-微信静默授权开始");
+            var redirect = encodeURI("http://cyy.tunnel.qydev.com/index-wx.html");
+            var url1 = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxc93df0671af5918e&redirect_uri=" + redirect + "&response_type=code&scope=snsapi_base&state=STATE#wechat_redirect";
+            location.href = url1;
+            return;//结束
+
+        }
+    }
+    /**
+     * 微信登陆(弹出授权界面)
+     */
+    function wxLogin() {
+        var url = window.location;
+        console.log("yy-url="+url);
+        var isCodeExist = url.toString().indexOf('code=');
+        console.log("yy-isCodeExist="+isCodeExist);
+        if(isCodeExist!=-1){
+            console.log("yy-授权获取code值2");
+            var code=url.toString().substr(url.toString().indexOf('code=')+5,32);
+            getWxUserInfo(code,2);
+            getHomeData();//授权后再获取数据
+        }
+        else{
+            console.log("yy-微信授权开始");
+            var redirect = encodeURI("http://cyy.tunnel.qydev.com/index-wx.html");
+            var url1 = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxc93df0671af5918e&redirect_uri=" + redirect + "&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect";
+            location.href = url1;
+            return;//结束
+
+        }
+    }
+
+    /**
+     *
+     * @param code
+     * @param type 授权方式：1：静默授权，2：动态授权
+     */
+    function getWxUserInfo(code,type) {
+        var data={code:code,type:type};
+        yHttp(
+            api_get_wx_user_info,
+            data,
+            function (obj) {
+                showLog("获取openId",obj.data);
+                if(obj.code==-2){//首次登陆
+                    //弹出授权框
+                    var redirect = encodeURI("http://cyy.tunnel.qydev.com/index-wx.html?type=2");
+                    var url1 = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxc93df0671af5918e&redirect_uri=" + redirect + "&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect";
+                    location.href = url1;
+                }
+            }
+        );
     }
 
     $scope.share = function () {
-        wxShare();
+        wxShare(false);
     }
     /**
      * 微信分享
+     * signatureAgain 是否重新签名
      */
-    function wxShare() {
+    function wxShare(signatureAgain) {
         alert(window.location.href);/***用于获得当前连接url用**/
         /***用户点击分享到微信圈后加载接口接口*******/
-        var data={url:window.location.href};
+        var data={url:window.location.href,signatureAgain:signatureAgain};
         myHttp(
             api_wx_share,
             data,
@@ -43,7 +120,8 @@ app.controller('HomeCtrl',  ['ENV','$scope', '$modal','$state','$stateParams',fu
                     ]
                 });
                 wx.error(function(res){
-                    alert("error res="+res);
+                    showLog("config信息验证失败",res);
+                    wxShare(true);
                 });
                 var shareTitle = "一起分享吧！";
                 wx.ready(function(){
@@ -87,45 +165,6 @@ app.controller('HomeCtrl',  ['ENV','$scope', '$modal','$state','$stateParams',fu
                 });
             }
         );
-
-        /*$.post(
-            api_wx_share,
-            {"url":window.location.href},
-            function(data,status){
-            data=eval("("+data+")");
-            console.log(data.appid+" "+data.timestamp+" "+data.nonceStr+" "+data.signature);
-            wx.config({
-                debug: true,
-                appId: data.appid,
-                timestamp:data.timestamp,
-                nonceStr:data.nonceStr,
-                signature:data.signature,
-                jsApiList: [
-                    'checkJsApi',
-                    'onMenuShareTimeline',
-                    'hideOptionMenu',
-                ]
-            });
-            var shareTitle = "一起分享吧！";
-            var shareImg = "http://imgsrc.baidu.com/baike/pic/item/509b9fcb7bf335ab52664fdb.jpg";
-            wx.ready(function(){
-                alert("准备分享");
-                wx.onMenuShareTimeline({
-                    title : shareTitle, // 分享标题
-                    link : '', // 分享链接
-                    imgUrl : shareImg, // 分享图标
-                    success : function() {
-                        // 用户确认分享后执行的回调函数
-                        alert("分享成功");
-                    },
-                    cancel : function() {
-                        // 用户取消分享后执行的回调函数
-                        alert("分享取消");
-                    }
-                });
-                //wx.hideOptionMenu();/!***隐藏分享菜单****!/
-            });
-        });*/
     }
 
     function getHomeData() {

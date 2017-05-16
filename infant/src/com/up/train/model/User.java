@@ -8,4 +8,7 @@ import com.up.train.model.base.BaseUser;
 @SuppressWarnings("serial")
 public class User extends BaseUser<User> {
 	public static final User dao = new User();
+	public User getByOpenId(String openId){
+		return findFirst("select * from t_user where open_id='"+openId+"'");
+	}
 }

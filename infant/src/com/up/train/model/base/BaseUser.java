@@ -33,4 +33,20 @@ public abstract class BaseUser<M extends BaseUser<M>> extends Model<M> implement
 		return get("phone");
 	}
 
+	public void setOpenId(java.lang.String openId) {
+		set("open_id", openId);
+	}
+
+	public java.lang.String getOpenId() {
+		return get("open_id");
+	}
+
+	public void setHeadimgurl(java.lang.String headimgurl) {
+		set("headimgurl", headimgurl);
+	}
+
+	public java.lang.String getHeadimgurl() {
+		return get("headimgurl");
+	}
+
 }

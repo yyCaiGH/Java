@@ -10,6 +10,7 @@ import com.up.infant.model.Coupon;
 public enum ResCode {
     SUCCESS(0,"操作成功！"),//默认
     ERROR(-1,"操作异常！"),//默认
+    FIRST_LOGIN(-2,"首次登陆！"),//默认
     INFO_FULL(-1,"请提交完整信息！"),PARAM_FORMAT(-2,"参数格式异常!"),PARAM_ERROR(-3,"参数异常!"),
     PAGE_PARAM_ERROR(-5,"分页参数异常"),IMG_ERROR(-4,"图片上传失败"),DELETE_ERROR(-6,"删除失败"),
     ERROR_IMAGE(-2,"图片上传失败！"),//默认
