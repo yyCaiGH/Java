@@ -17,7 +17,7 @@ app.controller('HomeCtrl',  ['ENV','$scope', '$modal','$state','$stateParams',fu
             wxLogin();
         }
         else{
-            wxJmLogin();
+            wxJmLogin();//刚进来直接静默授权
         }
     }
     /**
@@ -79,7 +79,7 @@ app.controller('HomeCtrl',  ['ENV','$scope', '$modal','$state','$stateParams',fu
             data,
             function (obj) {
                 showLog("获取openId",obj.data);
-                if(obj.code==-2){//首次登陆
+                if(obj.code==-2){//首次登陆 加个type=2来弹出授权登陆界面
                     //弹出授权框
                     var redirect = encodeURI("http://cyy.tunnel.qydev.com/index-wx.html?type=2");
                     var url1 = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxc93df0671af5918e&redirect_uri=" + redirect + "&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect";

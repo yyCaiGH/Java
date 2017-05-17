@@ -10,12 +10,22 @@
     )
     .config(
         function ($stateProvider,   $urlRouterProvider) {
-            $urlRouterProvider
-                .otherwise('/access/signin');
+            $urlRouterProvider.otherwise('/access/signin');
+            //$urlRouterProvider.otherwise('/access/exam');
             $stateProvider
                 .state('access', {
                     url: '/access',
                     template: '<div ui-view class="fade-in-right-big smooth"></div>'
+                })
+                .state('access.exam', {
+                    url: '/exam',
+                    templateUrl: 'wx/page/page_exam.html',
+                    resolve: {
+                        deps: ['uiLoad',
+                            function( uiLoad ){
+                                return uiLoad.load( ['wx/ctrl/ExamCtrl.js'] );
+                            }]
+                    }
                 })
                 .state('access.signin', {
                     url: '/signin',

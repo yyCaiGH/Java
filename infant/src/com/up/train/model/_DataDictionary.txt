@@ -24,6 +24,18 @@ Table: t_apply
  status        | INT(10)      | NO   |     |         | 状态（1：已报名，2：愿意培训，3：放弃培训）
 ---------------+--------------+------+-----+---------+---------
 
+Table: t_exam
+-----------+--------------+------+-----+---------+---------
+ Field     | Type         | Null | Key | Default | Remarks 
+-----------+--------------+------+-----+---------+---------
+ id        | INT(10)      | NO   | PRI |         |         
+ user_name | VARCHAR(64)  | YES  |     |         |         
+ phone     | VARCHAR(11)  | YES  |     |         |         
+ area      | VARCHAR(255) | YES  |     |         |         
+ score     | INT(10)      | YES  |     |         |         
+ time      | DATETIME(19) | YES  |     |         |         
+-----------+--------------+------+-----+---------+---------
+
 Table: t_organization
 ----------+--------------+------+-----+---------+---------
  Field    | Type         | Null | Key | Default | Remarks 
@@ -45,8 +57,8 @@ Table: t_user
 ------------+--------------+------+-----+---------+---------
  id         | INT(10)      | NO   | PRI |         |         
  name       | VARCHAR(32)  | NO   |     |         | 用户名称    
- phone      | VARCHAR(11)  | NO   |     |         | 电话号码    
- open_id    | VARCHAR(32)  | YES  |     |         | 微信openid
+ phone      | VARCHAR(11)  | YES  |     |         | 电话号码    
+ open_id    | VARCHAR(64)  | YES  |     |         | 微信openid
  headimgurl | VARCHAR(255) | YES  |     |         | 头像地址    
 ------------+--------------+------+-----+---------+---------
 
