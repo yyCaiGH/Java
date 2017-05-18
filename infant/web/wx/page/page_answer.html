@@ -1,0 +1,21 @@
+<div class="container w-xxl w-auto-xs" ng-controller="AnswerCtrl">
+  <div class="m-b-lg">
+    <form name="form" class="form-validation">
+      <label>
+        {{answer.title}}
+      </label>
+      <div class="list-group list-group-sm">
+        <label><input name="answer" type="radio" value="A"/>{{answer.A}}</label><br>
+        <label><input name="answer" type="radio" value="B"/>{{answer.B}}</label><br>
+        <label id="sc"><input name="answer" type="radio" value="C"/>{{answer.C}}</label><br>
+        <label id="sd"><input name="answer" type="radio" value="D"/>{{answer.D}}</label>
+      </div>
+      <div class="line line-dashed"></div>
+    </form>
+    <div>
+      <!--<button type="submit" class="btn btn-lg btn-info " ng-click="previous()">上一题</button>-->
+      <button type="submit" class="btn btn-lg btn-info " style="float: right" ng-click="next()">下一题</button>
+    </div>
+  </div>
+
+</div>

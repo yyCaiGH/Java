@@ -5,6 +5,7 @@ import com.jfinal.upload.UploadFile;
 import com.up.common.controller.BaseController;
 import com.up.common.utils.RandomUtils;
 import com.up.train.model.Apply;
+import com.up.train.model.Exam;
 import com.up.train.model.Organization;
 import org.eclipse.jetty.deploy.App;
 
@@ -89,5 +90,15 @@ public class WxController extends BaseController{
         String phone = getPara("phone");
         Apply apply = Apply.dao.findByPhone2(phone);
         resSuccess(apply);
+    }
+
+    public void addExam(){
+        Exam exam = getModel(Exam.class,"");
+        exam.setTime(new Date());
+        exam.save();
+        resSuccess("suc");
+    }
+    public void getExamList(){
+        resSuccess(Exam.dao.getList());
     }
 }
