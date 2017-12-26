@@ -1,6 +1,6 @@
 var configMod=angular.module('config',[]);
-var api = "http://localhost:8080/";
-//var api = "http://cyy.tunnel.qydev.com/";
+//var api = "http://localhost:8080/";
+var api = "http://cyy.tunnel.qydev.com/";
 configMod.constant("ENV",{
     "debug":false,
     "pageSize" : 10,/**一次加载几条**/

@@ -1,5 +1,8 @@
 <div class="container w-xxl w-auto-xs" ng-controller="HomeCtrl">
-  <a href class="navbar-brand block m-t">{{app.name}}</a>
+  <label style="float: right;font-weight: bold" ng-click="expand()">我</label>
+  <div>
+    <a href class="navbar-brand block m-t">{{app.name}}</a>
+  </div>
   <div class="m-b-lg">
     <form name="form" class="form-validation">
       <div class="list-group list-group-sm">
@@ -26,7 +29,7 @@
     </form>
     <button class="btn btn-lg btn-success btn-block" ng-click="look()" style="margin-top: 10px">我已报名</button>
   </div>
-  <a style="color:red"  ng-click="share()">邀请报名</a>
+ <!-- <a style="color:red"  ng-click="share()">邀请报名</a>-->
   <p align="center">
     <small class="text-muted">该网站与相关培训机构合作，凡在该网站报名培训机构的同学，均可以参与培训机构的免费试听课程，可联系培训机构了解相关课程。
       学员正式培训后均可享受在培训机构给予您<label style="color: red">所有优惠的基础上</label>，再给您补贴200大洋，直白白的补贴。不要白不要啊！<br>&copy; 2017</small>

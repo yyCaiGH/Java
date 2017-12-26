@@ -20,6 +20,9 @@ app.controller('HomeCtrl',  ['ENV','$scope', '$modal','$state','$stateParams',fu
             wxJmLogin();//刚进来直接静默授权
         }
     }
+    $scope.expand = function(){
+        $state.go("access.expand",{id:$scope.applyData.id});
+    }
     /**
      * 微信登陆(静默授权)
      */
@@ -84,6 +87,9 @@ app.controller('HomeCtrl',  ['ENV','$scope', '$modal','$state','$stateParams',fu
                     var redirect = encodeURI("http://cyy.tunnel.qydev.com/index-wx.html?type=2");
                     var url1 = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxc93df0671af5918e&redirect_uri=" + redirect + "&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect";
                     location.href = url1;
+                }
+                else if(obj.code ==0){
+                    localStorage.setItem("openId",obj.data.open_id);
                 }
             }
         );

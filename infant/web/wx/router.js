@@ -10,8 +10,8 @@
     )
     .config(
         function ($stateProvider,   $urlRouterProvider) {
-            //$urlRouterProvider.otherwise('/access/signin');
-            $urlRouterProvider.otherwise('/access/exam');
+            $urlRouterProvider.otherwise('/access/signin');
+            //$urlRouterProvider.otherwise('/access/exam');
             $stateProvider
                 .state('access', {
                     url: '/access',
@@ -74,6 +74,16 @@
                         deps: ['uiLoad',
                             function( uiLoad ){
                                 return uiLoad.load( ['wx/ctrl/ApplyListCtrl.js'] );
+                            }]
+                    }
+                })
+                .state('access.expand', {
+                    url: '/expand',
+                    templateUrl: 'wx/page/page_expand.html',
+                    resolve: {
+                        deps: ['uiLoad',
+                            function( uiLoad ){
+                                return uiLoad.load( ['wx/ctrl/ExpandCtrl.js'] );
                             }]
                     }
                 })
